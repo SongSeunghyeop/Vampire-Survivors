@@ -10,6 +10,7 @@ extern my::Application myapplication;
 
 namespace my
 {
+
 	Vector2 Camera::mResolution = Vector2::Zero;
 	Vector2 Camera::mLookPosition = Vector2::Zero;
 	Vector2 Camera::mDistance = Vector2::Zero;
