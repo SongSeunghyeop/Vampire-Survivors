@@ -1,0 +1,418 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{b13a3345-1603-4519-9f11-73ddb2c53034}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="main">
+      <UniqueIdentifier>{635e19fb-5347-4f06-a0d9-62ebd18fe7b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents">
+      <UniqueIdentifier>{65416b90-0de2-4118-9d20-7cd44d730aa6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Common">
+      <UniqueIdentifier>{ebca2460-aa7d-41b3-a102-6c1f7eb2a49d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject">
+      <UniqueIdentifier>{b80476f7-3c9c-47bb-8176-bd0efcf73ec5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene">
+      <UniqueIdentifier>{176bfc5e-dbe4-430d-b580-ffb37f2bbf9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component">
+      <UniqueIdentifier>{b7c890fc-261e-4088-bde2-a90f51c02818}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\SceneManager">
+      <UniqueIdentifier>{061372cb-29b9-47d8-8321-bcb6937a6ea2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Application">
+      <UniqueIdentifier>{21f774a4-d81b-49a8-b028-9621148108b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Layer">
+      <UniqueIdentifier>{d4156c27-e181-4f72-b631-45f4296027f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene\TitleScene">
+      <UniqueIdentifier>{32d10339-9a0b-4c40-947d-b8b84aff5a00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene\EndingScene">
+      <UniqueIdentifier>{44d8d7ff-8c73-4169-810a-ac14149756b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene\PlayScene">
+      <UniqueIdentifier>{e5c67a0d-ef76-4337-b4be-55eec6edb106}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Time">
+      <UniqueIdentifier>{7ea5f151-7eea-4a13-8c9f-2b62b4dd08b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Input">
+      <UniqueIdentifier>{6a963b88-a888-4e68-8fbb-bab4f307ca93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Resources">
+      <UniqueIdentifier>{fe042643-9038-4359-937f-f17245a7c62d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\ResourceManager">
+      <UniqueIdentifier>{d909d94b-aa6b-477d-8ee7-e56dfa45fa6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Image">
+      <UniqueIdentifier>{ca3e6695-2886-46f9-aa0f-e8dc56d7c8a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Objects">
+      <UniqueIdentifier>{b4ca6915-b144-4f44-8043-30db012afdb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\Components">
+      <UniqueIdentifier>{510139cb-3595-4a08-80b6-4e57bfdfda12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="리소스 파일\헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Engine\Scene\IntroScene">
+      <UniqueIdentifier>{f340e9a4-1620-4ec0-a70d-34076ac3b803}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Objects\Players">
+      <UniqueIdentifier>{bad7682c-4502-495e-9147-269fa1c452ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Objects\Intro &amp; Title">
+      <UniqueIdentifier>{5d03fc5f-bc30-4702-8d2b-0cfdb86fac59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Objects\Enemies">
+      <UniqueIdentifier>{acfeebc9-6881-4422-b14c-73a44c3b92b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Objects\Fields">
+      <UniqueIdentifier>{16786cdd-6f6d-43c2-8e19-e562845841f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Objects\UI">
+      <UniqueIdentifier>{aedc2759-9911-4a1f-b59f-a959d2281dea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\Components\Collider">
+      <UniqueIdentifier>{2f8eb23a-14f0-4bc5-9873-1fd6b0e79112}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene\Option">
+      <UniqueIdentifier>{2ff2f9ed-4184-4bf1-89d0-ee44a5bace24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Camera">
+      <UniqueIdentifier>{1a8ad8e2-ee37-42db-a9a0-402c6d1fe43e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Bullet">
+      <UniqueIdentifier>{c2bc11b2-f8d3-4fbe-93a7-39bf24f954af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Skill">
+      <UniqueIdentifier>{005e4193-a7dd-4bed-b9bf-efdbfc0221fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Objects\Enemies\Damaged_Effect">
+      <UniqueIdentifier>{80a3528d-d195-49fb-b007-9c608b8de6f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Scene\TileMap">
+      <UniqueIdentifier>{19acceb6-4057-479c-8099-324b9efc45fb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>리소스 파일\헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>리소스 파일\헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>리소스 파일\헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Client.h">
+      <Filter>리소스 파일\헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonInclude.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Enum.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Math.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="VampireEngine.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="myEntity.h">
+      <Filter>Engine\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="myScene.h">
+      <Filter>Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="myComponent.h">
+      <Filter>Engine\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="mySceneManager.h">
+      <Filter>Engine\SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="myApplication.h">
+      <Filter>Engine\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="myLayer.h">
+      <Filter>Engine\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="myPlayScene.h">
+      <Filter>Engine\Scene\PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>Engine\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="myInput.h">
+      <Filter>Engine\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="myResource.h">
+      <Filter>Engine\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="myResourceManager.h">
+      <Filter>Engine\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="myImage.h">
+      <Filter>Image</Filter>
+    </ClInclude>
+    <ClInclude Include="myGameObject.h">
+      <Filter>Engine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="myTransform.h">
+      <Filter>Engine\Component\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Title.h">
+      <Filter>Engine\GameObject\Objects\Intro &amp; Title</Filter>
+    </ClInclude>
+    <ClInclude Include="myIntroScene.h">
+      <Filter>Engine\Scene\IntroScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Krochi.h">
+      <Filter>Engine\GameObject\Objects\Players</Filter>
+    </ClInclude>
+    <ClInclude Include="Intro.h">
+      <Filter>Engine\GameObject\Objects\Intro &amp; Title</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Engine\GameObject\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="myAnimation.h">
+      <Filter>Engine\Component\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="myAnimator.h">
+      <Filter>Engine\Component\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Field.h">
+      <Filter>Engine\GameObject\Objects\Fields</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOption.h">
+      <Filter>Engine\GameObject\Objects\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Krochi_after.h">
+      <Filter>Engine\GameObject\Objects\Players</Filter>
+    </ClInclude>
+    <ClInclude Include="myCollider.h">
+      <Filter>Engine\Component\Components\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="myCollisionManager.h">
+      <Filter>Engine\Component\Components\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="myTitleScene.h">
+      <Filter>Engine\Scene\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleUI.h">
+      <Filter>Engine\GameObject\Objects\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Treasure.h">
+      <Filter>Engine\GameObject\Objects\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="InGameUI.h">
+      <Filter>Engine\Scene\Option</Filter>
+    </ClInclude>
+    <ClInclude Include="myObject.h">
+      <Filter>Engine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="myCamera.h">
+      <Filter>Engine\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="myBullet.h">
+      <Filter>Engine\GameObject\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelManager.h">
+      <Filter>Engine\GameObject\Objects\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Blade_R.h">
+      <Filter>Engine\GameObject\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>Engine\GameObject\Objects\Enemies\Damaged_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMap_Tool.h">
+      <Filter>Engine\Scene\TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="myToolScene.h">
+      <Filter>Engine\Scene\TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="Blade_L.h">
+      <Filter>Engine\GameObject\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Level_Item.h">
+      <Filter>Engine\GameObject\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Radar.h">
+      <Filter>Engine\GameObject\Objects\Players</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyManager.h">
+      <Filter>Engine\GameObject\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Lightning.h">
+      <Filter>Engine\GameObject\Skill</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="Math.cpp">
+      <Filter>Engine\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="myEntity.cpp">
+      <Filter>Engine\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="myScene.cpp">
+      <Filter>Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="myComponent.cpp">
+      <Filter>Engine\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="mySceneManager.cpp">
+      <Filter>Engine\SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="myApplication.cpp">
+      <Filter>Engine\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="myLayer.cpp">
+      <Filter>Engine\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="myPlayScene.cpp">
+      <Filter>Engine\Scene\PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>Engine\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="myInput.cpp">
+      <Filter>Engine\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="myResourceManager.cpp">
+      <Filter>Engine\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="myResource.cpp">
+      <Filter>Engine\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="myImage.cpp">
+      <Filter>Image</Filter>
+    </ClCompile>
+    <ClCompile Include="myGameObject.cpp">
+      <Filter>Engine\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="myTransform.cpp">
+      <Filter>Engine\Component\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Title.cpp">
+      <Filter>Engine\GameObject\Objects\Intro &amp; Title</Filter>
+    </ClCompile>
+    <ClCompile Include="myIntroScene.cpp">
+      <Filter>Engine\Scene\IntroScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Krochi.cpp">
+      <Filter>Engine\GameObject\Objects\Players</Filter>
+    </ClCompile>
+    <ClCompile Include="Intro.cpp">
+      <Filter>Engine\GameObject\Objects\Intro &amp; Title</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Engine\GameObject\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="myAnimation.cpp">
+      <Filter>Engine\Component\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="myAnimator.cpp">
+      <Filter>Engine\Component\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Field.cpp">
+      <Filter>Engine\GameObject\Objects\Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOption.cpp">
+      <Filter>Engine\GameObject\Objects\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Krochi_after.cpp">
+      <Filter>Engine\GameObject\Objects\Players</Filter>
+    </ClCompile>
+    <ClCompile Include="myCollider.cpp">
+      <Filter>Engine\Component\Components\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="myCollisionManager.cpp">
+      <Filter>Engine\Component\Components\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="myTitleScene.cpp">
+      <Filter>Engine\Scene\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleUI.cpp">
+      <Filter>Engine\GameObject\Objects\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Treasure.cpp">
+      <Filter>Engine\GameObject\Objects\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="InGameUI.cpp">
+      <Filter>Engine\Scene\Option</Filter>
+    </ClCompile>
+    <ClCompile Include="myCamera.cpp">
+      <Filter>Engine\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="myBullet.cpp">
+      <Filter>Engine\GameObject\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelManager.cpp">
+      <Filter>Engine\GameObject\Objects\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Blade_R.cpp">
+      <Filter>Engine\GameObject\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>Engine\GameObject\Objects\Enemies\Damaged_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="TileMap_Tool.cpp">
+      <Filter>Engine\Scene\TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="myToolScene.cpp">
+      <Filter>Engine\Scene\TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="Blade_L.cpp">
+      <Filter>Engine\GameObject\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Level_Item.cpp">
+      <Filter>Engine\GameObject\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Radar.cpp">
+      <Filter>Engine\GameObject\Objects\Players</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyManager.cpp">
+      <Filter>Engine\GameObject\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Lightning.cpp">
+      <Filter>Engine\GameObject\Skill</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Client.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Client.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
