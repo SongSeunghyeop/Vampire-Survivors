@@ -20,8 +20,8 @@ enum class eLayerType
 	PLAYER,
 	ENEMY,
 	EFFECT,
-	UI,
 	SKILL,
+	UI,
 	END,
 };
 

@@ -14,6 +14,7 @@ namespace my
 			WIND,
 			BLADE,
 			POWER_UP,
+			LIGHTNING,
 			NONE,
 		};
 
@@ -27,6 +28,7 @@ namespace my
 
 		void speed_up();
 		void blade_up();
+		void light_up();
 		void power_up();
 
 		static bool Level_Up;
@@ -45,12 +47,14 @@ namespace my
 		{
 			Wind,
 			Blade,
-			Power_up
+			Power_up,
+			Lightning
 		};
 
 		Image* Wind;
 		Image* Blade;
 		Image* Power_up;
+		Image* Lightning;
 
 		eItems selected_item;
 

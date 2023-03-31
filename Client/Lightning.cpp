@@ -13,15 +13,15 @@ namespace my
 
 
 		lightning_Animation = AddComponent<Animator>(); // 애니메이터 컴포넌트 배열에 동적할당 및 초기화
-		lightning_Animation->CreateAnimation(L"Light", lightning, Vector2::Zero, 5, 1, 5, 0.05f, 255, 0, 255);
+		lightning_Animation->CreateAnimation(L"Light", lightning, Vector2::Zero, 5, 1, 5, 0.045f, 255, 0, 255);
 		lightning_Animation->Play(L"Light", false);
 		lightning_Animation->GetCompleteEvent(L"Light") = std::bind(&Lightning::skill_CompleteEvent, this);
 		
 		lightning_Tr = GetComponent<Transform>();
-		lightning_Tr->setScale(Vector2(2.0f, 1.4f));
+		lightning_Tr->setScale(Vector2(2.2f, 1.4f));
 
 		lightning_Collider = AddComponent<Collider>();
-		lightning_Collider->setCenter(Vector2(-17, 169));
+		lightning_Collider->setCenter(Vector2(-15, 169));
 		lightning_Collider->setSize(Vector2(50, 50));
 		lightning_Collider->setRGB(0, 255, 0);
 

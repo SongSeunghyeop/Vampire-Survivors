@@ -14,7 +14,7 @@ namespace my
 
 
 		Item_Collider = AddComponent<Collider>();
-		Item_Collider->setSize(Vector2(15.0f,24.0f));
+		Item_Collider->setSize(Vector2(15.0f,23.0f));
 		Item_Collider->setRGB(255, 0, 255);
 
 	}
@@ -27,7 +27,7 @@ namespace my
 		Vector2 pos = Camera::CaluatePos(Item_TR->getPos());
 
 		TransparentBlt(hdc, pos.x, pos.y,
-			Item_Image->GetWidth() * 1.8f, Item_Image->GetHeight() * 1.8f, Item_Image->GetHdc(),
+			Item_Image->GetWidth() * 1.8f, Item_Image->GetHeight() * 1.7f, Item_Image->GetHdc(),
 			0, 0, Item_Image->GetWidth(), Item_Image->GetHeight(), RGB(255, 0, 255));
 
 		GameObject::Render(hdc);

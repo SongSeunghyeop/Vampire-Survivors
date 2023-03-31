@@ -15,8 +15,8 @@ namespace my
 		Blade_Tr->setScale(Vector2(1.6f, 3.3f));
 
 		Blade_Collider = AddComponent<Collider>();
-		Blade_Collider->setCenter(Vector2(-66, -26));
-		Blade_Collider->setSize(Vector2(230, 64));
+		Blade_Collider->setCenter(Vector2(-60, -26));
+		Blade_Collider->setSize(Vector2(220, 64));
 		Blade_Collider->setRGB(0, 255, 0);
 		
 		Blade_Animator = AddComponent<Animator>(); // 애니메이터 컴포넌트 배열에 동적할당 및 초기화

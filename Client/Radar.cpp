@@ -5,7 +5,7 @@ extern my::Application myapplication;
 
 namespace my
 {
-	Vector2 Radar::Enemy_Pos;
+	std::vector<Collider*> Radar::Enemies;
 
 	Radar::Radar()
 	{
@@ -26,7 +26,6 @@ namespace my
 		radar_Collider->setCenter(Radar_Size / 2 * (-1) + Vector2(10,10));
 
 		rader_Tr = GetComponent<Transform>();
-
 		GameObject::Initialize();
 	}
 	void Radar::Update()
@@ -43,19 +42,29 @@ namespace my
 	{
 		GameObject::Release();
 	}
+	void Radar::onCollisionEnter(Collider* other)
+	{
+		if (other->getOwner()->getName() == L"Enemy")
+		{
+			Enemies.push_back(other);
+		}
+	}
 	void Radar::onCollisionStay(Collider* other)
 	{ 
 		if (other->getOwner()->getName() == L"Enemy")
 		{
 			radar_Collider->setRGB(255, 0, 0);
-			Enemy_Pos = other->getPos();
+
+			if(other->getOwner()->getState() == GameObject::eState::Death)
+				myErase(other);
 		}
 	}
 	void Radar::onCollisionExit(Collider* other)
 	{
+		if (other->getOwner()->getName() == L"Enemy")
+		{
 		radar_Collider->setRGB(0, 255, 0);
-	}
-	void Radar::onCollisionEnter(Collider* other)
-	{
+		myErase(other);
+		}
 	}
 }

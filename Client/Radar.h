@@ -18,15 +18,29 @@ namespace my
 		virtual void onCollisionStay(class Collider* other) override;
 		virtual void onCollisionExit(class Collider* other) override;
 		virtual void onCollisionEnter(class Collider* other) override;
+		
+		void myErase(Collider *c)
+		{
+			std::vector<Collider*>::iterator it;
 
-		static Vector2 getEnemyPos() { return Enemy_Pos; }
+			for (it = Enemies.begin(); it != Enemies.end(); it++)
+			{
+				if (*it == c)
+				{
+					Enemies.erase(it);
+					break;
+				}
+			}
+		}
+		static std::vector<Collider*> getEnemies() { return Enemies; }
+
 	private:
 		Collider* radar_Collider;
 		Transform* rader_Tr;
 		Vector2 Radar_Size;
 		
+		static std::vector<Collider*> Enemies;
 
-		static Vector2 Enemy_Pos;
 
 		friend class Krochi;
 	};

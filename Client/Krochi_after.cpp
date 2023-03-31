@@ -27,11 +27,11 @@ namespace my
 		Damaged_L = ResourceManager::Load<Image>(L"DamagedAfter_L", L"..\\Resources\\Coll_LeftAfter.bmp");
 
 		Shadow_Animator = AddComponent<Animator>(); // 애니메이터 컴포넌트 배열에 동적할당 및 초기화
-		Shadow_Animator->CreateAnimation(L"RightAfter", playerImg_RA1, Vector2::Zero, 3,1,3,  0.3f, 255, 0, 255);
-		Shadow_Animator->CreateAnimation(L"LeftAfter", playerImg_LA1, Vector2::Zero, 3,1,3, 0.3f, 255, 0, 255);
+		Shadow_Animator->CreateAnimation(L"RightAfter", playerImg_RA1, Vector2::Zero, 3,1,3,  0.25f, 255, 0, 255);
+		Shadow_Animator->CreateAnimation(L"LeftAfter", playerImg_LA1, Vector2::Zero, 3,1,3, 0.25f, 255, 0, 255);
 		Shadow_Animator->CreateAnimation(L"None", playerImg_N, Vector2::Zero, 1,1,1, 0.3f, 255, 0, 255);
-		Shadow_Animator->CreateAnimation(L"DamagedAfter_R", Damaged_R, Vector2::Zero, 3,1,3, 0.3f, 255, 0, 255);
-		Shadow_Animator->CreateAnimation(L"DamagedAfter_L", Damaged_L, Vector2::Zero, 3,1,3, 0.3f, 255, 0, 255);
+		Shadow_Animator->CreateAnimation(L"DamagedAfter_R", Damaged_R, Vector2::Zero, 3,1,3, 0.25f, 255, 0, 255);
+		Shadow_Animator->CreateAnimation(L"DamagedAfter_L", Damaged_L, Vector2::Zero, 3,1,3, 0.25f, 255, 0, 255);
 
 		After_Tr = GetComponent<Transform>();
 

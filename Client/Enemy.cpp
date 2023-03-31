@@ -71,7 +71,7 @@ namespace my
 		else // 4 ~ 9
 			eType = eEnemyType::BLACK;
 
-		if (TypeNum > 0 && TypeNum < 8) // 70%
+		if (TypeNum > 0 && TypeNum < 9) // 80%
 			Finded = true;
 		//
 
@@ -81,8 +81,8 @@ namespace my
 		case(eEnemyType::BLACK):
 		{
 			EnemyAnimator->Play(L"RightWalk", true);
-			monster_hp = 160;
-			Enemy_vel = 70.0f;
+			monster_hp = 100;
+			Enemy_vel =  70.0f;
 			EnemyPos->setScale(Vector2(2.4f, 2.4f));
 			EnemyCollider->setCenter(Vector2(-7, -10));
 			EnemyCollider->setSize(Vector2(50, 28)); // 50,28
@@ -91,8 +91,8 @@ namespace my
 		case(eEnemyType::ZOMBIE):
 		{
 			EnemyAnimator->Play(L"Zombie_MoveR", true);
-			monster_hp = 160;
-			Enemy_vel = 90.0f;
+			monster_hp = 120;
+			Enemy_vel = 100.0f;
 			EnemyPos->setScale(Vector2(2.0f, 2.0f));
 			EnemyCollider->setCenter(Vector2(-12, -30));
 			EnemyCollider->setSize(Vector2(54, 65)); // 50,70
@@ -197,7 +197,7 @@ namespace my
 			eState = eEnemyState::Move;
 		}
 	
-		float vel = 9.0f;
+		float vel = 10.0f;
 
 		if (Ppos.y < movePos.y)
 			movePos.y += vel * Time::getDeltaTime();

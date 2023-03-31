@@ -26,6 +26,7 @@ namespace my
 		Skills[0] = ResourceManager::Load<Image>(L"wind", L"..\\Resources\\wind.bmp");
 		Skills[1] = ResourceManager::Load<Image>(L"blade", L"..\\Resources\\Blade.bmp");
 		Skills[2] = ResourceManager::Load<Image>(L"Power_up", L"..\\Resources\\PowerUp.bmp");
+		Skills[3] = ResourceManager::Load<Image>(L"Lightning_Item", L"..\\Resources\\Lightning_Item.bmp");
 
 		selected_item = eItems::NONE;
 	}
@@ -39,6 +40,9 @@ namespace my
 		case(eItems::BLADE):
 			blade_up();
 			break;
+		case(eItems::LIGHTNING):
+			light_up();
+			break;
 		case(eItems::POWER_UP):
 			power_up();
 			break;
@@ -49,12 +53,17 @@ namespace my
 	//Item_List
 	void LevelManager::speed_up()
 	{
-		Krochi::vel += 8;
+		Krochi::vel += 5;
 		selected_item = eItems::NONE;
 	}
 	void LevelManager::blade_up()
 	{
-		Krochi::Blade_Point += 1;
+		Krochi::Blade_Power += 5;
+		selected_item = eItems::NONE;
+	}
+	void LevelManager::light_up()
+	{
+		Krochi::Light_Power += 5;
 		selected_item = eItems::NONE;
 	}
 	void LevelManager::power_up()
@@ -73,7 +82,7 @@ namespace my
 			Charactor->GetHdc(), 0, 0, Charactor->GetWidth(), Charactor->GetHeight(), RGB(255, 0, 255));
 		TransparentBlt(hdc, 22, 120, health_zero->GetWidth(), health_zero->GetHeight(),
 			health_zero->GetHdc(), 0, 0, health_zero->GetWidth(), health_zero->GetHeight(), RGB(255, 0, 255));
-		TransparentBlt(hdc, 22, 120, Krochi::Hp, health->GetHeight() + 1,
+		TransparentBlt(hdc, 22, 120, Krochi::Hp, health->GetHeight(),
 			health->GetHdc(), 0, 0, health->GetWidth(), health->GetHeight(), RGB(255, 0, 255));
 
 		if (LevelManager::Level_Up)
@@ -117,13 +126,16 @@ namespace my
 		}
 		if (!LevelManager::Level_Up)
 		{
-			Num1 = rand() % 3;
+			Krochi::Blade_Time += Time::getDeltaTime();
+			Krochi::Light_Time += Time::getDeltaTime();
+
+			Num1 = rand() % 4; // 0~3
 
 			while (Num2 == Num1)
-				Num2 = rand() % 3;
+				Num2 = rand() % 4;
 
 			while(Num2 == Num3 || Num1 == Num3)
-				Num3 = rand() % 3;
+				Num3 = rand() % 4;
 		}
 	}
 	void LevelManager::Release()

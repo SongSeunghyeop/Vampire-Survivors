@@ -68,7 +68,8 @@ namespace my
 		static int level;
 		static float vel;
 		static float Power;
-		static int Blade_Point;
+		static int Blade_Power;
+		static int Light_Power;
 		static float Blade_Time;
 		static float Light_Time;
 
@@ -81,9 +82,6 @@ namespace my
 
 		Blade_R *bladeR;
 		Blade_L *bladeL;
-
-		Lightning* light1;
-		Lightning* light2;
 
 		Radar* radar;
 
@@ -98,6 +96,11 @@ namespace my
 		// --- Skill
 		void Blade();
 		void Light();
+
+		int EnemyIndex[200] = { 0 };
+		int EnemyNum;
+		int LightNum;
+		int randNum;
 
 		friend class LevelManager;
 	};

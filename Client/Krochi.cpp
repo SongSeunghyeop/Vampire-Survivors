@@ -24,7 +24,8 @@ namespace my
 	float Krochi::Light_Time;
 	float Krochi::Power;
 	int    Krochi::level;
-	int    Krochi::Blade_Point;
+	int    Krochi::Blade_Power;
+	int    Krochi::Light_Power;
 
 	Krochi::Krochi()
 	{
@@ -33,12 +34,13 @@ namespace my
 		Krochi::Hp = 112.0f;
 		Krochi::Exp = 0.0f; // max = 1126.0f
 		Krochi::level = 1;
-		Krochi::Monster_Exp = 430;
-		Krochi::vel = 125.0f;
+		Krochi::Monster_Exp = 250;
+		Krochi::vel = 140.0f;
 		Krochi::Blade_Time = 0.0f;
 		Krochi::Light_Time = 0.0f;
-		Krochi::Blade_Point = 0;
-		Krochi::Power = 80;
+		Krochi::Blade_Power = 40;
+		Krochi::Light_Power = 90;
+		Krochi::Power = 0;
 	}
 	Krochi::~Krochi()
 	{
@@ -54,8 +56,8 @@ namespace my
  		playerAnimator = AddComponent<Animator>(); // 애니메이터 컴포넌트 배열에 동적할당 및 초기화
 		playerAnimator->CreateAnimation(L"Idle_R", playerImg_R, Vector2::Zero, 3, 1, 1, 0.3f, 255, 0, 255); // 스프라이트 배열로 쪼개진 하나의 애니메이션 생성
   	 	playerAnimator->CreateAnimation(L"Idle_L", playerImg_L, Vector2::Zero, 3, 1, 1, 0.3f, 255, 0, 255);
-		playerAnimator->CreateAnimation(L"RightRun", playerImg_R, Vector2::Zero, 3, 1, 3, 0.3f, 255, 0, 255);
-		playerAnimator->CreateAnimation(L"LeftRun", playerImg_L, Vector2::Zero, 3, 1, 3, 0.3f, 255, 0, 255);
+		playerAnimator->CreateAnimation(L"RightRun", playerImg_R, Vector2::Zero, 3, 1, 3, 0.25f, 255, 0, 255);
+		playerAnimator->CreateAnimation(L"LeftRun", playerImg_L, Vector2::Zero, 3, 1, 3, 0.25f, 255, 0, 255);
 		playerAnimator->CreateAnimation(L"Damaged_IdleR", damaged_R, Vector2::Zero, 3, 1, 1, 0.3f, 255, 0, 255);
 		playerAnimator->CreateAnimation(L"Damaged_IdleL", damaged_L, Vector2::Zero, 3, 1, 1, 0.3f, 255, 0, 255);
 		playerAnimator->CreateAnimation(L"Damaged_RunR", damaged_R, Vector2::Zero, 3, 1, 3, 0.3f, 255, 0, 255);
@@ -76,7 +78,7 @@ namespace my
 		radar = object::Instantiate<Radar>(Krochi::Playerpos, eLayerType::RADAR);
 		after = object::Instantiate<Krochi_after>(Krochi::Playerpos, eLayerType::PLAYERAFTER);
 
-		after->SetShadow(6);
+		after->SetShadow(5);
 
 		mState = ePlayerState::Idle;
 		skillState = eSkillState::Blade;
@@ -88,9 +90,6 @@ namespace my
 	}
 	void Krochi::Update()
 	{
-		Blade_Time += Time::getDeltaTime();
-		Light_Time += Time::getDeltaTime();
-
 		radar->radar_Collider->setSize(radar->Radar_Size);
 
 		switch (mState)
@@ -110,8 +109,11 @@ namespace my
 		switch (skillState)
 		{
 		case my::Krochi::eSkillState::Blade:
+		{
 			Blade();
+			if(Light_Power >= 95)
 			Light();
+		}
 			break;
 		case my::Krochi::eSkillState::None:
 			break;
@@ -212,7 +214,7 @@ namespace my
 
 	void Krochi::Damaged(ePlayerState state)
 	{
-		Hp -= Time::getDeltaTime() * 3.5f;
+		Hp -= Time::getDeltaTime() * 4.0f;
 
 		if (state == ePlayerState::Idle)
 		{
@@ -235,8 +237,6 @@ namespace my
 	void Krochi::level_up()
 	{
 		radar->radar_Collider->setSize(Vector2::Zero);
-		Krochi::Blade_Time = 0;
-		Krochi::Light_Time = 0;
 
 		LevelManager::Level_Up = true;
 	}
@@ -245,6 +245,8 @@ namespace my
 	{
 		if (Krochi::Blade_Time > 2.5f)
 		{
+			Krochi::Power = Krochi::Blade_Power;
+
 			bladeR = object::Instantiate<Blade_R>(Krochi::Playerpos + Vector2(47.0f, -35.0f), eLayerType::SKILL);
 			bladeL = object::Instantiate<Blade_L>(Krochi::Playerpos + Vector2(-107.0f, -35.0f), eLayerType::SKILL);
 			Krochi::Blade_Time = 0.0f;
@@ -254,8 +256,32 @@ namespace my
 	{
 		if (Krochi::Light_Time > 4.0f)
 		{
-			light1 = object::Instantiate<Lightning>(Radar::getEnemyPos() +  Vector2(18.0f, -174.0f) ,eLayerType::SKILL);
-			 light2 = object::Instantiate<Lightning>(Radar::getEnemyPos() +  Vector2(18.0f, -174.0f) ,eLayerType::SKILL);
+			Krochi::Power = Krochi::Light_Power;
+
+			LightNum = 3;
+			randNum = 0;
+			
+			EnemyNum = Radar::getEnemies().size();
+
+			if (EnemyNum < LightNum)
+				return;
+
+			for (int i = 0; i < LightNum; i++)
+			{
+				while(EnemyIndex[randNum] == 1)
+					randNum = rand() % EnemyNum;
+
+				EnemyIndex[randNum] = 1;
+
+				Lightning* light
+					= object::Instantiate<Lightning>(Radar::getEnemies()[randNum]->getPos() + Vector2(16.0f, -174.0f), eLayerType::SKILL);
+			}
+			for (int i = 0; i < EnemyNum; i++)
+			{
+				if (EnemyIndex[i] > 0)
+					EnemyIndex[i] = 0;
+			}
+
 			Krochi::Light_Time = 0.0f;
 		}
 	}
@@ -268,8 +294,8 @@ namespace my
 
 			if (Exp > 1126.0f)
 			{
-				Exp = 0.0f;
-				Monster_Exp /= 1.5f;
+				Exp = -200.0f;
+				Monster_Exp /= 1.3f;
 				++Krochi::level;
 
 				mState = ePlayerState::LevelUP;
