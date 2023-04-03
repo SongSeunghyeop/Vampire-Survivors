@@ -79,9 +79,6 @@
     <Filter Include="Engine\GameObject\Objects\Players">
       <UniqueIdentifier>{bad7682c-4502-495e-9147-269fa1c452ca}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\GameObject\Objects\Intro &amp; Title">
-      <UniqueIdentifier>{5d03fc5f-bc30-4702-8d2b-0cfdb86fac59}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\GameObject\Objects\Enemies">
       <UniqueIdentifier>{acfeebc9-6881-4422-b14c-73a44c3b92b8}</UniqueIdentifier>
     </Filter>
@@ -111,6 +108,12 @@
     </Filter>
     <Filter Include="Engine\Scene\TileMap">
       <UniqueIdentifier>{19acceb6-4057-479c-8099-324b9efc45fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Objects\Drop_Items">
+      <UniqueIdentifier>{330cf549-eaba-4ff5-b441-97c093e9bdc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Intro &amp; Title">
+      <UniqueIdentifier>{5d03fc5f-bc30-4702-8d2b-0cfdb86fac59}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -181,7 +184,7 @@
       <Filter>Engine\Component\Components</Filter>
     </ClInclude>
     <ClInclude Include="Title.h">
-      <Filter>Engine\GameObject\Objects\Intro &amp; Title</Filter>
+      <Filter>Engine\GameObject\Intro &amp; Title</Filter>
     </ClInclude>
     <ClInclude Include="myIntroScene.h">
       <Filter>Engine\Scene\IntroScene</Filter>
@@ -190,7 +193,7 @@
       <Filter>Engine\GameObject\Objects\Players</Filter>
     </ClInclude>
     <ClInclude Include="Intro.h">
-      <Filter>Engine\GameObject\Objects\Intro &amp; Title</Filter>
+      <Filter>Engine\GameObject\Intro &amp; Title</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Engine\GameObject\Objects\Enemies</Filter>
@@ -220,9 +223,6 @@
       <Filter>Engine\Scene\TitleScene</Filter>
     </ClInclude>
     <ClInclude Include="TitleUI.h">
-      <Filter>Engine\GameObject\Objects\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Treasure.h">
       <Filter>Engine\GameObject\Objects\UI</Filter>
     </ClInclude>
     <ClInclude Include="InGameUI.h">
@@ -255,9 +255,6 @@
     <ClInclude Include="Blade_L.h">
       <Filter>Engine\GameObject\Skill</Filter>
     </ClInclude>
-    <ClInclude Include="Level_Item.h">
-      <Filter>Engine\GameObject\Objects\Enemies</Filter>
-    </ClInclude>
     <ClInclude Include="Radar.h">
       <Filter>Engine\GameObject\Objects\Players</Filter>
     </ClInclude>
@@ -266,6 +263,12 @@
     </ClInclude>
     <ClInclude Include="Lightning.h">
       <Filter>Engine\GameObject\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Treasure.h">
+      <Filter>Engine\GameObject\Objects\Drop_Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Level_Item.h">
+      <Filter>Engine\GameObject\Objects\Drop_Items</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -318,7 +321,7 @@
       <Filter>Engine\Component\Components</Filter>
     </ClCompile>
     <ClCompile Include="Title.cpp">
-      <Filter>Engine\GameObject\Objects\Intro &amp; Title</Filter>
+      <Filter>Engine\GameObject\Intro &amp; Title</Filter>
     </ClCompile>
     <ClCompile Include="myIntroScene.cpp">
       <Filter>Engine\Scene\IntroScene</Filter>
@@ -327,7 +330,7 @@
       <Filter>Engine\GameObject\Objects\Players</Filter>
     </ClCompile>
     <ClCompile Include="Intro.cpp">
-      <Filter>Engine\GameObject\Objects\Intro &amp; Title</Filter>
+      <Filter>Engine\GameObject\Intro &amp; Title</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Engine\GameObject\Objects\Enemies</Filter>
@@ -359,9 +362,6 @@
     <ClCompile Include="TitleUI.cpp">
       <Filter>Engine\GameObject\Objects\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Treasure.cpp">
-      <Filter>Engine\GameObject\Objects\UI</Filter>
-    </ClCompile>
     <ClCompile Include="InGameUI.cpp">
       <Filter>Engine\Scene\Option</Filter>
     </ClCompile>
@@ -389,9 +389,6 @@
     <ClCompile Include="Blade_L.cpp">
       <Filter>Engine\GameObject\Skill</Filter>
     </ClCompile>
-    <ClCompile Include="Level_Item.cpp">
-      <Filter>Engine\GameObject\Objects\Enemies</Filter>
-    </ClCompile>
     <ClCompile Include="Radar.cpp">
       <Filter>Engine\GameObject\Objects\Players</Filter>
     </ClCompile>
@@ -400,6 +397,12 @@
     </ClCompile>
     <ClCompile Include="Lightning.cpp">
       <Filter>Engine\GameObject\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Treasure.cpp">
+      <Filter>Engine\GameObject\Objects\Drop_Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Level_Item.cpp">
+      <Filter>Engine\GameObject\Objects\Drop_Items</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

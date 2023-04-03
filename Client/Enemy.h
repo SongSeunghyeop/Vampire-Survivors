@@ -41,7 +41,7 @@ namespace my
 		void Death();
 		void None() {};
 
-		//virtual void onCollisionEnter(class Collider* other) override;
+		virtual void onCollisionEnter(class Collider* other) override;
 		virtual void onCollisionExit(class Collider* other) override;
 		virtual void onCollisionStay(class Collider* other) override;
 		

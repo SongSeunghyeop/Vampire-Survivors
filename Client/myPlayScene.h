@@ -10,6 +10,7 @@
 #include "EnemyManager.h"
 #include "Field.h"
 #include "LevelManager.h"
+#include "Treasure.h"
 
 namespace my
 {
@@ -32,6 +33,7 @@ namespace my
 		Field* field;
 		EnemyManager* E_manager;
 		LevelManager* levelmanager;
+		Treasure* treasure;
 
 	};
 }

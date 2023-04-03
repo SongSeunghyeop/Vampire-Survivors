@@ -18,6 +18,8 @@ namespace my
 		E_manager = object::Instantiate<EnemyManager>(eLayerType::BACKGROUND);
 		levelmanager = object::Instantiate<LevelManager>(eLayerType::UI);
 
+		treasure = object::Instantiate<Treasure>(eLayerType::UI);
+
 		Camera::SetTarget(krochi);
 	}
 

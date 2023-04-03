@@ -40,7 +40,7 @@ namespace my
 		Image* health_zero;
 		Image* Ex_value;
 		Image* menuImg;
-
+		Image* Item_list;
 
 		Image* Skills[5]
 			=

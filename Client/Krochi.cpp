@@ -111,7 +111,6 @@ namespace my
 		case my::Krochi::eSkillState::Blade:
 		{
 			Blade();
-			if(Light_Power >= 95)
 			Light();
 		}
 			break;
@@ -247,8 +246,8 @@ namespace my
 		{
 			Krochi::Power = Krochi::Blade_Power;
 
-			bladeR = object::Instantiate<Blade_R>(Krochi::Playerpos + Vector2(47.0f, -35.0f), eLayerType::SKILL);
-			bladeL = object::Instantiate<Blade_L>(Krochi::Playerpos + Vector2(-107.0f, -35.0f), eLayerType::SKILL);
+			bladeR = object::Instantiate<Blade_R>(Krochi::Playerpos + Vector2(34.0f, -35.0f), eLayerType::SKILL);
+			bladeL = object::Instantiate<Blade_L>(Krochi::Playerpos + Vector2(-110.0f, -35.0f), eLayerType::SKILL);
 			Krochi::Blade_Time = 0.0f;
 		}
 	}

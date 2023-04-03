@@ -12,10 +12,10 @@ namespace my
 		Skill_R = ResourceManager::Load<Image>(L"Skill_R", L"..\\Resources\\Blade_All_Red.bmp");
 
 		Blade_Tr = GetComponent<Transform>();
-		Blade_Tr->setScale(Vector2(1.6f, 3.3f));
+		Blade_Tr->setScale(Vector2(1.7, 3.5f));
 
 		Blade_Collider = AddComponent<Collider>();
-		Blade_Collider->setCenter(Vector2(-60, -26));
+		Blade_Collider->setCenter(Vector2(-48, -26));
 		Blade_Collider->setSize(Vector2(220, 64));
 		Blade_Collider->setRGB(0, 255, 0);
 		

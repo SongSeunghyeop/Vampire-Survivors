@@ -82,7 +82,7 @@ namespace my
 		{
 			EnemyAnimator->Play(L"RightWalk", true);
 			monster_hp = 100;
-			Enemy_vel =  70.0f;
+			Enemy_vel =  80.0f;
 			EnemyPos->setScale(Vector2(2.4f, 2.4f));
 			EnemyCollider->setCenter(Vector2(-7, -10));
 			EnemyCollider->setSize(Vector2(50, 28)); // 50,28
@@ -94,8 +94,8 @@ namespace my
 			monster_hp = 120;
 			Enemy_vel = 100.0f;
 			EnemyPos->setScale(Vector2(2.0f, 2.0f));
-			EnemyCollider->setCenter(Vector2(-12, -30));
-			EnemyCollider->setSize(Vector2(54, 65)); // 50,70
+			EnemyCollider->setCenter(Vector2(-10, -22));
+			EnemyCollider->setSize(Vector2(47,55)); // 50,70
 		}
 			break;
 		}
@@ -132,6 +132,12 @@ namespace my
 		}
 
 		EnemyPos->setPos(movePos);
+
+		Distance =
+			std::abs(Ppos.x - movePos.x) + std::abs(Ppos.y - movePos.y);
+
+		if (Distance > 3000) // 플레이어와의 거리가 멀어진다면, 위치를 가까이 옮겨줌
+			EnemyPos->setPos(Krochi::getPlayerPos() + Init_Pos);
 
 		GameObject::Update();
 	}
@@ -176,15 +182,6 @@ namespace my
 				movePos.y -= Enemy_vel * Time::getDeltaTime();
 			}
 		}
-
-		if (!Enemy::Finded)
-		{
-			Distance = 
-				std::abs(Ppos.x - movePos.x) + std::abs(Ppos.y - movePos.y);
-
-			if (Distance > 3000) // 플레이어와의 거리가 멀어진다면, 위치를 가까이 옮겨줌
-				EnemyPos->setPos(Krochi::getPlayerPos() + Init_Pos);
-		}
 	}
 
 	void Enemy::Back_Move()
@@ -206,7 +203,7 @@ namespace my
 		if (Ppos.x < movePos.x)
 			movePos.x += vel * Time::getDeltaTime();
 		if (Ppos.y > movePos.y)
-			movePos.y  -= vel * Time::getDeltaTime();
+			movePos.y -= vel * Time::getDeltaTime();
 	}
 
 	void Enemy::Death()
@@ -234,6 +231,10 @@ namespace my
 		}
 	}
 
+	void Enemy::onCollisionEnter(Collider* other)
+	{
+
+	}
 	void Enemy::onCollisionStay(Collider* other)
 	{
 		if (other->getOwner()->getName() == L"Radar")
@@ -247,8 +248,6 @@ namespace my
 
 			if (otherEnemy->Distance < this->Distance)
 				this->eState = eEnemyState::Back_Move;
-			else
-				this->eState = eEnemyState::Move;
 		}
 		if (other->getOwner()->getName() == L"Skill")
 		{
