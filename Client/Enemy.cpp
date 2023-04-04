@@ -81,7 +81,7 @@ namespace my
 		case(eEnemyType::BLACK):
 		{
 			EnemyAnimator->Play(L"RightWalk", true);
-			monster_hp = 100;
+			monster_hp = 70;
 			Enemy_vel =  85.0f;
 			EnemyPos->setScale(Vector2(2.4f, 2.4f));
 			EnemyCollider->setCenter(Vector2(-7, -10));
@@ -91,7 +91,7 @@ namespace my
 		case(eEnemyType::ZOMBIE):
 		{
 			EnemyAnimator->Play(L"Zombie_MoveR", true);
-			monster_hp = 120;
+			monster_hp = 100;
 			Enemy_vel = 105.0f;
 			EnemyPos->setScale(Vector2(2.0f, 2.0f));
 			EnemyCollider->setCenter(Vector2(-10, -22));

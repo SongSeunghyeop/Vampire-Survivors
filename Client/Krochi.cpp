@@ -34,12 +34,12 @@ namespace my
 		Krochi::Hp = 112.0f;
 		Krochi::Exp = 0.0f; // max = 1126.0f
 		Krochi::level = 1;
-		Krochi::Monster_Exp = 240;
+		Krochi::Monster_Exp = 230;
 		Krochi::vel = 140.0f;
 		Krochi::Blade_Time = 0.0f;
 		Krochi::Light_Time = 0.0f;
-		Krochi::Blade_Power = 50;
-		Krochi::Light_Power = 90;
+		Krochi::Blade_Power = 70;
+		Krochi::Light_Power = 95;
 		Krochi::Power = 0;
 	}
 	Krochi::~Krochi()
@@ -115,7 +115,7 @@ namespace my
 		{
 			Blade();
 
-			if(Krochi::Light_Power >= 95)
+			if(Krochi::Light_Power >= 100)
 				Light();
 
 			Krochi::Blade_Time += Time::getDeltaTime();
@@ -265,16 +265,16 @@ namespace my
 	}
 	void Krochi::Light()
 	{
-		if (Krochi::Light_Power >= 95)
-			LightNum = 2;
 		if (Krochi::Light_Power >= 100)
-			LightNum = 3;
+			LightNum = 1;
 		if (Krochi::Light_Power >= 105)
-			LightNum = 4;
+			LightNum = 2;
 		if (Krochi::Light_Power >= 110)
-			LightNum = 5;
+			LightNum = 3;
 		if (Krochi::Light_Power >= 115)
-			LightNum = 6;
+			LightNum = 4;
+		if (Krochi::Light_Power >= 120)
+			LightNum = 5;
 
 		if (Krochi::Light_Time > 4.5f)
 		{ // 해시 테이블 활용
