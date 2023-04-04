@@ -17,8 +17,7 @@ namespace my
 		field = object::Instantiate<Field>(eLayerType::BACKGROUND);
 		E_manager = object::Instantiate<EnemyManager>(eLayerType::BACKGROUND);
 		levelmanager = object::Instantiate<LevelManager>(eLayerType::UI);
-
-		treasure = object::Instantiate<Treasure>(eLayerType::UI);
+		treasure = object::Instantiate<Treasure>(eLayerType::ITEMS);
 
 		Camera::SetTarget(krochi);
 	}
@@ -47,6 +46,7 @@ namespace my
 		CollisionManager::setLayer(eLayerType::ENEMY, eLayerType::ENEMY, true);
 		CollisionManager::setLayer(eLayerType::PLAYER, eLayerType::ITEMS, true);
 		CollisionManager::setLayer(eLayerType::RADAR, eLayerType::ENEMY, true);
+		CollisionManager::setLayer(eLayerType::RADAR, eLayerType::ITEMS, true);
 	}
 	void PlayScene::OnExit()
 	{

@@ -26,12 +26,12 @@ namespace my
 		{
 			
 		}
-		if (!LevelManager::Level_Up)
+		if (!LevelManager::Level_Up && !LevelManager::Show_on)
 		{
 			Enemy_Time += Time::getDeltaTime();
 		}
 
-		if (Enemy_Time >= 8.0f)
+		if (Enemy_Time >= 10.0f)
 		{
 			Enemy_Create();
 			Enemy_Time = 0.0f;
@@ -49,7 +49,7 @@ namespace my
 	}
 	void EnemyManager::Enemy_Create()
 	{
-		for (int i = 0; i < 0; i++) 
+		for (int i = 0; i < 13; i++) 
 		{
 			RandPos.x = rand() % 1440 - 720;  // -720 ~ 720
 			RandPos.y = rand() % 880 - 440; //  -440 ~ 440
@@ -57,8 +57,8 @@ namespace my
 			while ((RandPos.x > -650 && RandPos.x < 650) && // 650 
 				(RandPos.y > -370 && RandPos.y < 370)) //370
 			{
-				RandPos.x = rand() % 1400 - 700;
-				RandPos.y = rand() % 840 - 420;
+				RandPos.x = rand() % 1440 - 720;
+				RandPos.y = rand() % 880 - 440;
 			}
 
 			enemy = object::Instantiate<Enemy>(Krochi::getPlayerPos() + RandPos, eLayerType::ENEMY);

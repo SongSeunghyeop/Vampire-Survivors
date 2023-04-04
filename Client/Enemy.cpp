@@ -82,7 +82,7 @@ namespace my
 		{
 			EnemyAnimator->Play(L"RightWalk", true);
 			monster_hp = 100;
-			Enemy_vel =  80.0f;
+			Enemy_vel =  85.0f;
 			EnemyPos->setScale(Vector2(2.4f, 2.4f));
 			EnemyCollider->setCenter(Vector2(-7, -10));
 			EnemyCollider->setSize(Vector2(50, 28)); // 50,28
@@ -92,7 +92,7 @@ namespace my
 		{
 			EnemyAnimator->Play(L"Zombie_MoveR", true);
 			monster_hp = 120;
-			Enemy_vel = 100.0f;
+			Enemy_vel = 105.0f;
 			EnemyPos->setScale(Vector2(2.0f, 2.0f));
 			EnemyCollider->setCenter(Vector2(-10, -22));
 			EnemyCollider->setSize(Vector2(47,55)); // 50,70
@@ -154,18 +154,21 @@ namespace my
 	{
 		if (Enemy::Finded)
 		{
+			movePos += (Ppos - EnemyPos->getPos()).Normalize() * Enemy_vel * Time::getDeltaTime();
+
 			if (Ppos.x > movePos.x)
 			{ 
-				movePos.x += Enemy_vel * Time::getDeltaTime();
+				//movePos.x += Enemy_vel * Time::getDeltaTime();
 
 				if(eType == eEnemyType::BLACK)
 					EnemyAnimator->Play_NO_RE(L"RightWalk", true);
 				if(eType == eEnemyType::ZOMBIE)
 					EnemyAnimator->Play_NO_RE(L"Zombie_MoveR", true);
-			}
+			}	
+
 			if (Ppos.x < movePos.x)
 			{
-				movePos.x -= Enemy_vel * Time::getDeltaTime();
+				//movePos.x -= Enemy_vel * Time::getDeltaTime();
 
 				if (eType == eEnemyType::BLACK)
 					EnemyAnimator->Play_NO_RE(L"LeftWalk", true);
@@ -173,6 +176,8 @@ namespace my
 				if (eType == eEnemyType::ZOMBIE)
 					EnemyAnimator->Play_NO_RE(L"Zombie_MoveL", true);
 			}
+
+			/*
 			if (Ppos.y > movePos.y)
 			{
 				movePos.y += Enemy_vel * Time::getDeltaTime();
@@ -180,7 +185,7 @@ namespace my
 			if (Ppos.y < movePos.y)
 			{
 				movePos.y -= Enemy_vel * Time::getDeltaTime();
-			}
+			}*/
 		}
 	}
 
@@ -188,13 +193,13 @@ namespace my
 	{
 		delay += Time::getDeltaTime();
 
-		if (delay >= 0.3f)
+		if (delay >= 0.4f)
 		{
 			delay = 0.0f;
 			eState = eEnemyState::Move;
 		}
 	
-		float vel = 10.0f;
+		float vel = 5.0f;
 
 		if (Ppos.y < movePos.y)
 			movePos.y += vel * Time::getDeltaTime();
@@ -233,14 +238,6 @@ namespace my
 
 	void Enemy::onCollisionEnter(Collider* other)
 	{
-
-	}
-	void Enemy::onCollisionStay(Collider* other)
-	{
-		if (other->getOwner()->getName() == L"Radar")
-		{
-			Enemy::Finded = true;
-		}
 		if (other->getOwner()->getName() == L"Enemy")
 		{
 			EnemyCollider->setRGB(255, 0, 0);
@@ -248,6 +245,13 @@ namespace my
 
 			if (otherEnemy->Distance < this->Distance)
 				this->eState = eEnemyState::Back_Move;
+		}
+	}
+	void Enemy::onCollisionStay(Collider* other)
+	{
+		if (other->getOwner()->getName() == L"Radar")
+		{
+			Enemy::Finded = true;
 		}
 		if (other->getOwner()->getName() == L"Skill")
 		{

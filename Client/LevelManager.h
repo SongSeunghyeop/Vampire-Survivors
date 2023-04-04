@@ -32,8 +32,12 @@ namespace my
 		void power_up();
 
 		static bool Level_Up;
+		static bool Show_on;
 
 	private:
+		Animator* Treasure_show;
+
+		Transform* Tr;
 		Image* level_bar;
 		Image* Charactor;
 		Image* health;
@@ -41,6 +45,7 @@ namespace my
 		Image* Ex_value;
 		Image* menuImg;
 		Image* Item_list;
+		Image* Tresure_UI;
 
 		Image* Skills[5]
 			=

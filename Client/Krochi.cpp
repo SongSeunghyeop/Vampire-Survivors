@@ -34,11 +34,11 @@ namespace my
 		Krochi::Hp = 112.0f;
 		Krochi::Exp = 0.0f; // max = 1126.0f
 		Krochi::level = 1;
-		Krochi::Monster_Exp = 250;
+		Krochi::Monster_Exp = 240;
 		Krochi::vel = 140.0f;
 		Krochi::Blade_Time = 0.0f;
 		Krochi::Light_Time = 0.0f;
-		Krochi::Blade_Power = 40;
+		Krochi::Blade_Power = 50;
 		Krochi::Light_Power = 90;
 		Krochi::Power = 0;
 	}
@@ -81,7 +81,7 @@ namespace my
 		after->SetShadow(5);
 
 		mState = ePlayerState::Idle;
-		skillState = eSkillState::Blade;
+		skillState = eSkillState::Skill_On;
 
 		Right_Dir = true;
 
@@ -103,18 +103,26 @@ namespace my
 		case  my::Krochi::ePlayerState::LevelUP:
 			level_up();
 			break;
+		case  my::Krochi::ePlayerState::ShowOn:
+			show_on();
+			break;
 		default:
 			break;
 		}
 		switch (skillState)
 		{
-		case my::Krochi::eSkillState::Blade:
+		case my::Krochi::eSkillState::Skill_On:
 		{
 			Blade();
-			Light();
+
+			if(Krochi::Light_Power >= 95)
+				Light();
+
+			Krochi::Blade_Time += Time::getDeltaTime();
+			Krochi::Light_Time += Time::getDeltaTime();
 		}
 			break;
-		case my::Krochi::eSkillState::None:
+		case my::Krochi::eSkillState::Skill_Off:
 			break;
 		default:
 			break;
@@ -236,13 +244,17 @@ namespace my
 	void Krochi::level_up()
 	{
 		radar->radar_Collider->setSize(Vector2::Zero);
-
 		LevelManager::Level_Up = true;
+	}
+	void Krochi::show_on()
+	{
+		radar->radar_Collider->setSize(Vector2::Zero);
+		LevelManager::Show_on = true;
 	}
 
 	void Krochi::Blade()
 	{
-		if (Krochi::Blade_Time > 2.5f)
+		if (Krochi::Blade_Time > 3.0f)
 		{
 			Krochi::Power = Krochi::Blade_Power;
 
@@ -253,11 +265,20 @@ namespace my
 	}
 	void Krochi::Light()
 	{
-		if (Krochi::Light_Time > 4.0f)
-		{
-			Krochi::Power = Krochi::Light_Power;
-
+		if (Krochi::Light_Power >= 95)
+			LightNum = 2;
+		if (Krochi::Light_Power >= 100)
 			LightNum = 3;
+		if (Krochi::Light_Power >= 105)
+			LightNum = 4;
+		if (Krochi::Light_Power >= 110)
+			LightNum = 5;
+		if (Krochi::Light_Power >= 115)
+			LightNum = 6;
+
+		if (Krochi::Light_Time > 4.5f)
+		{ // 해시 테이블 활용
+			Krochi::Power = Krochi::Light_Power;
 			randNum = 0;
 			
 			EnemyNum = Radar::getEnemies().size();
@@ -294,11 +315,15 @@ namespace my
 			if (Exp > 1126.0f)
 			{
 				Exp = -200.0f;
-				Monster_Exp /= 1.3f;
+				Monster_Exp /= 1.2f;
 				++Krochi::level;
 
 				mState = ePlayerState::LevelUP;
 			}
+		}
+		if (other->getOwner()->getName() == L"Treasure")
+		{
+			mState = ePlayerState::ShowOn;
 		}
 	}											
 	void Krochi::onCollisionStay(Collider* other)

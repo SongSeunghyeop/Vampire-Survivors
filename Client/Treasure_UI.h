@@ -8,7 +8,7 @@
 
 namespace my
 {
-	class Treasure : public GameObject
+	class Treasure_UI : public GameObject
 	{
 	public:
 
@@ -22,10 +22,10 @@ namespace my
 		virtual void onCollisionExit(class Collider* other) override;
 		virtual void onCollisionStay(class Collider* other) override;
 
-		Vector2 getTreasurePos() { return Item_TR->getPos(); }
 	private:
 		Collider* Item_Collider;
-		Image* treasure;
+		Image* option;
 		Transform* Item_TR;
+		Animator* Treasure_show;
 	};
 }

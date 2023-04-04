@@ -34,6 +34,5 @@ namespace my
 		EnemyManager* E_manager;
 		LevelManager* levelmanager;
 		Treasure* treasure;
-
 	};
 }

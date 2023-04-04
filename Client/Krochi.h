@@ -29,11 +29,12 @@ namespace my
 			Death,
 			Idle,
 			LevelUP,
+			ShowOn,
 		};
 		enum class eSkillState
 		{
-			Blade,
-			None,
+			Skill_On,
+			Skill_Off,
 		};
 
 		Krochi();
@@ -55,12 +56,13 @@ namespace my
 	
 	protected:
 		static ePlayerState mState;
+		static eSkillState skillState;
+
 		static bool Right_Dir;
 		static bool P_Damaged;
 		static Vector2 Playerpos;
 
 	private:
-		eSkillState skillState;
 
 		static float Hp;
 		static float Exp;
@@ -92,6 +94,7 @@ namespace my
 		void idle();
 		void Damaged(ePlayerState mState);
 		void level_up(); 
+		void show_on();
 
 		// --- Skill
 		void Blade();

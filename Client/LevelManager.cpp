@@ -4,6 +4,8 @@
 namespace my
 {
 	bool LevelManager::Level_Up;
+	bool LevelManager::Show_on;
+	Krochi::eSkillState Krochi::skillState;
 
 	LevelManager::LevelManager()
 	{
@@ -22,7 +24,13 @@ namespace my
 		Ex_value = ResourceManager::Load<Image>(L"Ex_value", L"..\\Resources\\Ex_value.bmp");
 		menuImg = ResourceManager::Load<Image>(L"Option_LevelUp", L"..\\Resources\\Option_LevelUp.bmp");
 		Item_list = ResourceManager::Load<Image>(L"Item_list", L"..\\Resources\\Item_list.bmp");
+		Tresure_UI = ResourceManager::Load<Image>(L"Tresure_UI", L"..\\Resources\\Option.bmp");
 		
+		Tr = GetComponent<Transform>();
+
+		Treasure_show = AddComponent<Animator>();
+		Treasure_show->CreateAnimations(L"..\\Resources\\Treasures\\Show", 0.075f);
+
 		//Items
 		Skills[0] = ResourceManager::Load<Image>(L"wind", L"..\\Resources\\wind.bmp");
 		Skills[1] = ResourceManager::Load<Image>(L"blade", L"..\\Resources\\Blade.bmp");
@@ -30,6 +38,8 @@ namespace my
 		Skills[3] = ResourceManager::Load<Image>(L"Lightning_Item", L"..\\Resources\\Lightning_Item.bmp");
 
 		selected_item = eItems::NONE;
+
+		GameObject::Initialize();
 	}
 	void LevelManager::Update()
 	{
@@ -48,7 +58,24 @@ namespace my
 			power_up();
 			break;
 		}
+		if (LevelManager::Level_Up || LevelManager::Show_on)
+		{
+			Krochi::skillState = Krochi::eSkillState::Skill_Off;
+		}
+		if (!LevelManager::Level_Up && !LevelManager::Show_on)
+		{
+			Krochi::skillState = Krochi::eSkillState::Skill_On;
 
+			Num1 = rand() % 4; // 0~3
+
+			while (Num2 == Num1)
+				Num2 = rand() % 4;
+
+			while (Num2 == Num3 || Num1 == Num3)
+				Num3 = rand() % 4;
+		}
+
+		GameObject::Update();
 	}
 
 	//Item_List
@@ -75,6 +102,8 @@ namespace my
 
 	void LevelManager::Render(HDC hdc)
 	{
+		Tr->setPos(Krochi::getPlayerPos() + Vector2(5,335)); // Treasure_show 애니메이션 위치
+
 		TransparentBlt(hdc, 152, 5, level_bar->GetWidth(), level_bar->GetHeight(),
 			level_bar->GetHdc(), 0, 0, level_bar->GetWidth(), level_bar->GetHeight(), RGB(255, 0, 255));
 		TransparentBlt(hdc, 152, 5, Krochi::Exp, Ex_value->GetHeight(),
@@ -88,6 +117,20 @@ namespace my
 		TransparentBlt(hdc, 22, 120, Krochi::Hp, health->GetHeight(),
 			health->GetHdc(), 0, 0, health->GetWidth(), health->GetHeight(), RGB(255, 0, 255));
 
+		if (LevelManager::Show_on)
+		{
+			TransparentBlt(hdc, 382, 60, Tresure_UI->GetWidth(), Tresure_UI->GetHeight(),
+				Tresure_UI->GetHdc(), 0, 0, Tresure_UI->GetWidth(), Tresure_UI->GetHeight(), RGB(255, 0, 255));
+
+			Treasure_show->Play_NO_RE(L"TreasuresShow", false);
+
+			if (Treasure_show->IsComplete())
+			{
+				Treasure_show->Play_NO_RE(L"NULL", false);
+				LevelManager::Show_on = false;
+				Krochi::mState = Krochi::ePlayerState::Idle;
+			}
+		}
 		if (LevelManager::Level_Up)
 		{
 			TransparentBlt(hdc, 382, 60, menuImg->GetWidth(), menuImg->GetHeight(),
@@ -122,24 +165,12 @@ namespace my
 				if (selected_item != eItems::NONE)
 				{
 					LevelManager::Level_Up = false;
-
 					Krochi::mState = Krochi::ePlayerState::Idle;
 				}
 			}
 		}
-		if (!LevelManager::Level_Up)
-		{
-			Krochi::Blade_Time += Time::getDeltaTime();
-			Krochi::Light_Time += Time::getDeltaTime();
 
-			Num1 = rand() % 4; // 0~3
-
-			while (Num2 == Num1)
-				Num2 = rand() % 4;
-
-			while(Num2 == Num3 || Num1 == Num3)
-				Num3 = rand() % 4;
-		}
+		GameObject::Render(hdc);
 	}
 	void LevelManager::Release()
 	{
