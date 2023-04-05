@@ -49,7 +49,7 @@ namespace my
 	}
 	void EnemyManager::Enemy_Create()
 	{
-		for (int i = 0; i < 15; i++) 
+		for (int i = 0; i < 13; i++) 
 		{
 			RandPos.x = rand() % 1440 - 720;  // -720 ~ 720
 			RandPos.y = rand() % 880 - 440; //  -440 ~ 440
