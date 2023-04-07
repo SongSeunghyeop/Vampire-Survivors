@@ -12,9 +12,11 @@ namespace my
 		enum class eItems
 		{
 			WIND,
-			BLADE,
 			POWER_UP,
 			LIGHTNING,
+			BOOK,
+			ARMOR,
+			EMEPY_BOOK,
 			NONE,
 		};
 
@@ -27,9 +29,11 @@ namespace my
 		virtual void Release();
 
 		void speed_up();
-		void blade_up();
 		void light_up();
 		void power_up();
+		void book_up();
+		void armor_up();
+		void empty_book();
 
 		static bool Level_Up;
 		static bool Show_on;
@@ -47,19 +51,23 @@ namespace my
 		Image* Item_list;
 		Image* Tresure_UI;
 
-		Image* Skills[5]
+		Image* Skills[6]
 			=
 		{
 			Wind,
-			Blade,
 			Power_up,
-			Lightning
+			Lightning,
+			Book,
+			Armor,
+			Empty_Book,
 		};
 
 		Image* Wind;
-		Image* Blade;
 		Image* Power_up;
 		Image* Lightning;
+		Image* Book;
+		Image* Armor;
+		Image* Empty_Book;
 
 		eItems selected_item;
 

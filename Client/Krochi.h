@@ -53,7 +53,16 @@ namespace my
 
 		//static Vector2 getPlayerPos() { return Krochi::Playerpos; }
 		static Vector2 getPlayerPos() { return Krochi::Playerpos; }
-		static float getPlayerPower() { return Krochi::Power; }
+		
+		static float getPlayerPower(std::wstring p) 
+		{ 
+			if(p == L"Lightning")
+				return Krochi::Light_Power;
+			if (p == L"Book")
+				return Krochi::Books_Power;
+			if(p == L"Blade")
+				return Krochi::Blade_Power;
+		}
 		static ePlayerState getPlayerState() { return mState; }
 	
 	protected:
@@ -71,13 +80,17 @@ namespace my
 		static float Monster_Exp;
 		static int level;
 		static float vel;
-		static float Power;
+		static float Power_up;
 		static int Blade_Power;
 		static int Light_Power;
 		static int Books_Power;
 		static float Blade_Time;
 		static float Light_Time;
 		static float Books_Time;
+		static int bookNum;
+		static int LightNum;
+		static float Armor;
+		static float defaultTime;
 
 		Animator* playerAnimator;
 
@@ -91,10 +104,6 @@ namespace my
 
 		Ax* ax;
 		Book* book1;
-		Book* book2;
-		Book* book3;
-		Book* book4;
-		Book* book5;
 
 		Radar* radar;
 
@@ -114,7 +123,6 @@ namespace my
 
 		int EnemyIndex[200] = { 0 };
 		int EnemyNum;
-		int LightNum;
 		int randNum;
 
 		friend class LevelManager;

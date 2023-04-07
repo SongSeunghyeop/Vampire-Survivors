@@ -23,10 +23,10 @@ namespace my
 
 		Transform* tr = GetComponent<Transform>();
 		tr->setScale(2.1, 2.1);
-		shadowPos = tr->getPos();
+		tr->setPos(Krochi::getPlayerPos());
 
 		Shadow_Animator = AddComponent<Animator>();
-		Shadow_Animator->CreateAnimation(L"Book_Shadow", shadow_Image, Vector2::Zero, 2, 1, 2, 0.2f, 255, 0, 255);
+		Shadow_Animator->CreateAnimation(L"Book_Shadow", shadow_Image, Vector2::Zero, 3, 1, 3, 0.2f, 255, 0, 255);
 		Shadow_Animator->Play(L"Book_Shadow", true);
 
 		GameObject::Initialize();
@@ -39,11 +39,11 @@ namespace my
 		//float y = dir.x * sinf(PI / 5.0f) + dir.y * cosf(PI / 5.0f);
 
 		Transform* tr = GetComponent<Transform>();
-		tr->setPos(shadowPos);
+		tr->setPos(book->bookPos - Vector2(5, 20));
 
 		mTime += Time::getDeltaTime();
 
-		if (mTime > 3.1f)
+		if (mTime > book->book_Time + 0.1f)
 		{
 			object::Destory(this);
 		}

@@ -14,10 +14,8 @@ namespace my
 		virtual void Render(HDC hdc) override;
 		virtual void Release() override;
 
-		void setPos(Vector2 pos) { shadowPos = pos; }
-	
+		void setBook(Book* b) { book = b; }
 	private:
-		Vector2 shadowPos;
 		Vector2 EnemyPos;
 
 		float R;
@@ -31,6 +29,8 @@ namespace my
 
 		Vector2 dir;
 		Vector2 rotation;
+	
+		Book* book;
 	};
 }
 

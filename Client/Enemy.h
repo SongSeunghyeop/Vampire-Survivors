@@ -25,6 +25,7 @@ namespace my
 		{
 			BLACK,
 			ZOMBIE,
+			SKULL,
 		};
 
 
@@ -48,7 +49,6 @@ namespace my
 		virtual void onCollisionStay(class Collider* other) override;
 		
 		Transform* getEnemyPos() { return Enemy_TR; }
-
 	private:
 		eEnemyState eState;
 
@@ -66,19 +66,28 @@ namespace my
 
 
 		eEnemyType eType;
+
 		Image* EnemyR_Img;
 		Image* EnemyL_Img;
 		Image* Damaged_R;
 		Image* Damaged_L;
-		Image* zDamaged_R;
-		Image* zDamaged_L;
 		Image* Die_R;
 		Image* Die_L;
 
 		Image* Zombie_R;
 		Image * Zombie_L;
+		Image* zDamaged_R;
+		Image* zDamaged_L;
 		Image * Zombie_Die_R;
 		Image * Zombie_Die_L;
+
+		Image* Skull_R;
+		Image* Skull_L;
+		Image* sDamaged_R;
+		Image* sDamaged_L;
+		Image* Skull_Die_R;
+		Image* Skull_Die_L;
+
 
 		int monster_hp;
 		float Distance;
@@ -87,6 +96,7 @@ namespace my
 		float Enemy_vel;
 		float vel_type1;
 		float vel_type2;
+		float vel_type3;
 		Vector2 Init_Pos;
 
 		friend class EnemyManager;

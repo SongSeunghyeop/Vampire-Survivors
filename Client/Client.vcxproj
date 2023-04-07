@@ -137,7 +137,6 @@
     <ClInclude Include="Book_Shadow.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="EnemyManager.h" />
-    <ClInclude Include="Fire.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="Level_Item.h" />
     <ClInclude Include="Lightning.h" />
@@ -193,7 +192,6 @@
     <ClCompile Include="Book_Shadow.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
-    <ClCompile Include="Fire.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="Level_Item.cpp" />
     <ClCompile Include="Lightning.cpp" />

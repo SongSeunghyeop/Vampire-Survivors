@@ -28,6 +28,8 @@ namespace my
 		virtual void OnEnter();
 		virtual void OnExit();
 
+		static float Play_Time;
+
 	private:
 		Krochi* krochi;
 		Field* field;

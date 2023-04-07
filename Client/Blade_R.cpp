@@ -4,7 +4,7 @@ namespace my
 {
 	Blade_R::Blade_R()
 	{
-		this->setName(L"Skill");
+		this->setName(L"Blade");
 	}
 
 	void Blade_R::Initialize()

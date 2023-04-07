@@ -27,6 +27,9 @@ namespace my
 		void onCollisionExit(Collider* other);
 
 		void setR(int r) { R = r; }
+		void setDistance(float d) { distance = d;}
+		void setVel(float v) { book_vel = v; }
+		void setTime(float t) { book_Time = t; }
 	private:
 		Vector2 bookPos;
 		Vector2 EnemyPos;
@@ -34,7 +37,9 @@ namespace my
 		float R;
 		float mTime;
 		float effect_Time;
-		float bullet_vel;
+		float distance;
+		float book_vel;
+		float book_Time;
 
 		Image* book_Image;
 
@@ -44,5 +49,7 @@ namespace my
 		Vector2 rotation;
 
 		Book_Shadow* shadow;
+
+		friend class Book_Shadow;
 	};
 }

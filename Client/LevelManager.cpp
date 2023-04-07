@@ -33,9 +33,11 @@ namespace my
 
 		//Items
 		Skills[0] = ResourceManager::Load<Image>(L"wind", L"..\\Resources\\wind.bmp");
-		Skills[1] = ResourceManager::Load<Image>(L"blade", L"..\\Resources\\Blade.bmp");
-		Skills[2] = ResourceManager::Load<Image>(L"Power_up", L"..\\Resources\\PowerUp.bmp");
-		Skills[3] = ResourceManager::Load<Image>(L"Lightning_Item", L"..\\Resources\\Lightning_Item.bmp");
+		Skills[1] = ResourceManager::Load<Image>(L"Power_up", L"..\\Resources\\PowerUp.bmp");
+		Skills[2] = ResourceManager::Load<Image>(L"Lightning_Item", L"..\\Resources\\Lightning_Item.bmp");
+		Skills[3] = ResourceManager::Load<Image>(L"Book_Item", L"..\\Resources\\Book_select.bmp");
+		Skills[4] = ResourceManager::Load<Image>(L"Armor", L"..\\Resources\\armor.bmp");
+		Skills[5] = ResourceManager::Load<Image>(L"EmptyBook", L"..\\Resources\\Empty_Book.bmp");
 
 		selected_item = eItems::NONE;
 
@@ -48,14 +50,20 @@ namespace my
 		case(eItems::WIND):
 			speed_up();
 			break;
-		case(eItems::BLADE):
-			blade_up();
-			break;
 		case(eItems::LIGHTNING):
 			light_up();
 			break;
+		case(eItems::BOOK):
+			book_up();
+			break;
+		case(eItems::ARMOR):
+			armor_up();
+			break;
 		case(eItems::POWER_UP):
 			power_up();
+			break;
+		case(eItems::EMEPY_BOOK):
+			empty_book();
 			break;
 		}
 		if (LevelManager::Level_Up || LevelManager::Show_on)
@@ -66,13 +74,13 @@ namespace my
 		{
 			Krochi::skillState = Krochi::eSkillState::Skill_On;
 
-			Num1 = rand() % 4; // 0~3
+			Num1 = rand() % 6; // 0~4
 
 			while (Num2 == Num1)
-				Num2 = rand() % 4;
+				Num2 = rand() % 6;
 
 			while (Num2 == Num3 || Num1 == Num3)
-				Num3 = rand() % 4;
+				Num3 = rand() % 6;
 		}
 
 		GameObject::Update();
@@ -84,22 +92,32 @@ namespace my
 		Krochi::vel += 5;
 		selected_item = eItems::NONE;
 	}
-	void LevelManager::blade_up()
-	{
-		Krochi::Blade_Power += 5;
-		selected_item = eItems::NONE;
-	}
 	void LevelManager::light_up()
 	{
 		Krochi::Light_Power += 5;
 		selected_item = eItems::NONE;
 	}
-	void LevelManager::power_up()
+	void LevelManager::book_up()
 	{
-		Krochi::Power += 5;
+		Krochi::Books_Power += 3;
 		selected_item = eItems::NONE;
 	}
-
+	void LevelManager::power_up()
+	{
+		Krochi::Light_Power += 2;
+		Krochi::Books_Power += 2;
+		selected_item = eItems::NONE;
+	}
+	void LevelManager::armor_up()
+	{
+		Krochi::Armor += 0.3f;
+		selected_item = eItems::NONE;
+	}
+	void LevelManager::empty_book()
+	{
+		Krochi::defaultTime += 0.3f;
+		selected_item = eItems::NONE;
+	}
 	void LevelManager::Render(HDC hdc)
 	{
 		Tr->setPos(Krochi::getPlayerPos() + Vector2(7,320)); // Treasure_show 애니메이션 위치

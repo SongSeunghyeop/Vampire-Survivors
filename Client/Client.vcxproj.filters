@@ -271,13 +271,10 @@
       <Filter>Engine\GameObject\Skill</Filter>
     </ClInclude>
     <ClInclude Include="Book.h">
-      <Filter>리소스 파일\헤더 파일</Filter>
+      <Filter>Engine\GameObject\Skill</Filter>
     </ClInclude>
     <ClInclude Include="Book_Shadow.h">
-      <Filter>리소스 파일\헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Fire.h">
-      <Filter>리소스 파일\헤더 파일</Filter>
+      <Filter>Engine\GameObject\Skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -414,13 +411,10 @@
       <Filter>Engine\GameObject\Skill</Filter>
     </ClCompile>
     <ClCompile Include="Book.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Engine\GameObject\Skill</Filter>
     </ClCompile>
     <ClCompile Include="Book_Shadow.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Fire.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Engine\GameObject\Skill</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

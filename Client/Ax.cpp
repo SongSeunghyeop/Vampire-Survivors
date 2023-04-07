@@ -8,7 +8,7 @@ namespace my
 		: mTime(0.0f)
 		, effect_Time(0.0f)
 	{
-		this->setName(L"Ax&Book");
+		this->setName(L"Skill2");
 		bullet_vel = 250.0f;
 
 	}

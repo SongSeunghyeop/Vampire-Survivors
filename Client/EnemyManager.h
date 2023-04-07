@@ -25,7 +25,7 @@ namespace my
 	private:
 		float Enemy_Time;
 		Vector2 RandPos;
-
+		int Init_Num;
 		Enemy* enemy;
 	};
 }

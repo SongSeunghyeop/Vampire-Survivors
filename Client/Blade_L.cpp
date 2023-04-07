@@ -4,7 +4,7 @@ namespace my
 {
 	Blade_L::Blade_L()
 	{
-		this->setName(L"Skill");
+		this->setName(L"Blade");
 	}
 
 	void Blade_L::Initialize()
@@ -12,7 +12,7 @@ namespace my
 		Skill_L = ResourceManager::Load<Image>(L"Skill_L", L"..\\Resources\\Blade_All5_Red.bmp");
 
 		Blade_Tr = GetComponent<Transform>();
-		Blade_Tr->setScale(Vector2(1.7f, 3.5f));
+		Blade_Tr->setScale(Vector2(1.7f, 3.5f)); // 1.7 / 3.5
 
 		Blade_Collider = AddComponent<Collider>();
 		Blade_Collider->setCenter(Vector2(-69, -3));
