@@ -29,7 +29,7 @@ namespace my
 		Tr = GetComponent<Transform>();
 
 		Treasure_show = AddComponent<Animator>();
-		Treasure_show->CreateAnimations(L"..\\Resources\\Treasures\\Show", 0.075f);
+		Treasure_show->CreateAnimations(L"..\\Resources\\Treasures\\Show2", 0.075f);
 
 		//Items
 		Skills[0] = ResourceManager::Load<Image>(L"wind", L"..\\Resources\\wind.bmp");
@@ -102,7 +102,7 @@ namespace my
 
 	void LevelManager::Render(HDC hdc)
 	{
-		Tr->setPos(Krochi::getPlayerPos() + Vector2(5,335)); // Treasure_show 애니메이션 위치
+		Tr->setPos(Krochi::getPlayerPos() + Vector2(7,320)); // Treasure_show 애니메이션 위치
 
 		TransparentBlt(hdc, 152, 5, level_bar->GetWidth(), level_bar->GetHeight(),
 			level_bar->GetHdc(), 0, 0, level_bar->GetWidth(), level_bar->GetHeight(), RGB(255, 0, 255));
@@ -122,7 +122,7 @@ namespace my
 			TransparentBlt(hdc, 382, 60, Tresure_UI->GetWidth(), Tresure_UI->GetHeight(),
 				Tresure_UI->GetHdc(), 0, 0, Tresure_UI->GetWidth(), Tresure_UI->GetHeight(), RGB(255, 0, 255));
 
-			Treasure_show->Play_NO_RE(L"TreasuresShow", false);
+			Treasure_show->Play_NO_RE(L"TreasuresShow2", false);
 
 			if (Treasure_show->IsComplete())
 			{

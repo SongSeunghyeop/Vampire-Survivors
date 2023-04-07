@@ -12,10 +12,10 @@ namespace my
 		Damaged_Effect = ResourceManager::Load<Image>(L"Effect", L"..\\Resources\\effect_All.bmp");
 
 		EffectAnimator = AddComponent<Animator>();
-		EffectAnimator->CreateAnimation(L"Damaged_Effect", Damaged_Effect, Vector2::Zero, 3, 1, 3, 0.025f, 255, 0, 255);
+		EffectAnimator->CreateAnimation(L"Damaged_Effect", Damaged_Effect, Vector2::Zero, 3, 1, 3, 0.03f, 255, 0, 255);
   
 		EffectPos = GetComponent<Transform>();
-		EffectPos->setScale(2.0f, 2.0f);
+		EffectPos->setScale(2.2f, 2.2f);
 
 		EffectAnimator->Play(L"Damaged_Effect", false);
 	}

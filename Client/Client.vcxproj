@@ -106,10 +106,13 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(CoreLibraryDependencies);gdiplus.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -130,12 +133,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Blade_L.h" />
+    <ClInclude Include="Book.h" />
+    <ClInclude Include="Book_Shadow.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="EnemyManager.h" />
+    <ClInclude Include="Fire.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="Level_Item.h" />
     <ClInclude Include="Lightning.h" />
-    <ClInclude Include="myBullet.h" />
+    <ClInclude Include="Ax.h" />
     <ClInclude Include="myCamera.h" />
     <ClInclude Include="myObject.h" />
     <ClInclude Include="InGameUI.h" />
@@ -183,12 +189,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Blade_L.cpp" />
+    <ClCompile Include="Book.cpp" />
+    <ClCompile Include="Book_Shadow.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
+    <ClCompile Include="Fire.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="Level_Item.cpp" />
     <ClCompile Include="Lightning.cpp" />
-    <ClCompile Include="myBullet.cpp" />
+    <ClCompile Include="Ax.cpp" />
     <ClCompile Include="myCamera.cpp" />
     <ClCompile Include="InGameUI.cpp" />
     <ClCompile Include="Blade_R.cpp" />

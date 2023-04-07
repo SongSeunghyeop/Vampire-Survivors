@@ -16,7 +16,6 @@ namespace my
 	{
 		Enemy_Create();
 		Enemy_Create();
-		Enemy_Create();
 
 		GameObject::Initialize();
 	}
@@ -49,7 +48,7 @@ namespace my
 	}
 	void EnemyManager::Enemy_Create()
 	{
-		for (int i = 0; i < 13; i++) 
+		for (int i = 0; i < 12; i++) 
 		{
 			RandPos.x = rand() % 1440 - 720;  // -720 ~ 720
 			RandPos.y = rand() % 880 - 440; //  -440 ~ 440

@@ -18,6 +18,8 @@ namespace my
 	class Blade_R;
 	class Lightning;
 	class Radar;
+	class Ax;
+	class Book;
 
 	class Krochi_after;
 	class Krochi : public GameObject
@@ -72,8 +74,10 @@ namespace my
 		static float Power;
 		static int Blade_Power;
 		static int Light_Power;
+		static int Books_Power;
 		static float Blade_Time;
 		static float Light_Time;
+		static float Books_Time;
 
 		Animator* playerAnimator;
 
@@ -84,6 +88,13 @@ namespace my
 
 		Blade_R *bladeR;
 		Blade_L *bladeL;
+
+		Ax* ax;
+		Book* book1;
+		Book* book2;
+		Book* book3;
+		Book* book4;
+		Book* book5;
 
 		Radar* radar;
 
@@ -99,6 +110,7 @@ namespace my
 		// --- Skill
 		void Blade();
 		void Light();
+		void Books();
 
 		int EnemyIndex[200] = { 0 };
 		int EnemyNum;

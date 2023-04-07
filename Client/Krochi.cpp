@@ -5,6 +5,8 @@
 #include "Radar.h"
 #include "Krochi_after.h"
 #include "Lightning.h"
+#include "Ax.h"
+#include "Book.h"
 #include "LevelManager.h"
 
 #pragma comment(lib, "msimg32.lib")
@@ -22,10 +24,12 @@ namespace my
 	float Krochi::vel;
 	float Krochi::Blade_Time;
 	float Krochi::Light_Time;
+	float Krochi::Books_Time;
 	float Krochi::Power;
 	int    Krochi::level;
 	int    Krochi::Blade_Power;
 	int    Krochi::Light_Power;
+	int    Krochi::Books_Power;
 
 	Krochi::Krochi()
 	{
@@ -34,12 +38,14 @@ namespace my
 		Krochi::Hp = 112.0f;
 		Krochi::Exp = 0.0f; // max = 1126.0f
 		Krochi::level = 1;
-		Krochi::Monster_Exp = 240;
-		Krochi::vel = 140.0f;
+		Krochi::Monster_Exp = 250;
+		Krochi::vel = 150.0f;
 		Krochi::Blade_Time = 0.0f;
 		Krochi::Light_Time = 0.0f;
-		Krochi::Blade_Power = 50;
-		Krochi::Light_Power = 90;
+		Krochi::Books_Time = 0.0f;
+		Krochi::Blade_Power = 60;
+		Krochi::Light_Power = 95;
+		Krochi::Books_Power = 40;
 		Krochi::Power = 0;
 	}
 	Krochi::~Krochi()
@@ -113,13 +119,16 @@ namespace my
 		{
 		case my::Krochi::eSkillState::Skill_On:
 		{
-			Blade();
+			Books();
 
-			if(Krochi::Light_Power >= 95)
+			if(Krochi::Light_Power >= 100)
 				Light();
+			if (Krochi::Blade_Power >= 65)
+				Blade();
 
 			Krochi::Blade_Time += Time::getDeltaTime();
 			Krochi::Light_Time += Time::getDeltaTime();
+			Krochi::Books_Time += Time::getDeltaTime();
 		}
 			break;
 		case my::Krochi::eSkillState::Skill_Off:
@@ -221,7 +230,7 @@ namespace my
 
 	void Krochi::Damaged(ePlayerState state)
 	{
-		Hp -= Time::getDeltaTime() * 4.0f;
+		Hp -= Time::getDeltaTime() * 4.5f;
 
 		if (state == ePlayerState::Idle)
 		{
@@ -252,29 +261,67 @@ namespace my
 		LevelManager::Show_on = true;
 	}
 
+	void Krochi::Books()
+	{
+		Krochi::Power = Krochi::Books_Power;
+
+		if (Krochi::Books_Time > 6.0f)
+		{
+			book1 = object::Instantiate<Book>(Krochi::Playerpos, eLayerType::SKILL);
+			book1->setR(0);
+			book2 = object::Instantiate<Book>(Krochi::Playerpos, eLayerType::SKILL);
+			book2->setR(72);
+			book3 = object::Instantiate<Book>(Krochi::Playerpos, eLayerType::SKILL);
+			book3->setR(144);
+			book4 = object::Instantiate<Book>(Krochi::Playerpos, eLayerType::SKILL);
+			book4->setR(216);
+			book5 = object::Instantiate<Book>(Krochi::Playerpos, eLayerType::SKILL);
+			book5->setR(288);
+
+			Krochi::Books_Time = 0.0f;
+		}
+	}
+
 	void Krochi::Blade()
 	{
-		if (Krochi::Blade_Time > 3.0f)
+		if (Krochi::Blade_Time > 4.5f)
 		{
 			Krochi::Power = Krochi::Blade_Power;
-
+			
 			bladeR = object::Instantiate<Blade_R>(Krochi::Playerpos + Vector2(34.0f, -35.0f), eLayerType::SKILL);
 			bladeL = object::Instantiate<Blade_L>(Krochi::Playerpos + Vector2(-110.0f, -35.0f), eLayerType::SKILL);
+
+			//ax = object::Instantiate<Ax>(Krochi::Playerpos, eLayerType::SKILL);
+			//ax->setR(0);
+			//ax = object::Instantiate<Ax>(Krochi::Playerpos, eLayerType::SKILL);
+			//ax->setR(45);
+			//ax = object::Instantiate<Ax>(Krochi::Playerpos, eLayerType::SKILL);
+			//ax->setR(90);
+			//ax = object::Instantiate<Ax>(Krochi::Playerpos, eLayerType::SKILL);
+			//ax->setR(135);
+			//ax = object::Instantiate<Ax>(Krochi::Playerpos, eLayerType::SKILL);
+			//ax->setR(180);
+			//ax = object::Instantiate<Ax>(Krochi::Playerpos, eLayerType::SKILL);
+			//ax->setR(225);
+			//ax = object::Instantiate<Ax>(Krochi::Playerpos, eLayerType::SKILL);
+			//ax->setR(270);
+			//ax = object::Instantiate<Ax>(Krochi::Playerpos, eLayerType::SKILL);
+			//ax->setR(315);
 			Krochi::Blade_Time = 0.0f;
 		}
 	}
 	void Krochi::Light()
 	{
-		if (Krochi::Light_Power >= 95)
-			LightNum = 2;
 		if (Krochi::Light_Power >= 100)
-			LightNum = 3;
+			LightNum = 1;
 		if (Krochi::Light_Power >= 105)
-			LightNum = 4;
+			LightNum = 2;
 		if (Krochi::Light_Power >= 110)
-			LightNum = 5;
+			LightNum = 3;
 		if (Krochi::Light_Power >= 115)
-			LightNum = 6;
+			LightNum = 4;
+		if (Krochi::Light_Power >= 120)
+			LightNum = 5;
 
 		if (Krochi::Light_Time > 4.5f)
 		{ // 해시 테이블 활용
@@ -314,8 +361,8 @@ namespace my
 
 			if (Exp > 1126.0f)
 			{
-				Exp = -200.0f;
-				Monster_Exp /= 1.2f;
+				Exp = 0.0f;
+				Monster_Exp /= 1.3f;
 				++Krochi::level;
 
 				mState = ePlayerState::LevelUP;

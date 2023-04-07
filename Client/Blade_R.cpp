@@ -27,6 +27,7 @@ namespace my
 	}
 	void Blade_R::Update()
 	{
+		//Blade_Tr->setPos(Krochi::getPlayerPos() + Vector2(34.0f, -35.0f));
 		GameObject::Update();
 	}
 

@@ -1,17 +1,21 @@
 #pragma once
 #include "myGameObject.h"
 #include "myResourceManager.h"
+#include "myTransform.h"
 #include "myInput.h"
 #include "myImage.h"
 #include "myCollider.h"
+#include "myAnimator.h"
 
 namespace my
 {
-	class BaseBullet : public GameObject
+	class Book_Shadow;
+
+	class Book : public GameObject
 	{
 	public:
-		BaseBullet();
-		~BaseBullet();
+		Book();
+		~Book();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
@@ -21,16 +25,24 @@ namespace my
 		void onCollisionEnter(Collider* other);
 		void onCollisionStay(Collider* other);
 		void onCollisionExit(Collider* other);
+
+		void setR(int r) { R = r; }
 	private:
-		Vector2 bulletPos;
+		Vector2 bookPos;
 		Vector2 EnemyPos;
 
-		int R;
-		bool BulletColl;
+		float R;
 		float mTime;
 		float effect_Time;
+		float bullet_vel;
 
-		Image* Bullet;
-		Image* D_effect;
+		Image* book_Image;
+
+		Animator* Ax_Animator;
+
+		Vector2 dir;
+		Vector2 rotation;
+
+		Book_Shadow* shadow;
 	};
 }

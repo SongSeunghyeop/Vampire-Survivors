@@ -22,7 +22,7 @@ namespace my
 
 		lightning_Collider = AddComponent<Collider>();
 		lightning_Collider->setCenter(Vector2(-15, 169));
-		lightning_Collider->setSize(Vector2(50, 50));
+		lightning_Collider->setSize(Vector2(60, 60));
 		lightning_Collider->setRGB(0, 255, 0);
 
 	}

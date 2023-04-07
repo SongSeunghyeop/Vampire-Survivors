@@ -234,9 +234,6 @@
     <ClInclude Include="myCamera.h">
       <Filter>Engine\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="myBullet.h">
-      <Filter>Engine\GameObject\Bullet</Filter>
-    </ClInclude>
     <ClInclude Include="LevelManager.h">
       <Filter>Engine\GameObject\Objects\UI</Filter>
     </ClInclude>
@@ -269,6 +266,18 @@
     </ClInclude>
     <ClInclude Include="Level_Item.h">
       <Filter>Engine\GameObject\Objects\Drop_Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Ax.h">
+      <Filter>Engine\GameObject\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Book.h">
+      <Filter>리소스 파일\헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Book_Shadow.h">
+      <Filter>리소스 파일\헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Fire.h">
+      <Filter>리소스 파일\헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -368,9 +377,6 @@
     <ClCompile Include="myCamera.cpp">
       <Filter>Engine\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="myBullet.cpp">
-      <Filter>Engine\GameObject\Bullet</Filter>
-    </ClCompile>
     <ClCompile Include="LevelManager.cpp">
       <Filter>Engine\GameObject\Objects\UI</Filter>
     </ClCompile>
@@ -403,6 +409,18 @@
     </ClCompile>
     <ClCompile Include="Level_Item.cpp">
       <Filter>Engine\GameObject\Objects\Drop_Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Ax.cpp">
+      <Filter>Engine\GameObject\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Book.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Book_Shadow.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Fire.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

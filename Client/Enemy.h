@@ -19,6 +19,7 @@ namespace my
 			None,
 			Move,
 			Back_Move,
+			Slow,
 		};
 		enum class eEnemyType
 		{
@@ -36,16 +37,17 @@ namespace my
 		virtual void Render(HDC hdc);
 		virtual void Release();
 
-		void Move();
-		void Back_Move();
-		void Death();
-		void None() {};
+		void move();
+		void death();
+		void back_move();
+		void slow();
+		void none() {};
 
 		virtual void onCollisionEnter(class Collider* other) override;
 		virtual void onCollisionExit(class Collider* other) override;
 		virtual void onCollisionStay(class Collider* other) override;
 		
-		Transform* getEnemyPos() { return EnemyPos; }
+		Transform* getEnemyPos() { return Enemy_TR; }
 
 	private:
 		eEnemyState eState;
@@ -53,8 +55,9 @@ namespace my
 		Animator* EnemyAnimator;
 		Collider* EnemyCollider;
 
-		Transform* EnemyPos;
+		Transform* Enemy_TR;
 		Vector2 movePos;
+		Vector2 prevPos;
 		Vector2 Ppos;
 
 		Enemy *otherEnemy;
@@ -67,6 +70,8 @@ namespace my
 		Image* EnemyL_Img;
 		Image* Damaged_R;
 		Image* Damaged_L;
+		Image* zDamaged_R;
+		Image* zDamaged_L;
 		Image* Die_R;
 		Image* Die_L;
 
@@ -80,6 +85,8 @@ namespace my
 		float delay = 0.0f;
 		static bool Finded;
 		float Enemy_vel;
+		float vel_type1;
+		float vel_type2;
 		Vector2 Init_Pos;
 
 		friend class EnemyManager;

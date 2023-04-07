@@ -47,6 +47,7 @@ namespace my
 		CollisionManager::setLayer(eLayerType::PLAYER, eLayerType::ITEMS, true);
 		CollisionManager::setLayer(eLayerType::RADAR, eLayerType::ENEMY, true);
 		CollisionManager::setLayer(eLayerType::RADAR, eLayerType::ITEMS, true);
+		CollisionManager::setLayer(eLayerType::RADAR, eLayerType::SKILL, true);
 	}
 	void PlayScene::OnExit()
 	{

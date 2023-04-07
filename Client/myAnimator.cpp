@@ -125,7 +125,7 @@ namespace my
 				, width * index + centerX
 				, 0 + centerY
 				, image->GetWidth() , image->GetHeight() 
-				, image->GetHdc(), 0, 0, image->GetWidth(), image->GetHeight(), SRCCOPY);
+				, image->GetHdc(), 0, 0, image->GetWidth(), image->GetHeight() - 30, SRCCOPY);
 
 			index++;
 		}

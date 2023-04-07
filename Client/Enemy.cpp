@@ -12,6 +12,8 @@ namespace my
 	Enemy::Enemy()
 	{
 		Entity::setName(L"Enemy");
+		vel_type1 = 100.0f;
+		vel_type2 = 120.0f;
 	}
 	Enemy::~Enemy()
 	{
@@ -24,6 +26,8 @@ namespace my
 		EnemyL_Img = ResourceManager::Load<Image>(L"EnemyL", L"..\\Resources\\Fly_L_All.bmp");
 		Damaged_R = ResourceManager::Load<Image>(L"Damaged_R", L"..\\Resources\\Damaged_R.bmp");
 		Damaged_L = ResourceManager::Load<Image>(L"Damaged_L", L"..\\Resources\\Damaged_L.bmp");
+		zDamaged_R = ResourceManager::Load<Image>(L"zDamaged_R", L"..\\Resources\\Zombie_Damaged_R.bmp");
+		zDamaged_L = ResourceManager::Load<Image>(L"zDamaged_L", L"..\\Resources\\Zombie_Damaged_L.bmp");
 		Die_R = ResourceManager::Load<Image>(L"fly_Die_R", L"..\\Resources\\fly_Die_R.bmp");
 		Die_L = ResourceManager::Load<Image>(L"fly_Die_L", L"..\\Resources\\fly_Die_L.bmp");
 		//
@@ -42,11 +46,11 @@ namespace my
 		EnemyAnimator->CreateAnimation(L"Idle_R", EnemyL_Img, Vector2::Zero, 2, 1, 1, 0.5f, 255, 0, 255);
 		EnemyAnimator->CreateAnimation(L"Idle_L", EnemyL_Img, Vector2::Zero, 2, 1, 1, 0.5f, 255, 0, 255);
 
-		EnemyAnimator->CreateAnimation(L"Damaged_R", Damaged_R, Vector2::Zero, 2, 1, 2, 0.1f, 255, 0, 255);
-		EnemyAnimator->CreateAnimation(L"Damaged_L", Damaged_L, Vector2::Zero, 2, 1, 2, 0.1f, 255, 0, 255);
+		EnemyAnimator->CreateAnimation(L"Damaged_R", Damaged_R, Vector2::Zero, 2, 1, 1, 0.15f, 255, 0, 255);
+		EnemyAnimator->CreateAnimation(L"Damaged_L", Damaged_L, Vector2::Zero, 2, 1, 1, 0.15f, 255, 0, 255);
 
-		EnemyAnimator->CreateAnimation(L"fly_Die_R", Die_R, Vector2::Zero, 3, 1, 3, 0.12f, 255, 0, 255);
-		EnemyAnimator->CreateAnimation(L"fly_Die_L", Die_L, Vector2::Zero, 3, 1, 3, 0.12f, 255, 0, 255);
+		EnemyAnimator->CreateAnimation(L"fly_Die_R", Die_R, Vector2::Zero, 3, 1, 3, 0.1f, 255, 0, 255);
+		EnemyAnimator->CreateAnimation(L"fly_Die_L", Die_L, Vector2::Zero, 3, 1, 3, 0.1f, 255, 0, 255);
 		//
 		// ----- Zombie
 		EnemyAnimator->CreateAnimation(L"Zombie_MoveR", Zombie_R, Vector2::Zero, 2, 1, 2, 0.5f, 255, 0, 255);
@@ -55,10 +59,13 @@ namespace my
 		EnemyAnimator->CreateAnimation(L"Zombie_IdleR", Zombie_R, Vector2::Zero, 2, 1, 1, 0.5f, 255, 0, 255);
 		EnemyAnimator->CreateAnimation(L"Zombie_IdleL", Zombie_L, Vector2::Zero, 2, 1, 1, 0.5f, 255, 0, 255);
 
-		EnemyAnimator->CreateAnimation(L"Zombie_DieR", Zombie_Die_R, Vector2::Zero, 3, 1, 3, 0.12f, 255, 0, 255);
-		EnemyAnimator->CreateAnimation(L"Zombie_DieL", Zombie_Die_L, Vector2::Zero, 3, 1, 3, 0.12f, 255, 0, 255);
+		EnemyAnimator->CreateAnimation(L"zDamaged_R", zDamaged_R, Vector2::Zero, 2, 1, 1, 0.15f, 255, 0, 255);
+		EnemyAnimator->CreateAnimation(L"zDamaged_L", zDamaged_L, Vector2::Zero, 2, 1, 1, 0.15f, 255, 0, 255);
+
+		EnemyAnimator->CreateAnimation(L"Zombie_DieR", Zombie_Die_R, Vector2::Zero, 3, 1, 3, 0.1f, 255, 0, 255);
+		EnemyAnimator->CreateAnimation(L"Zombie_DieL", Zombie_Die_L, Vector2::Zero, 3, 1, 3, 0.1f, 255, 0, 255);
 		//
-		EnemyPos = GetComponent<Transform>();
+		Enemy_TR = GetComponent<Transform>();
 		EnemyCollider = AddComponent<Collider>();
 		EnemyCollider->setRGB(0, 255, 0);
 
@@ -81,9 +88,9 @@ namespace my
 		case(eEnemyType::BLACK):
 		{
 			EnemyAnimator->Play(L"RightWalk", true);
-			monster_hp = 100;
-			Enemy_vel =  85.0f;
-			EnemyPos->setScale(Vector2(2.4f, 2.4f));
+			monster_hp = 70;
+			Enemy_vel = vel_type1;
+			Enemy_TR->setScale(Vector2(2.4f, 2.4f));
 			EnemyCollider->setCenter(Vector2(-7, -10));
 			EnemyCollider->setSize(Vector2(50, 28)); // 50,28
 		}
@@ -91,9 +98,9 @@ namespace my
 		case(eEnemyType::ZOMBIE):
 		{
 			EnemyAnimator->Play(L"Zombie_MoveR", true);
-			monster_hp = 120;
-			Enemy_vel = 105.0f;
-			EnemyPos->setScale(Vector2(2.0f, 2.0f));
+			monster_hp = 100;
+			Enemy_vel = vel_type2;
+			Enemy_TR->setScale(Vector2(2.0f, 2.0f));
 			EnemyCollider->setCenter(Vector2(-10, -22));
 			EnemyCollider->setSize(Vector2(47,55)); // 50,70
 		}
@@ -106,38 +113,36 @@ namespace my
 	}
 	void Enemy::Update()
 	{
-		EnemyPos = GetComponent<Transform>();
-		Ppos.x = Krochi::getPlayerPos().x;
-		Ppos.y = Krochi::getPlayerPos().y;
+		Enemy_TR = GetComponent<Transform>();
+		Ppos = Krochi::getPlayerPos(); 
 		EnemyCollider->setRGB(0, 255, 0);
-		movePos = EnemyPos->getPos();
-
-		if (monster_hp <= 0)
-			eState = eEnemyState::Death;
-
+		prevPos = Enemy_TR->getPos();
+		movePos = prevPos;
 		switch (eState)
 		{
 		case (eEnemyState::Move):
-			Move();
+			move();
 			break;
 		case (eEnemyState::Back_Move):
-			Back_Move();
+			back_move();
+			break;
+		case (eEnemyState::Slow):
+			slow();
 			break;
 		case (eEnemyState::Death):
-			Death();
+			death();
 			break;
 		case(eEnemyState::None):
-			None();
+			none();
 			break;
 		}
-
-		EnemyPos->setPos(movePos);
+		Enemy_TR->setPos(movePos);
 
 		Distance =
 			std::abs(Ppos.x - movePos.x) + std::abs(Ppos.y - movePos.y);
 
 		if (Distance > 3000) // 플레이어와의 거리가 멀어진다면, 위치를 가까이 옮겨줌
-			EnemyPos->setPos(Krochi::getPlayerPos() + Init_Pos);
+			Enemy_TR->setPos(Krochi::getPlayerPos() + Init_Pos);
 
 		GameObject::Update();
 	}
@@ -150,68 +155,79 @@ namespace my
 		GameObject::Release();
 	}
 
-	void Enemy::Move()
+	void Enemy::move()
 	{
 		if (Enemy::Finded)
 		{
-			movePos += (Ppos - EnemyPos->getPos()).Normalize() * Enemy_vel * Time::getDeltaTime();
+			movePos += (Ppos - Enemy_TR->getPos()).Normalize() * Enemy_vel * Time::getDeltaTime();
 
-			if (Ppos.x > movePos.x)
+			if (Ppos.x - 5 > movePos.x)
 			{ 
-				//movePos.x += Enemy_vel * Time::getDeltaTime();
-
 				if(eType == eEnemyType::BLACK)
 					EnemyAnimator->Play_NO_RE(L"RightWalk", true);
 				if(eType == eEnemyType::ZOMBIE)
 					EnemyAnimator->Play_NO_RE(L"Zombie_MoveR", true);
 			}	
 
-			if (Ppos.x < movePos.x)
+			if (Ppos.x + 5 < movePos.x)
 			{
-				//movePos.x -= Enemy_vel * Time::getDeltaTime();
-
 				if (eType == eEnemyType::BLACK)
 					EnemyAnimator->Play_NO_RE(L"LeftWalk", true);
 
 				if (eType == eEnemyType::ZOMBIE)
 					EnemyAnimator->Play_NO_RE(L"Zombie_MoveL", true);
 			}
-
-			/*
-			if (Ppos.y > movePos.y)
-			{
-				movePos.y += Enemy_vel * Time::getDeltaTime();
-			}
-			if (Ppos.y < movePos.y)
-			{
-				movePos.y -= Enemy_vel * Time::getDeltaTime();
-			}*/
 		}
 	}
 
-	void Enemy::Back_Move()
+	void Enemy::slow()
 	{
 		delay += Time::getDeltaTime();
 
-		if (delay >= 0.4f)
+		if (delay >= 0.2f)
 		{
 			delay = 0.0f;
-			eState = eEnemyState::Move;
-		}
-	
-		float vel = 5.0f;
 
-		if (Ppos.y < movePos.y)
-			movePos.y += vel * Time::getDeltaTime();
-		if (Ppos.x > movePos.x)
-			movePos.x -= vel * Time::getDeltaTime();
-		if (Ppos.x < movePos.x)
-			movePos.x += vel * Time::getDeltaTime();
-		if (Ppos.y > movePos.y)
-			movePos.y -= vel * Time::getDeltaTime();
+			if (monster_hp <= 0)
+				eState = eEnemyState::Death;
+			else
+				eState = eEnemyState::Move;
+		}
+		movePos = prevPos;
 	}
 
-	void Enemy::Death()
+	void Enemy::back_move()
+	{
+		delay += Time::getDeltaTime();
+
+		float vel = -200.0f;
+		movePos += (Ppos - Enemy_TR->getPos()).Normalize() * vel * Time::getDeltaTime();
+
+		
+		if (Ppos.x - 5 > movePos.x)
+		{
+			if (eType == eEnemyType::BLACK)
+				EnemyAnimator->Play_NO_RE(L"Damaged_R", true);
+			if(eType == eEnemyType::ZOMBIE)
+				EnemyAnimator->Play_NO_RE(L"zDamaged_R", true);
+		}
+		if (Ppos.x + 5 < movePos.x)
+		{
+			if (eType == eEnemyType::BLACK)
+				EnemyAnimator->Play_NO_RE(L"Damaged_L", true);
+			if (eType == eEnemyType::ZOMBIE)
+				EnemyAnimator->Play_NO_RE(L"zDamaged_L", true);
+		}
+
+		if (delay >= 0.15f)
+		{
+			if (monster_hp <= 0)
+				eState = eEnemyState::Death;
+			else
+				eState = eEnemyState::Move;
+		}
+	}
+	void Enemy::death()
 	{
 		if (Ppos.x > movePos.x)
 		{
@@ -231,7 +247,7 @@ namespace my
 		if (EnemyAnimator->IsComplete())
 		{
 			lv_Item = object::Instantiate<Level_Item>
-				(EnemyPos->getPos(), eLayerType::ITEMS);
+				(Enemy_TR->getPos(), eLayerType::ITEMS);
 			object::Destory(this);
 		}
 	}
@@ -243,34 +259,56 @@ namespace my
 			EnemyCollider->setRGB(255, 0, 0);
 			otherEnemy = dynamic_cast<Enemy*>(other->getOwner());
 
-			if (otherEnemy->Distance < this->Distance)
-				this->eState = eEnemyState::Back_Move;
+			eState = eEnemyState::Slow;
+		}
+		if (other->getOwner()->getName() == L"Ax&Book")
+		{
+			EnemyCollider->setRGB(255, 0, 0);
+
+			mEffect = object::Instantiate<Effect>
+				(Enemy_TR->getPos() + Vector2(3.0f, 0.0f), eLayerType::EFFECT);
+
+			this->eState = eEnemyState::Back_Move;
+			monster_hp -= Krochi::getPlayerPower();
 		}
 	}
+
 	void Enemy::onCollisionStay(Collider* other)
 	{
+		if (other->getOwner()->getName() == L"Player")
+		{
+			Enemy_vel = 0.0f;
+		}
 		if (other->getOwner()->getName() == L"Radar")
 		{
 			Enemy::Finded = true;
 		}
 		if (other->getOwner()->getName() == L"Skill")
 		{
-			eState = eEnemyState::Back_Move;
 			EnemyCollider->setRGB(255, 0, 0);
+
 			if (other->getOwner()->getState() == GameObject::eState::Death)
 			{
-				monster_hp -= Krochi::getPlayerPower();
-
 				mEffect = object::Instantiate<Effect>
-					(EnemyPos->getPos() + Vector2(3.0f, 0.0f), eLayerType::EFFECT);
+					(Enemy_TR->getPos() + Vector2(3.0f, 0.0f), eLayerType::EFFECT);
+				this->eState = eEnemyState::Back_Move;
+				monster_hp -= Krochi::getPlayerPower();
 			}
 		}
 	}
+
 	void Enemy::onCollisionExit(Collider* other)
 	{
 		if (other->getOwner()->getName() == L"Radar")
 		{
 			Enemy::Finded = false;
+		}
+		if (other->getOwner()->getName() == L"Player")
+		{
+			if (eType == eEnemyType::BLACK)
+				Enemy_vel = vel_type1;
+			if (eType == eEnemyType::ZOMBIE)
+				Enemy_vel = vel_type2;
 		}
 	}
 }
