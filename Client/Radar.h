@@ -1,6 +1,7 @@
 #pragma once
 #include "Krochi.h"
 #include "Enemy.h"
+#include "Boss.h"
 #include "Treasure.h"
 
 namespace my

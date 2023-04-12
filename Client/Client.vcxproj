@@ -132,15 +132,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Boss.h" />
+    <ClInclude Include="Boss_After.h" />
+    <ClInclude Include="Boss_Skill.h" />
+    <ClInclude Include="chicken.h" />
+    <ClInclude Include="Cross.h" />
     <ClInclude Include="Blade_L.h" />
     <ClInclude Include="Book.h" />
     <ClInclude Include="Book_Shadow.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="EnemyManager.h" />
-    <ClInclude Include="LevelManager.h" />
+    <ClInclude Include="Effect2.h" />
+    <ClInclude Include="GameOver.h" />
+    <ClInclude Include="myEndingScene.h" />
+    <ClInclude Include="PlayerManager.h" />
     <ClInclude Include="Level_Item.h" />
     <ClInclude Include="Lightning.h" />
-    <ClInclude Include="Ax.h" />
+    <ClInclude Include="Ax2.h" />
     <ClInclude Include="myCamera.h" />
     <ClInclude Include="myObject.h" />
     <ClInclude Include="InGameUI.h" />
@@ -187,15 +195,23 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="Boss_After.cpp" />
+    <ClCompile Include="Boss_Skill.cpp" />
+    <ClCompile Include="chicken.cpp" />
+    <ClCompile Include="Cross.cpp" />
     <ClCompile Include="Blade_L.cpp" />
     <ClCompile Include="Book.cpp" />
     <ClCompile Include="Book_Shadow.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
-    <ClCompile Include="LevelManager.cpp" />
+    <ClCompile Include="Effect2.cpp" />
+    <ClCompile Include="GameOver.cpp" />
+    <ClCompile Include="myEndingScene.cpp" />
+    <ClCompile Include="PlayerManager.cpp" />
     <ClCompile Include="Level_Item.cpp" />
     <ClCompile Include="Lightning.cpp" />
-    <ClCompile Include="Ax.cpp" />
+    <ClCompile Include="Ax2.cpp" />
     <ClCompile Include="myCamera.cpp" />
     <ClCompile Include="InGameUI.cpp" />
     <ClCompile Include="Blade_R.cpp" />

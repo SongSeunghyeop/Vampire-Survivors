@@ -1,12 +1,15 @@
 #include "EnemyManager.h"
-#include "LevelManager.h"
+#include "PlayerManager.h"
 #include "myPlayScene.h"
+
 namespace my
 {
+	bool EnemyManager::Boss_on;
+
 	EnemyManager::EnemyManager()
 	{
 		Enemy_Time = 0.0f;
-		Init_Num = 15;
+		Init_Num = 10;
 	}
 	EnemyManager::~EnemyManager()
 	{
@@ -21,12 +24,7 @@ namespace my
 	}
 	void EnemyManager::Update()
 	{
-	
-		if (LevelManager::Level_Up)
-		{
-			
-		}
-		if (!LevelManager::Level_Up && !LevelManager::Show_on)
+		if (!PlayerManager::Level_Up && !PlayerManager::Show_on && !Boss_on)
 		{
 			Enemy_Time += Time::getDeltaTime();
 		}
@@ -34,6 +32,7 @@ namespace my
 		if (Enemy_Time >= 10.0f)
 		{
 			Enemy_Create();
+
 			Init_Num+= 4;
 			Enemy_Time = 0.0f;
 		}
@@ -72,15 +71,27 @@ namespace my
 				enemy->eType = Enemy::eEnemyType::BLACK;
 			else if(i < 60)
 				enemy->eType = Enemy::eEnemyType::ZOMBIE;
-			else
+			else if(i < 99)
 				enemy->eType = Enemy::eEnemyType::SKULL;
 
 			int random = rand() % 10;// 0~9;
+			if(random > 1) enemy->Finded = true;
 
-			if(random > 1)
-				enemy->Finded = true;
+			if(i == 0 && random < 2)
+				enemy->eType = Enemy::eEnemyType::CANDLE;
 
 			enemy->Initialize();
+
+			if (i == 100) // 보스 출현 // i == 100이면 정확히 4분
+			{
+				Boss_on = true; // 몬스터 생성 중단, 모든 몬스터 사망
+
+				boss = new Boss();
+				Scene* scene = SceneManager::getActiveScene();
+				scene->AddGameObj(boss, eLayerType::ENEMY);
+				boss->GameObject::GetComponent<Transform>()->setPos(Krochi::getPlayerPos() + RandPos);
+				boss->Initialize();
+			}
 		}
 	}
 }

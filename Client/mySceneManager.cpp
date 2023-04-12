@@ -4,7 +4,7 @@
 #include "myToolScene.h"
 #include "InGameUI.h"
 #include "myPlayScene.h"
-
+#include "myEndingScene.h"
 namespace my 
 {
 	std::vector<Scene*> SceneManager::mScenes = {};
@@ -19,12 +19,14 @@ namespace my
 		mScenes[(UINT)eSceneType::Play] = new PlayScene(); 
 		mScenes[(UINT)eSceneType::Option] = new Option(); 
 		mScenes[(UINT)eSceneType::Tool] = new ToolScene();
+		mScenes[(UINT)eSceneType::Ending] = new EndingScene();
 
 		mScenes[(UINT)eSceneType::Intro]->setName(L"INTRO");
 		mScenes[(UINT)eSceneType::Title]->setName(L"TITLE");
 		mScenes[(UINT)eSceneType::Play]->setName(L"PLAY");
 		mScenes[(UINT)eSceneType::Option]->setName(L"OPTION");
 		mScenes[(UINT)eSceneType::Tool]->setName(L"TOOL");
+		mScenes[(UINT)eSceneType::Ending]->setName(L"ENDING");
 
 		for (Scene* scene : mScenes)
 		{

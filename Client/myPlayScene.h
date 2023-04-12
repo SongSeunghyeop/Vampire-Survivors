@@ -9,7 +9,7 @@
 #include "Krochi.h"
 #include "EnemyManager.h"
 #include "Field.h"
-#include "LevelManager.h"
+#include "PlayerManager.h"
 #include "Treasure.h"
 
 namespace my
@@ -28,13 +28,11 @@ namespace my
 		virtual void OnEnter();
 		virtual void OnExit();
 
-		static float Play_Time;
-
 	private:
 		Krochi* krochi;
 		Field* field;
 		EnemyManager* E_manager;
-		LevelManager* levelmanager;
+		PlayerManager* levelmanager;
 		Treasure* treasure;
 	};
 }

@@ -115,6 +115,12 @@
     <Filter Include="Engine\GameObject\Intro &amp; Title">
       <UniqueIdentifier>{5d03fc5f-bc30-4702-8d2b-0cfdb86fac59}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\Objects\Enemies\Boss">
+      <UniqueIdentifier>{da3e36a5-4a6f-4a45-beb6-0548c52444f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Objects\Players\Effect">
+      <UniqueIdentifier>{09b6aa0f-1ff7-413a-99bf-93c5c8e99eb4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -124,9 +130,6 @@
       <Filter>리소스 파일\헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
-      <Filter>리소스 파일\헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Client.h">
       <Filter>리소스 파일\헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="CommonInclude.h">
@@ -234,7 +237,7 @@
     <ClInclude Include="myCamera.h">
       <Filter>Engine\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="LevelManager.h">
+    <ClInclude Include="PlayerManager.h">
       <Filter>Engine\GameObject\Objects\UI</Filter>
     </ClInclude>
     <ClInclude Include="Blade_R.h">
@@ -267,7 +270,7 @@
     <ClInclude Include="Level_Item.h">
       <Filter>Engine\GameObject\Objects\Drop_Items</Filter>
     </ClInclude>
-    <ClInclude Include="Ax.h">
+    <ClInclude Include="Ax2.h">
       <Filter>Engine\GameObject\Skill</Filter>
     </ClInclude>
     <ClInclude Include="Book.h">
@@ -275,6 +278,33 @@
     </ClInclude>
     <ClInclude Include="Book_Shadow.h">
       <Filter>Engine\GameObject\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Cross.h">
+      <Filter>Engine\GameObject\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>Engine\GameObject\Objects\Enemies\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss_Skill.h">
+      <Filter>Engine\GameObject\Objects\Enemies\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect2.h">
+      <Filter>Engine\GameObject\Objects\Players\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss_After.h">
+      <Filter>Engine\GameObject\Objects\Enemies\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Client.h">
+      <Filter>리소스 파일\헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="chicken.h">
+      <Filter>Engine\GameObject\Objects\Drop_Items</Filter>
+    </ClInclude>
+    <ClInclude Include="myEndingScene.h">
+      <Filter>Engine\Scene\EndingScene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOver.h">
+      <Filter>Engine\Scene\EndingScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -374,7 +404,7 @@
     <ClCompile Include="myCamera.cpp">
       <Filter>Engine\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="LevelManager.cpp">
+    <ClCompile Include="PlayerManager.cpp">
       <Filter>Engine\GameObject\Objects\UI</Filter>
     </ClCompile>
     <ClCompile Include="Blade_R.cpp">
@@ -407,7 +437,7 @@
     <ClCompile Include="Level_Item.cpp">
       <Filter>Engine\GameObject\Objects\Drop_Items</Filter>
     </ClCompile>
-    <ClCompile Include="Ax.cpp">
+    <ClCompile Include="Ax2.cpp">
       <Filter>Engine\GameObject\Skill</Filter>
     </ClCompile>
     <ClCompile Include="Book.cpp">
@@ -415,6 +445,30 @@
     </ClCompile>
     <ClCompile Include="Book_Shadow.cpp">
       <Filter>Engine\GameObject\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Cross.cpp">
+      <Filter>Engine\GameObject\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>Engine\GameObject\Objects\Enemies\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss_Skill.cpp">
+      <Filter>Engine\GameObject\Objects\Enemies\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect2.cpp">
+      <Filter>Engine\GameObject\Objects\Players\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss_After.cpp">
+      <Filter>Engine\GameObject\Objects\Enemies\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="chicken.cpp">
+      <Filter>Engine\GameObject\Objects\Drop_Items</Filter>
+    </ClCompile>
+    <ClCompile Include="myEndingScene.cpp">
+      <Filter>Engine\Scene\EndingScene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOver.cpp">
+      <Filter>Engine\Scene\EndingScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

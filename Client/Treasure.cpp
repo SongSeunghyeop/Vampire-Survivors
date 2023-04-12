@@ -1,6 +1,4 @@
 #include "Treasure.h"
-#include "Krochi.h"
-#include "LevelManager.h"
 
 namespace my
 {
@@ -42,14 +40,5 @@ namespace my
 		{
 			object::Destory(this);
 		}
-	}
-
-	void Treasure::onCollisionStay(Collider* other)
-	{
-
-	}
-	void Treasure::onCollisionExit(Collider* other)
-	{
-
 	}
 }

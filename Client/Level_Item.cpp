@@ -1,5 +1,6 @@
 #include "Level_Item.h"
-
+#include "Effect2.h"
+#include "EnemyManager.h"
 
 namespace my
 {
@@ -12,7 +13,6 @@ namespace my
 		Item_Image = ResourceManager::Load<Image>(L"Level_Item", L"..\\Resources\\item1.bmp");
 		Item_TR = GetComponent<Transform>();
 
-
 		Item_Collider = AddComponent<Collider>();
 		Item_Collider->setSize(Vector2(15.0f,23.0f));
 		Item_Collider->setRGB(255, 0, 255);
@@ -20,6 +20,13 @@ namespace my
 	}
 	void Level_Item::Update()
 	{
+		if (EnemyManager::Boss_on)
+		{
+			Effect2 *effect = object::Instantiate<Effect2>
+				(Item_TR->getPos() + Vector2(3.0f, 0.0f), eLayerType::EFFECT);
+
+			object::Destory(this);
+		}
 		GameObject::Update();
 	}
 	void Level_Item::Render(HDC hdc)
@@ -39,14 +46,5 @@ namespace my
 		{
 			object::Destory(this);
 		}
-	}
-
-	void Level_Item::onCollisionStay(Collider* other)
-	{
-
-	}
-	void Level_Item::onCollisionExit(Collider* other)
-	{
-
 	}
 }

@@ -18,6 +18,7 @@ enum class eLayerType
 	ITEMS,
 	PLAYERAFTER,
 	PLAYER,
+	ENEMYAFTER,
 	ENEMY,
 	EFFECT,
 	SKILL,

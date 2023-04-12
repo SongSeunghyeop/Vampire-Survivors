@@ -14,12 +14,11 @@
 namespace my
 {
 	//Skills
-	class Blade_L;
-	class Blade_R;
 	class Lightning;
 	class Radar;
-	class Ax;
+	class Cross;
 	class Book;
+	class Effect2;
 
 	class Krochi_after;
 	class Krochi : public GameObject
@@ -60,15 +59,13 @@ namespace my
 				return Krochi::Light_Power;
 			if (p == L"Book")
 				return Krochi::Books_Power;
-			if(p == L"Blade")
-				return Krochi::Blade_Power;
+			if(p == L"Cross")
+				return Krochi::Cross_Power;
 		}
 		static ePlayerState getPlayerState() { return mState; }
-	
 	protected:
 		static ePlayerState mState;
 		static eSkillState skillState;
-
 		static bool Right_Dir;
 		static bool P_Damaged;
 		static Vector2 Playerpos;
@@ -81,15 +78,17 @@ namespace my
 		static int level;
 		static float vel;
 		static float Power_up;
-		static int Blade_Power;
+		static int Cross_Power;
 		static int Light_Power;
 		static int Books_Power;
-		static float Blade_Time;
+		static float Cross_Time;
 		static float Light_Time;
 		static float Books_Time;
 		static int bookNum;
 		static int LightNum;
+		static int CrossNum;
 		static float Armor;
+		static float recovery;
 		static float defaultTime;
 
 		Animator* playerAnimator;
@@ -98,11 +97,9 @@ namespace my
 		Image* playerImg_L;
 		Image* damaged_R;
 		Image* damaged_L;
+		Image* die_R;
+		Image* die_L;
 
-		Blade_R *bladeR;
-		Blade_L *bladeL;
-
-		Ax* ax;
 		Book* book1;
 
 		Radar* radar;
@@ -115,9 +112,10 @@ namespace my
 		void Damaged(ePlayerState mState);
 		void level_up(); 
 		void show_on();
+		void death();
 
 		// --- Skill
-		void Blade();
+		void cross_();
 		void Light();
 		void Books();
 
@@ -125,7 +123,7 @@ namespace my
 		int EnemyNum;
 		int randNum;
 
-		friend class LevelManager;
+		friend class PlayerManager;
 	};
 }
 

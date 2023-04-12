@@ -1,10 +1,9 @@
 #pragma once
 #include "Enemy.h"
 
-
 namespace my
 {
-	class Level_Item : public Enemy
+	class Level_Item : public GameObject
 	{
 	public:
 
@@ -15,8 +14,6 @@ namespace my
 		virtual void Render(HDC hdc);
 
 		virtual void onCollisionEnter(class Collider* other) override;
-		virtual void onCollisionExit(class Collider* other) override;
-		virtual void onCollisionStay(class Collider* other) override;
 
 	private:
 		Collider* Item_Collider;

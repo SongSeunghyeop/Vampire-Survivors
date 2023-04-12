@@ -68,7 +68,7 @@ namespace my
 	}
 	void Application::Render()
 	{
-		clear();
+		//clear();
 
 		Time::Render(backHdc);
 		Input::Render(backHdc);

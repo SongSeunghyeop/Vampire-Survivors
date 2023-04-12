@@ -1,5 +1,6 @@
 #pragma once
 #include "Enemy.h"
+#include "Boss.h"
 #include "MyGameObject.h"
 #include "Krochi.h"
 namespace my
@@ -22,11 +23,13 @@ namespace my
 		virtual void Render(HDC hdc);
 		virtual void Release();
 
+		static bool Boss_on;
 	private:
 		float Enemy_Time;
 		Vector2 RandPos;
 		int Init_Num;
 		Enemy* enemy;
+		Boss* boss;
 	};
 }
 

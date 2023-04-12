@@ -4,6 +4,8 @@
 #include "Effect.h"
 #include "myObject.h"
 #include "Level_Item.h"
+#include "EnemyManager.h"
+#include "chicken.h"
 
 namespace my
 {
@@ -43,8 +45,10 @@ namespace my
 		sDamaged_L = ResourceManager::Load<Image>(L"sDamaged_L", L"..\\Resources\\skull_Damaged_L.bmp");
 		Skull_Die_R = ResourceManager::Load<Image>(L"Skull_Die_R", L"..\\Resources\\skull_Die_R.bmp");
 		Skull_Die_L = ResourceManager::Load<Image>(L"Skull_Die_L", L"..\\Resources\\skull_Die_L.bmp");
-		// ----- Black_Fly
+		//
+		candle = ResourceManager::Load<Image>(L"Candle", L"..\\Resources\\candle.bmp");
 		EnemyAnimator = AddComponent<Animator>();
+		// ----- Black_Fly
 		EnemyAnimator->CreateAnimation(L"RightWalk", EnemyR_Img, Vector2::Zero, 2, 1, 2, 0.5f, 255, 0, 255);
 		EnemyAnimator->CreateAnimation(L"LeftWalk", EnemyL_Img, Vector2::Zero, 2, 1, 2, 0.5f, 255, 0, 255);
 
@@ -82,7 +86,10 @@ namespace my
 
 		EnemyAnimator->CreateAnimation(L"Skull_DieR", Skull_Die_R, Vector2::Zero, 3, 1, 3, 0.1f, 255, 0, 255);
 		EnemyAnimator->CreateAnimation(L"Skull_DieL", Skull_Die_L, Vector2::Zero, 3, 1, 3, 0.1f, 255, 0, 255);
-
+		//
+		// ----- Candle
+		EnemyAnimator->CreateAnimation(L"Candle", candle, Vector2::Zero, 1, 1, 1, 0.1f, 255, 0, 255);
+		//
 		Enemy_TR = GetComponent<Transform>();
 		EnemyCollider = AddComponent<Collider>();
 		EnemyCollider->setRGB(0, 255, 0);
@@ -118,6 +125,16 @@ namespace my
 			Enemy_TR->setScale(Vector2(2.7f, 2.7f));
 			EnemyCollider->setCenter(Vector2(-7, -27));
 			EnemyCollider->setSize(Vector2(60, 67)); // 50,70
+		}
+		break;
+		case(eEnemyType::CANDLE):
+		{
+			EnemyAnimator->Play(L"Candle", true);
+			monster_hp = 30;
+			Enemy_vel = 0;
+			Enemy_TR->setScale(Vector2(1.8f, 1.8f));
+			EnemyCollider->setCenter(Vector2(-9, -28));
+			EnemyCollider->setSize(Vector2(36, 53));
 		}
 		break;
 		}
@@ -159,6 +176,14 @@ namespace my
 
 		if (Distance > 1600) // 플레이어와의 거리가 멀어진다면, 위치를 가까이 옮겨줌
 			Enemy_TR->setPos(Krochi::getPlayerPos() + Init_Pos);
+
+		if (EnemyManager::Boss_on)
+		{
+			/*mEffect2 = object::Instantiate<Effect2>
+				(Enemy_TR->getPos() + Vector2(3.0f, 0.0f), eLayerType::EFFECT);*/
+
+			eState = eEnemyState::Death;
+		}
 
 		GameObject::Update();
 	}
@@ -205,23 +230,30 @@ namespace my
 		movePos = prevPos;
 		if (delay >= 0.2f)
 		{
-			delay = 0.0f;
-
 			if (monster_hp <= 0)
 				eState = eEnemyState::Death;
 			else
 				eState = eEnemyState::Move;
+
+			delay = 0.0f;
 		}
 	}
 
 	void Enemy::back_move()
 	{
+		if (eType == eEnemyType::CANDLE)
+		{
+			Chicken* chicken = object::Instantiate<Chicken>
+				(Enemy_TR->getPos(), eLayerType::ITEMS);
+
+			object::Destory(this);
+		}
+
 		delay += Time::getDeltaTime();
 
 		float vel = -240.0f;
 		movePos += (Ppos - Enemy_TR->getPos()).Normalize() * vel * Time::getDeltaTime();
 
-		
 		if (Ppos.x - 5 > movePos.x)
 		{
 			if (eType == eEnemyType::BLACK)
@@ -276,6 +308,7 @@ namespace my
 		{
 			lv_Item = object::Instantiate<Level_Item>
 				(Enemy_TR->getPos(), eLayerType::ITEMS);
+
 			object::Destory(this);
 		}
 	}
@@ -289,7 +322,6 @@ namespace my
 
 			eState = eEnemyState::Slow;
 		}
-
 		if (other->getOwner()->getName() == L"Book")
 		{
 			EnemyCollider->setRGB(255, 0, 0);
@@ -298,6 +330,15 @@ namespace my
 				(Enemy_TR->getPos() + Vector2(3.0f, 0.0f), eLayerType::EFFECT);
 
 			monster_hp -= Krochi::getPlayerPower(L"Book");
+			this->eState = eEnemyState::Back_Move;
+		}
+		if (other->getOwner()->getName() == L"Cross")
+		{
+			EnemyCollider->setRGB(255, 0, 0);
+
+			mEffect = object::Instantiate<Effect>
+				(Enemy_TR->getPos() + Vector2(3.0f, 0.0f), eLayerType::EFFECT);
+			monster_hp -= Krochi::getPlayerPower(L"Cross");
 			this->eState = eEnemyState::Back_Move;
 		}
 	}
@@ -313,7 +354,6 @@ namespace my
 		{
 			Enemy::Finded = true;
 		}
-
 		if (other->getOwner()->getName() == L"Lightning")
 		{
 			EnemyCollider->setRGB(255, 0, 0);
@@ -326,20 +366,6 @@ namespace my
 				this->eState = eEnemyState::Back_Move;
 			}
 		}
-
-		if (other->getOwner()->getName() == L"Blade")
-		{
-			EnemyCollider->setRGB(255, 0, 0);
-
-			if (other->getOwner()->getState() == GameObject::eState::Death)
-			{
-				mEffect = object::Instantiate<Effect>
-					(Enemy_TR->getPos() + Vector2(3.0f, 0.0f), eLayerType::EFFECT);
-				monster_hp -= Krochi::getPlayerPower(L"Blade");
-				this->eState = eEnemyState::Back_Move;
-			}
-		}
-
 	}
 
 	void Enemy::onCollisionExit(Collider* other)

@@ -19,9 +19,7 @@ namespace my
 		virtual void Render(HDC hdc);
 
 		virtual void onCollisionEnter(class Collider* other) override;
-		virtual void onCollisionExit(class Collider* other) override;
-		virtual void onCollisionStay(class Collider* other) override;
-
+	
 		Vector2 getTreasurePos() { return Item_TR->getPos(); }
 	private:
 		Collider* Item_Collider;

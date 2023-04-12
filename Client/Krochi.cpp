@@ -1,13 +1,12 @@
 #include "Krochi.h"
 
-#include "Blade_L.h"
-#include "Blade_R.h"
 #include "Radar.h"
 #include "Krochi_after.h"
 #include "Lightning.h"
-#include "Ax.h"
+#include "Cross.h"
 #include "Book.h"
-#include "LevelManager.h"
+#include "PlayerManager.h"
+#include "EnemyManager.h"
 
 #pragma comment(lib, "msimg32.lib")
 
@@ -22,18 +21,20 @@ namespace my
 	float Krochi::Exp;
 	float Krochi::Monster_Exp;
 	float Krochi::vel;
-	float Krochi::Blade_Time;
+	float Krochi::Cross_Time;
 	float Krochi::Light_Time;
 	float Krochi::Books_Time;
 	float Krochi::Power_up;
 	int    Krochi::level;
-	int    Krochi::Blade_Power;
+	int    Krochi::Cross_Power;
 	int    Krochi::Light_Power;
 	int    Krochi::Books_Power;
 	int		Krochi::bookNum;
 	int		Krochi::LightNum;
+	int		Krochi::CrossNum;
 	float Krochi::Armor;
 	float Krochi::defaultTime;
+	float Krochi::recovery;
 
 	Krochi::Krochi()
 	{
@@ -42,19 +43,21 @@ namespace my
 		Krochi::Hp = 112.0f;
 		Krochi::Exp = 0.0f; // max = 1126.0f
 		Krochi::level = 1;
-		Krochi::Monster_Exp = 300;
+		Krochi::Monster_Exp = 350;
 		Krochi::vel = 150.0f;
-		Krochi::Blade_Time = 5.0f;
-		Krochi::Light_Time = 5.0f;
-		Krochi::Books_Time = 5.0f;
+		Krochi::Cross_Time = 3.0f;
+		Krochi::Light_Time = 3.0f;
+		Krochi::Books_Time = 3.0f;
 		Krochi::bookNum = 1;
 		Krochi::LightNum = 1;
-		Krochi::Blade_Power = 60;
+		Krochi::CrossNum = 1;
+		Krochi::Cross_Power = 60;
 		Krochi::Light_Power = 90;
 		Krochi::Books_Power = 50;
 		Krochi::Armor = 0;
 		Krochi::Power_up = 0;
 		Krochi::defaultTime = 0;
+		Krochi::recovery = 0.0f;
 	}
 	Krochi::~Krochi()
 	{
@@ -66,6 +69,8 @@ namespace my
 		playerImg_L = ResourceManager::Load<Image>(L"PlayerL1", L"..\\Resources\\Player_LeftRun.bmp");
 		damaged_R = ResourceManager::Load<Image>(L"damaged_R", L"..\\Resources\\Collision_RightRun.bmp");
 		damaged_L = ResourceManager::Load<Image>(L"damaged_L", L"..\\Resources\\Collision_LeftRun.bmp");
+		die_R = ResourceManager::Load<Image>(L"Die_Right", L"..\\Resources\\Die_Right.bmp");
+		die_L = ResourceManager::Load<Image>(L"Die_Left", L"..\\Resources\\Die_Left.bmp");
 
  		playerAnimator = AddComponent<Animator>(); // 애니메이터 컴포넌트 배열에 동적할당 및 초기화
 		playerAnimator->CreateAnimation(L"Idle_R", playerImg_R, Vector2::Zero, 3, 1, 1, 0.3f, 255, 0, 255); // 스프라이트 배열로 쪼개진 하나의 애니메이션 생성
@@ -76,6 +81,8 @@ namespace my
 		playerAnimator->CreateAnimation(L"Damaged_IdleL", damaged_L, Vector2::Zero, 3, 1, 1, 0.3f, 255, 0, 255);
 		playerAnimator->CreateAnimation(L"Damaged_RunR", damaged_R, Vector2::Zero, 3, 1, 3, 0.3f, 255, 0, 255);
 		playerAnimator->CreateAnimation(L"Damaged_RunL", damaged_L, Vector2::Zero, 3, 1, 3, 0.3f, 255, 0, 255);
+		playerAnimator->CreateAnimation(L"Die_Right", die_R, Vector2::Zero, 3, 1, 3, 0.15f, 255, 0, 255);
+		playerAnimator->CreateAnimation(L"Die_Left", die_L, Vector2::Zero, 3, 1, 3, 0.15f, 255, 0, 255);
 
 		playerAnimator->Play(L"Idle_R", true);
 
@@ -119,6 +126,9 @@ namespace my
 		case  my::Krochi::ePlayerState::ShowOn:
 			show_on();
 			break;
+		case  my::Krochi::ePlayerState::Death:
+			death();
+			break;
 		default:
 			break;
 		}
@@ -127,15 +137,15 @@ namespace my
 		case my::Krochi::eSkillState::Skill_On:
 		{
 			Light();
-
 			if(Krochi::Books_Power >= 53)
 				Books();
-			if (Krochi::Blade_Power >= 65)
-				Blade();
+			if (Krochi::Cross_Power >= 65)
+				cross_();
 
-			Krochi::Blade_Time += Time::getDeltaTime();
+			Krochi::Cross_Time += Time::getDeltaTime();
 			Krochi::Light_Time += Time::getDeltaTime();
 			Krochi::Books_Time += Time::getDeltaTime();
+			Krochi::Hp += recovery * Time::getDeltaTime();
 		}
 			break;
 		case my::Krochi::eSkillState::Skill_Off:
@@ -143,7 +153,13 @@ namespace my
 		default:
 			break;
 		}
-	
+
+		if (Krochi::Hp < 0)
+		{
+			object::Destory(after);
+			mState = ePlayerState::Death;
+		}
+
 		GameObject::Update();
 	}
 
@@ -157,6 +173,13 @@ namespace my
 		GameObject::Release();
 	}
 
+	void Krochi::death()
+	{
+		if (Right_Dir)
+			playerAnimator->Play_NO_RE(L"Die_Right", false);
+		if (!Right_Dir)
+			playerAnimator->Play_NO_RE(L"Die_Left", false);
+	}
 	void Krochi::idle()
 	{
 		if (Right_Dir)
@@ -237,7 +260,10 @@ namespace my
 
 	void Krochi::Damaged(ePlayerState state)
 	{
-		Hp -= Time::getDeltaTime() * (5.0f - Armor);
+		Hp -= Time::getDeltaTime() * (5.5f - Armor);	
+
+		if(EnemyManager::Boss_on)
+			Hp -= Time::getDeltaTime() * 2.5f;
 
 		if (state == ePlayerState::Idle)
 		{
@@ -260,17 +286,17 @@ namespace my
 	void Krochi::level_up()
 	{
 		radar->radar_Collider->setSize(Vector2::Zero);
-		LevelManager::Level_Up = true;
+		PlayerManager::Level_Up = true;
 	}
 	void Krochi::show_on()
 	{
 		radar->radar_Collider->setSize(Vector2::Zero);
-		LevelManager::Show_on = true;
+		PlayerManager::Show_on = true;
 	}
 
 	void Krochi::Books()
 	{
-		if (Krochi::Books_Time > 6.8f - defaultTime)
+		if (Krochi::Books_Time > 6.5f - defaultTime)
 		{
 			if (Krochi::Books_Power >= 53)
 				bookNum = 2;
@@ -292,26 +318,45 @@ namespace my
 				book1 = object::Instantiate<Book>(Krochi::Playerpos, eLayerType::SKILL);
 				book1->setR(360 / bookNum * (i));
 				book1->setDistance(75 + (bookNum * 15));
-				book1->setVel(115 + (bookNum * 10));
+				book1->setVel(120 + (bookNum * 10));
 				book1->setTime(2.0f + (bookNum * 0.3f));
 			}
 			Krochi::Books_Time = 0.0f;
 		}
 	}
 
-	void Krochi::Blade()
+	void Krochi::cross_()
 	{
-		if (Krochi::Blade_Time > 4.0f - defaultTime)
+		if (Krochi::Cross_Time > 5.8f - defaultTime)
 		{
-			bladeR = object::Instantiate<Blade_R>(Krochi::Playerpos + Vector2(34.0f, -35.0f), eLayerType::SKILL);
-			bladeL = object::Instantiate<Blade_L>(Krochi::Playerpos + Vector2(-110.0f, -35.0f), eLayerType::SKILL);
+			if (Krochi::Cross_Power >= 65)
+				CrossNum = 2;
+			if (Krochi::Cross_Power >= 70)
+				CrossNum = 3;
+			if (Krochi::Cross_Power >= 75)
+				CrossNum = 4;
+			if (Krochi::Cross_Power >= 80)
+				CrossNum = 5;
+			if (Krochi::Cross_Power >= 85)
+				CrossNum = 6;
+			if (Krochi::Cross_Power >= 90)
+				CrossNum = 7;
+			if (Krochi::Cross_Power >= 95)
+				CrossNum = 8;
 
-			//ax = object::Instantiate<Ax>(Krochi::Playerpos, eLayerType::SKILL);
-			//ax->setR(0);
-			//ax = object::Instantiate<Ax>(Krochi::Playerpos, eLayerType::SKILL);
-			//ax->setR(45);
-			//ax = object::Instantiate<Ax>(Krochi::Playerpos, eLayerType::SKILL);
-			//ax->setR(90);
+			for (int i = 0; i < CrossNum; i++)
+			{
+				int r = rand() % 360 + 1;
+
+				Cross *cross = new Cross();
+				Scene* scene = SceneManager::getActiveScene();
+				scene->AddGameObj(cross, eLayerType::SKILL);
+				cross->GameObject::GetComponent<Transform>()->setPos(Krochi::Playerpos);
+				cross->setCrossScale(2.8f + CrossNum * 0.2f);
+				cross->setR(r);
+				cross->Initialize();
+			}
+
 			//ax = object::Instantiate<Ax>(Krochi::Playerpos, eLayerType::SKILL);
 			//ax->setR(135);
 			//ax = object::Instantiate<Ax>(Krochi::Playerpos, eLayerType::SKILL);
@@ -323,7 +368,7 @@ namespace my
 			//ax = object::Instantiate<Ax>(Krochi::Playerpos, eLayerType::SKILL);
 			//ax->setR(315);
 
-			Krochi::Blade_Time = 0.0f;
+			Krochi::Cross_Time = 0.0f + float(CrossNum) * 0.2f;
 		}
 	}
 	void Krochi::Light()
@@ -350,7 +395,9 @@ namespace my
 			EnemyNum = Radar::getEnemies().size();
 
 			if (EnemyNum < LightNum)
-				return;
+			{
+				LightNum = EnemyNum;
+			}
 
 			for (int i = 0; i < LightNum; i++)
 			{
@@ -358,9 +405,10 @@ namespace my
 					randNum = rand() % EnemyNum;
 
 				EnemyIndex[randNum] = 1;
+				Vector2 target = Radar::getEnemies()[randNum]->getPos();
 
 				Lightning* light
-					= object::Instantiate<Lightning>(Radar::getEnemies()[randNum]->getPos() + Vector2(14.0f, -174.0f), eLayerType::SKILL);
+					= object::Instantiate<Lightning>(target + Vector2(12.0f, -174.0f), eLayerType::SKILL);
 			}
 			for (int i = 0; i < EnemyNum; i++)
 			{
@@ -368,7 +416,7 @@ namespace my
 					EnemyIndex[i] = 0;
 			}
 
-			Krochi::Light_Time = 0.0f + float(LightNum) / 3.0f;
+			Krochi::Light_Time = 0.0f + float(LightNum) * 0.3f;
 		}
 	}
 
@@ -383,10 +431,25 @@ namespace my
 				Exp = 0.0f;
 				Monster_Exp /= 1.15f;
 				++Krochi::level;
-				Krochi::Armor -= 0.1f;
 				mState = ePlayerState::LevelUP;
 			}
 		}
+		if (other->getOwner()->getName() == L"Chicken")
+		{
+			Hp += 25.0f;
+
+			if (Hp > 113)
+				Hp = 113;
+		}
+		if (other->getOwner()->getName() == L"meteor")
+		{ 
+			Krochi::Hp -= 30.0f;
+
+			Effect2*mEffect = object::Instantiate<Effect2>
+				(Krochi::getPlayerPos() + Vector2(-20.0f, -20.0f), eLayerType::EFFECT);
+		}
+		if(other->getOwner()->getName() == L"Enemy")
+			Krochi::P_Damaged = true;
 		if (other->getOwner()->getName() == L"Treasure")
 		{
 			mState = ePlayerState::ShowOn;
@@ -394,10 +457,10 @@ namespace my
 	}											
 	void Krochi::onCollisionStay(Collider* other)
 	{
-		Krochi::P_Damaged = true;
 	}
 	void Krochi::onCollisionExit(Collider* other)
 	{
-		Krochi::P_Damaged = false;
+		if (other->getOwner()->getName() == L"Enemy")
+			Krochi::P_Damaged = false;
 	}
 }
