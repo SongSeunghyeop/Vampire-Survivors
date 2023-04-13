@@ -20,11 +20,11 @@ namespace my
 
 	void Krochi_after::Initialize()
 	{
-		playerImg_RA1 = ResourceManager::Load<Image>(L"PlayerRA1", L"..\\Resources\\Player_RightAfter.bmp");
-		playerImg_LA1 = ResourceManager::Load<Image>(L"PlayerLA1", L"..\\Resources\\Player_LeftAfter.bmp");
+		playerImg_RA1 = ResourceManager::Load<Image>(L"PlayerRA1", L"..\\Resources\\Arca_RightAfter.bmp");
+		playerImg_LA1 = ResourceManager::Load<Image>(L"PlayerLA1", L"..\\Resources\\Arca_LeftAfter.bmp");
 		playerImg_N = ResourceManager::Load<Image>(L"PlayerN", L"..\\Resources\\Player_None.bmp");
-		Damaged_R = ResourceManager::Load<Image>(L"DamagedAfter_R", L"..\\Resources\\Coll_RightAfter.bmp");
-		Damaged_L = ResourceManager::Load<Image>(L"DamagedAfter_L", L"..\\Resources\\Coll_LeftAfter.bmp");
+		Damaged_R = ResourceManager::Load<Image>(L"DamagedAfter_R", L"..\\Resources\\Arca_CollRightAfter.bmp");
+		Damaged_L = ResourceManager::Load<Image>(L"DamagedAfter_L", L"..\\Resources\\Arca_CollLeftAfter.bmp");
 
 		Shadow_Animator = AddComponent<Animator>(); // 애니메이터 컴포넌트 배열에 동적할당 및 초기화
 		Shadow_Animator->CreateAnimation(L"RightAfter", playerImg_RA1, Vector2::Zero, 3,1,3,  0.25f, 255, 0, 255);

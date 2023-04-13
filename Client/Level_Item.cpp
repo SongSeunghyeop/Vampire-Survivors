@@ -22,8 +22,8 @@ namespace my
 	{
 		if (EnemyManager::Boss_on)
 		{
-			Effect2 *effect = object::Instantiate<Effect2>
-				(Item_TR->getPos() + Vector2(3.0f, 0.0f), eLayerType::EFFECT);
+			/*Effect2 *effect = object::Instantiate<Effect2>
+				(Item_TR->getPos() + Vector2(3.0f, 0.0f), eLayerType::EFFECT);*/
 
 			object::Destory(this);
 		}

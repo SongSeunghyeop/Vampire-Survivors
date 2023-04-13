@@ -35,6 +35,7 @@ namespace my
 	float Krochi::Armor;
 	float Krochi::defaultTime;
 	float Krochi::recovery;
+	int    Krochi::Death_count;
 
 	Krochi::Krochi()
 	{
@@ -43,11 +44,11 @@ namespace my
 		Krochi::Hp = 112.0f;
 		Krochi::Exp = 0.0f; // max = 1126.0f
 		Krochi::level = 1;
-		Krochi::Monster_Exp = 350;
+		Krochi::Monster_Exp = 400;
 		Krochi::vel = 150.0f;
-		Krochi::Cross_Time = 3.0f;
-		Krochi::Light_Time = 3.0f;
-		Krochi::Books_Time = 3.0f;
+		Krochi::Cross_Time = 2.0f;
+		Krochi::Light_Time = 2.0f;
+		Krochi::Books_Time = 2.0f;
 		Krochi::bookNum = 1;
 		Krochi::LightNum = 1;
 		Krochi::CrossNum = 1;
@@ -58,6 +59,7 @@ namespace my
 		Krochi::Power_up = 0;
 		Krochi::defaultTime = 0;
 		Krochi::recovery = 0.0f;
+		Krochi::Death_count = 0;
 	}
 	Krochi::~Krochi()
 	{
@@ -65,10 +67,10 @@ namespace my
 	}
 	void Krochi::Initialize()
 	{
-		playerImg_R = ResourceManager::Load<Image>(L"PlayerR1", L"..\\Resources\\Player_RightRun.bmp");
-		playerImg_L = ResourceManager::Load<Image>(L"PlayerL1", L"..\\Resources\\Player_LeftRun.bmp");
-		damaged_R = ResourceManager::Load<Image>(L"damaged_R", L"..\\Resources\\Collision_RightRun.bmp");
-		damaged_L = ResourceManager::Load<Image>(L"damaged_L", L"..\\Resources\\Collision_LeftRun.bmp");
+		playerImg_R = ResourceManager::Load<Image>(L"PlayerR1", L"..\\Resources\\Arca_RightRun.bmp");
+		playerImg_L = ResourceManager::Load<Image>(L"PlayerL1", L"..\\Resources\\Arca_LeftRun.bmp");
+		damaged_R = ResourceManager::Load<Image>(L"damaged_R", L"..\\Resources\\Arca_CollRight.bmp");
+		damaged_L = ResourceManager::Load<Image>(L"damaged_L", L"..\\Resources\\Arca_CollLeft.bmp");
 		die_R = ResourceManager::Load<Image>(L"Die_Right", L"..\\Resources\\Die_Right.bmp");
 		die_L = ResourceManager::Load<Image>(L"Die_Left", L"..\\Resources\\Die_Left.bmp");
 
@@ -317,8 +319,8 @@ namespace my
 			{
 				book1 = object::Instantiate<Book>(Krochi::Playerpos, eLayerType::SKILL);
 				book1->setR(360 / bookNum * (i));
-				book1->setDistance(75 + (bookNum * 15));
-				book1->setVel(120 + (bookNum * 10));
+				book1->setDistance(70 + (bookNum * 15));
+				book1->setVel(125 + (bookNum * 10));
 				book1->setTime(2.0f + (bookNum * 0.3f));
 			}
 			Krochi::Books_Time = 0.0f;
@@ -327,7 +329,7 @@ namespace my
 
 	void Krochi::cross_()
 	{
-		if (Krochi::Cross_Time > 5.8f - defaultTime)
+		if (Krochi::Cross_Time > 6.0f - defaultTime)
 		{
 			if (Krochi::Cross_Power >= 65)
 				CrossNum = 2;

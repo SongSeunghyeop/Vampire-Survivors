@@ -1,6 +1,9 @@
 #include "PlayerManager.h"
 #include "myInput.h"
 #include "myPlayScene.h"
+#include "Treasure.h"
+#include <algorithm>
+
 namespace my
 {
 	bool PlayerManager::Level_Up;
@@ -14,6 +17,8 @@ namespace my
 		font1 = CreateFont(30, 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
 			CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH, L"Maplestory");
 		font2 = CreateFont(20, 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
+			CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH, L"Maplestory");
+		font3 = CreateFont(18, 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
 			CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH, L"Maplestory");
  	}
 	PlayerManager::~PlayerManager()
@@ -30,14 +35,15 @@ namespace my
 		menuImg = ResourceManager::Load<Image>(L"Option_LevelUp", L"..\\Resources\\Option_LevelUp.bmp");
 		Item_list = ResourceManager::Load<Image>(L"Item_list", L"..\\Resources\\Item_list.bmp");
 		Tresure_UI = ResourceManager::Load<Image>(L"Tresure_UI", L"..\\Resources\\Option.bmp");
+		monster_icon = ResourceManager::Load<Image>(L"monster_icon", L"..\\Resources\\monster_icon.bmp");
 		
 		Tr = GetComponent<Transform>();
 
 		Treasure_show = AddComponent<Animator>();
 		Treasure_show->CreateAnimations(L"..\\Resources\\Treasures\\Show2", 0.075f);
 
-		Skills = new Item_Info[8];
-
+		Skills = new Item_Info[20];
+		Item_Num = sizeof(Skills);
 		//Items
 		Skills[(int)eItems::WIND].item_image = ResourceManager::Load<Image>(L"wind", L"..\\Resources\\wind.bmp");
 		Skills[(int)eItems::POWER_UP].item_image = ResourceManager::Load<Image>(L"Power_up", L"..\\Resources\\PowerUp.bmp");
@@ -48,8 +54,9 @@ namespace my
 		Skills[(int)eItems::CROSS].item_image = ResourceManager::Load<Image>(L"Cross_select", L"..\\Resources\\cross_select.bmp");
 		Skills[(int)eItems::HEART].item_image = ResourceManager::Load<Image>(L"Heart", L"..\\Resources\\Heart.bmp");
 
+		Skills[(int)eItems::LIGHTNING].item_level = 1;
+	
 		selected_item = eItems::NONE;
-
 		GameObject::Initialize();
 	}
 	void PlayerManager::Update()
@@ -91,15 +98,27 @@ namespace my
 			Play_Time += Time::getDeltaTime();
 
 			Krochi::skillState = Krochi::eSkillState::Skill_On;
-
-			Num1 = rand() % 8; // 0~6
+			for (int i = 0; i < Item_Num; i++)
+			{
+				if (Skills[i].item_level == 8)
+				{
+					std::swap(Skills[i], Skills[Item_Num - 1]);
+					--Item_Num;
+					break;
+				}
+			}
+			Num1 = rand() % Item_Num; // 0~7
 
 			while (Num2 == Num1)
-				Num2 = rand() % 8;
+				Num2 = rand() % Item_Num;
 
 			while (Num2 == Num3 || Num1 == Num3)
-				Num3 = rand() % 8;
+				Num3 = rand() % Item_Num;
 		}
+		if(Play_Time > 120.0f && treasure == NULL)
+			treasure = object::Instantiate<Treasure>(eLayerType::ITEMS);
+
+	
 		GameObject::Update();
 	}
 
@@ -172,6 +191,8 @@ namespace my
 			health_zero->GetHdc(), 0, 0, health_zero->GetWidth(), health_zero->GetHeight(), RGB(255, 0, 255));
 		TransparentBlt(hdc, 22, 120, Krochi::Hp, health->GetHeight(),
 			health->GetHdc(), 0, 0, health->GetWidth(), health->GetHeight(), RGB(255, 0, 255));
+		TransparentBlt(hdc, 1250, 40, monster_icon->GetWidth() * 2, monster_icon->GetHeight() * 2,
+			monster_icon->GetHdc(), 0, 0, monster_icon->GetWidth(), monster_icon->GetHeight(), RGB(255, 0, 255));
 
 		int minute = (int)Play_Time / 60;
 		int second = (int)Play_Time % 60;
@@ -181,6 +202,7 @@ namespace my
 
 		std::wstring text = ss.str();
 		std::wstring text2 = L"LV " + std::to_wstring((int)Krochi::level);
+		std::wstring text3 = std::to_wstring((int)Krochi::Death_count);
 
 		SetTextColor(hdc, RGB(255, 255, 255));
 		SetBkMode(hdc, TRANSPARENT);
@@ -190,6 +212,9 @@ namespace my
 		SelectObject(hdc, oldfont);
 		oldfont = (HFONT)SelectObject(hdc, font2);
 		TextOut(hdc, 1222, 11, text2.c_str(), text2.length());
+		SelectObject(hdc, oldfont);
+		oldfont = (HFONT)SelectObject(hdc, font3);
+		TextOut(hdc, 1220, 40, text3.c_str(), text3.length());
 		SelectObject(hdc, oldfont);
 
 		if (PlayerManager::Show_on)
@@ -285,5 +310,6 @@ namespace my
 		delete[] Skills;
 		DeleteObject(font1);
 		DeleteObject(font2);
+		DeleteObject(font3);
 	}
 }

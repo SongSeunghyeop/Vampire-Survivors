@@ -6,6 +6,7 @@
 
 namespace my
 {
+	class Treasure;
 	class PlayerManager : public GameObject
 	{
 	public:
@@ -61,6 +62,7 @@ namespace my
 		Image* menuImg;
 		Image* Item_list;
 		Image* Tresure_UI;
+		Image* monster_icon;
 
 		eItems selected_item;
 
@@ -68,14 +70,18 @@ namespace my
 		int Num2;
 		int Num3;
 
+		int Item_Num;
+
 		float Play_Time;
 
 		Item_Info* Skills;
 
 		HFONT font1;
 		HFONT font2;
-
+		HFONT font3;
 		HFONT oldfont;
+
+		Treasure * treasure;
 	};
 }
 

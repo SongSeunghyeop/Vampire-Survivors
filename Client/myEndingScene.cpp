@@ -34,7 +34,7 @@ namespace my
 		AlphaBlend(hdc, -1, -1
 			, 1281, 721
 			, ending->GetHdc()
-			, 0, 0
+			, 0, 0 
 			, ending->GetWidth(), ending->GetHeight()
 			, func);
 

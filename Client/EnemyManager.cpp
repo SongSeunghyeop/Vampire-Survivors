@@ -77,7 +77,7 @@ namespace my
 			int random = rand() % 10;// 0~9;
 			if(random > 1) enemy->Finded = true;
 
-			if(i == 0 && random < 2)
+			if(i == 0 && random > 7) 
 				enemy->eType = Enemy::eEnemyType::CANDLE;
 
 			enemy->Initialize();

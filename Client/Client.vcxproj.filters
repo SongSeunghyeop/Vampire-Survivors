@@ -121,6 +121,9 @@
     <Filter Include="Engine\GameObject\Objects\Players\Effect">
       <UniqueIdentifier>{09b6aa0f-1ff7-413a-99bf-93c5c8e99eb4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\GameObject\Objects\Radar">
+      <UniqueIdentifier>{a6a9e166-31db-4be8-bc4c-099153afafad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -237,9 +240,6 @@
     <ClInclude Include="myCamera.h">
       <Filter>Engine\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerManager.h">
-      <Filter>Engine\GameObject\Objects\UI</Filter>
-    </ClInclude>
     <ClInclude Include="Blade_R.h">
       <Filter>Engine\GameObject\Skill</Filter>
     </ClInclude>
@@ -254,9 +254,6 @@
     </ClInclude>
     <ClInclude Include="Blade_L.h">
       <Filter>Engine\GameObject\Skill</Filter>
-    </ClInclude>
-    <ClInclude Include="Radar.h">
-      <Filter>Engine\GameObject\Objects\Players</Filter>
     </ClInclude>
     <ClInclude Include="EnemyManager.h">
       <Filter>Engine\GameObject\Objects\Enemies</Filter>
@@ -305,6 +302,15 @@
     </ClInclude>
     <ClInclude Include="GameOver.h">
       <Filter>Engine\Scene\EndingScene</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerManager.h">
+      <Filter>Engine\GameObject\Objects\Players</Filter>
+    </ClInclude>
+    <ClInclude Include="Radar.h">
+      <Filter>Engine\GameObject\Objects\Radar</Filter>
+    </ClInclude>
+    <ClInclude Include="Treasure_Arrow.h">
+      <Filter>Engine\GameObject\Objects\Radar</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -404,9 +410,6 @@
     <ClCompile Include="myCamera.cpp">
       <Filter>Engine\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerManager.cpp">
-      <Filter>Engine\GameObject\Objects\UI</Filter>
-    </ClCompile>
     <ClCompile Include="Blade_R.cpp">
       <Filter>Engine\GameObject\Skill</Filter>
     </ClCompile>
@@ -421,9 +424,6 @@
     </ClCompile>
     <ClCompile Include="Blade_L.cpp">
       <Filter>Engine\GameObject\Skill</Filter>
-    </ClCompile>
-    <ClCompile Include="Radar.cpp">
-      <Filter>Engine\GameObject\Objects\Players</Filter>
     </ClCompile>
     <ClCompile Include="EnemyManager.cpp">
       <Filter>Engine\GameObject\Objects\Enemies</Filter>
@@ -469,6 +469,15 @@
     </ClCompile>
     <ClCompile Include="GameOver.cpp">
       <Filter>Engine\Scene\EndingScene</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerManager.cpp">
+      <Filter>Engine\GameObject\Objects\Players</Filter>
+    </ClCompile>
+    <ClCompile Include="Radar.cpp">
+      <Filter>Engine\GameObject\Objects\Radar</Filter>
+    </ClCompile>
+    <ClCompile Include="Treasure_Arrow.cpp">
+      <Filter>Engine\GameObject\Objects\Radar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

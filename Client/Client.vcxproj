@@ -132,6 +132,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Treasure_Arrow.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="Boss_After.h" />
     <ClInclude Include="Boss_Skill.h" />
@@ -195,6 +196,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Treasure_Arrow.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Boss_After.cpp" />
     <ClCompile Include="Boss_Skill.cpp" />

@@ -2,7 +2,6 @@
 #include "Krochi.h"
 #include "Enemy.h"
 #include "Boss.h"
-#include "Treasure.h"
 
 namespace my
 {
@@ -40,12 +39,8 @@ namespace my
 		Collider* radar_Collider;
 		Transform* rader_Tr;
 		Vector2 Radar_Size;
-		Image* arrow;
-
-		Treasure* treasure;
-		
+	
 		static std::vector<Collider*> Enemies;
-
 
 		friend class Krochi;
 	};

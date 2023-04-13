@@ -50,7 +50,6 @@ namespace my
 		virtual void onCollisionExit(class Collider* other) override;
 		virtual void onCollisionEnter(class Collider* other) override;
 
-		//static Vector2 getPlayerPos() { return Krochi::Playerpos; }
 		static Vector2 getPlayerPos() { return Krochi::Playerpos; }
 		
 		static float getPlayerPower(std::wstring p) 
@@ -63,6 +62,9 @@ namespace my
 				return Krochi::Cross_Power;
 		}
 		static ePlayerState getPlayerState() { return mState; }
+
+	public:
+		static int Death_count;
 	protected:
 		static ePlayerState mState;
 		static eSkillState skillState;

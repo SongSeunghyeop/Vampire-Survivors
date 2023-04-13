@@ -1,4 +1,6 @@
 #include "Radar.h"
+#include "myAnimation.h"
+
 #pragma comment(lib, "msimg32.lib")
 
 extern my::Application myapplication;
@@ -21,12 +23,12 @@ namespace my
 
 	void Radar::Initialize()
 	{
-		arrow = ResourceManager::Load<Image>(L"Arrow", L"..\\Resources\\Arrow.bmp");
 		radar_Collider = AddComponent<Collider>();
 		radar_Collider->setSize(Radar_Size);
 		radar_Collider->setCenter(Radar_Size / 2 * (-1) + Vector2(10,10));
 
 		rader_Tr = GetComponent<Transform>();
+
 		GameObject::Initialize();
 	}
 	void Radar::Update()
@@ -48,10 +50,6 @@ namespace my
 		if (other->getOwner()->getName() == L"Enemy")
 		{
 			Enemies.push_back(other);
-		}
-		if (other->getOwner()->getName() == L"Treasure")
-		{
-			//treasure = other->getOwner();
 		}
 	}
 	void Radar::onCollisionStay(Collider* other)

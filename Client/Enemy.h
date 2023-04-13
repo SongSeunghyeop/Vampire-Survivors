@@ -29,7 +29,7 @@ namespace my
 			CANDLE,
 		};
 
-
+		
 	public:
 		Enemy();
 		~Enemy();

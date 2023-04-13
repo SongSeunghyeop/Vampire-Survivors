@@ -10,7 +10,6 @@
 #include "EnemyManager.h"
 #include "Field.h"
 #include "PlayerManager.h"
-#include "Treasure.h"
 
 namespace my
 {

@@ -310,6 +310,8 @@ namespace my
 				(Enemy_TR->getPos(), eLayerType::ITEMS);
 
 			object::Destory(this);
+
+			++Krochi::Death_count;
 		}
 	}
 
