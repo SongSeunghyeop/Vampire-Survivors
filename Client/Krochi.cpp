@@ -46,9 +46,9 @@ namespace my
 		Krochi::level = 1;
 		Krochi::Monster_Exp = 400;
 		Krochi::vel = 150.0f;
-		Krochi::Cross_Time = 2.0f;
-		Krochi::Light_Time = 2.0f;
-		Krochi::Books_Time = 2.0f;
+		Krochi::Cross_Time = 1.0f;
+		Krochi::Light_Time = 1.0f;
+		Krochi::Books_Time = 1.0f;
 		Krochi::bookNum = 1;
 		Krochi::LightNum = 1;
 		Krochi::CrossNum = 1;

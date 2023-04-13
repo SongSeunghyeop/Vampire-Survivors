@@ -54,7 +54,7 @@ namespace my
 
 		BossAnimator->Play(L"Boss_MoveR", true);
 		boss_hp = 9999;
-		Boss_vel = 300;
+		Boss_vel = 280;
 		//
 		eState = eBossState::Move;
 
@@ -209,7 +209,7 @@ namespace my
 	{
 		if (other->getOwner()->getName() == L"Radar")
 		{
-			Boss_vel = 300.0f;
+			Boss_vel = 280.0f;
 		}
 		if (other->getOwner()->getName() == L"Player")
 		{
