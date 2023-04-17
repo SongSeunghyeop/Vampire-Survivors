@@ -170,7 +170,7 @@ namespace my
 			{
 				Krochi::Light_Power = 0.0f;
 			}
-			if (PlaySceneManager::Play_Time > EnemyManager::boss_Time + 1.0f)
+			if (PlaySceneManager::Play_Time > EnemyManager::boss_Time + 0.5f)
 			{
 				if(wa == NULL)
 					wa = object::Instantiate<Warning_animation>(Krochi::Playerpos + Vector2(3,-110), eLayerType::EFFECT);
