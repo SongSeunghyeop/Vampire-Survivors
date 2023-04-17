@@ -10,7 +10,7 @@ namespace my
 	{
 		Enemy_Time = 0.0f;
 		Init_Num = 10;
-		boss_Time = 30.0f;
+		boss_Time = 20.0f;
 	}
 	EnemyManager::~EnemyManager()
 	{
@@ -38,7 +38,7 @@ namespace my
 				boss = new Boss();
 				Scene* scene = SceneManager::getActiveScene();
 				scene->AddGameObj(boss, eLayerType::ENEMY);
-				boss->GameObject::GetComponent<Transform>()->setPos(Krochi::getPlayerPos() + Vector2(600,-600));
+				boss->GameObject::GetComponent<Transform>()->setPos(Krochi::getPlayerPos() + Vector2(600,-500));
 				boss->Initialize();
 			}
 		}
