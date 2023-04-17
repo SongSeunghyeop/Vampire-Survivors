@@ -11,7 +11,6 @@ namespace my
 	{
 		lightning = ResourceManager::Load<Image>(L"Light", L"..\\Resources\\Lightning4.bmp");
 
-
 		lightning_Animation = AddComponent<Animator>(); // 애니메이터 컴포넌트 배열에 동적할당 및 초기화
 		lightning_Animation->CreateAnimation(L"Light", lightning, Vector2::Zero, 5, 1, 5, 0.045f, 255, 0, 255);
 		lightning_Animation->Play(L"Light", false);

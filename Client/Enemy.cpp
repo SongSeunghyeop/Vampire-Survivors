@@ -1,7 +1,6 @@
 #include "myResourceManager.h"
 #include "Enemy.h"
 #include "Time.h"
-#include "Effect.h"
 #include "myObject.h"
 #include "Level_Item.h"
 #include "EnemyManager.h"
@@ -179,9 +178,6 @@ namespace my
 
 		if (EnemyManager::Boss_on)
 		{
-			/*mEffect2 = object::Instantiate<Effect2>
-				(Enemy_TR->getPos() + Vector2(3.0f, 0.0f), eLayerType::EFFECT);*/
-
 			eState = eEnemyState::Death;
 		}
 

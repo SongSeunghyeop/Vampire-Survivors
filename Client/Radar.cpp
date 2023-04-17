@@ -1,6 +1,5 @@
 #include "Radar.h"
 #include "myAnimation.h"
-
 #pragma comment(lib, "msimg32.lib")
 
 extern my::Application myapplication;
@@ -69,5 +68,24 @@ namespace my
 		radar_Collider->setRGB(0, 255, 0);
 		myErase(other);
 		}
+	}
+
+	Vector2 Radar::getRandomEnemyPos(int a)
+	{			
+		for (int i = 0; i < Enemies.size(); i++)
+		{
+			if (a >= Enemies.size())
+			{
+				return Enemies[a % Enemies.size()]->getPos();
+			}
+			else
+			{
+				return Enemies[a]->getPos();
+			}
+		}
+	}
+	int Radar::getEnemyNum()
+	{
+		return Enemies.size();
 	}
 }

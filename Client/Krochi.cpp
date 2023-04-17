@@ -1,12 +1,14 @@
+#include "EnemyManager.h"
+#include "PlaySceneManager.h"
 #include "Krochi.h"
-
 #include "Radar.h"
 #include "Krochi_after.h"
 #include "Lightning.h"
 #include "Cross.h"
 #include "Book.h"
-#include "PlayerManager.h"
-#include "EnemyManager.h"
+#include "Level_Item.h"
+#include "Boss.h"
+#include "warning_animation.h"
 
 #pragma comment(lib, "msimg32.lib")
 
@@ -16,6 +18,7 @@ namespace my
 {
 	Vector2 Krochi::Playerpos = Vector2(100.f, 100.f);
 
+	//캐릭터 정보
 	bool Krochi::P_Damaged;
 	float Krochi::Hp;
 	float Krochi::Exp;
@@ -36,6 +39,7 @@ namespace my
 	float Krochi::defaultTime;
 	float Krochi::recovery;
 	int    Krochi::Death_count;
+	float Krochi::spinach;
 
 	Krochi::Krochi()
 	{
@@ -44,13 +48,13 @@ namespace my
 		Krochi::Hp = 112.0f;
 		Krochi::Exp = 0.0f; // max = 1126.0f
 		Krochi::level = 1;
-		Krochi::Monster_Exp = 400;
+		Krochi::Monster_Exp = 400; // 400
 		Krochi::vel = 150.0f;
 		Krochi::Cross_Time = 1.0f;
 		Krochi::Light_Time = 1.0f;
 		Krochi::Books_Time = 1.0f;
 		Krochi::bookNum = 1;
-		Krochi::LightNum = 1;
+		Krochi::LightNum = 1; 
 		Krochi::CrossNum = 1;
 		Krochi::Cross_Power = 60;
 		Krochi::Light_Power = 90;
@@ -60,6 +64,7 @@ namespace my
 		Krochi::defaultTime = 0;
 		Krochi::recovery = 0.0f;
 		Krochi::Death_count = 0;
+		Krochi::spinach = 0;
 	}
 	Krochi::~Krochi()
 	{
@@ -89,8 +94,11 @@ namespace my
 		playerAnimator->Play(L"Idle_R", true);
 
 		Transform* tr = GetComponent<Transform>();
+
+		//화면의 중앙에 배치
  		Krochi::Playerpos.x = myapplication.GetWidth() / 2 ;
  		Krochi::Playerpos.y = myapplication.GetHeight() / 2 ;
+
 		tr->setPos(Krochi::Playerpos);
 		tr->setScale(Vector2(2.1f,1.8f));
 
@@ -98,11 +106,13 @@ namespace my
 		collider->setCenter(Vector2(-13, -34));
 		collider->setSize(Vector2(55, 61));
 
+		//플레이어 주위의 레이더와 , 플레이어 그림자 생성
 		radar = object::Instantiate<Radar>(Krochi::Playerpos, eLayerType::RADAR);
 		after = object::Instantiate<Krochi_after>(Krochi::Playerpos, eLayerType::PLAYERAFTER);
-
+		//그림자와 플레이어 사이의 거리 조절
 		after->SetShadow(5);
 
+		//무브 스테이트, 스킬스테이트 분류
 		mState = ePlayerState::Idle;
 		skillState = eSkillState::Skill_On;
 
@@ -112,10 +122,12 @@ namespace my
 	}
 	void Krochi::Update()
 	{
+		//레이더의 크기 화면 크기와 비슷하게 조절
 		radar->radar_Collider->setSize(radar->Radar_Size);
 
 		switch (mState)
 		{
+			//무브 스테이트
 		case my::Krochi::ePlayerState::Move:
 			move();
 			break;
@@ -138,24 +150,43 @@ namespace my
 		{
 		case my::Krochi::eSkillState::Skill_On:
 		{
-			Light();
+			//스킬 스테이트
+			Light(); // 기본 스킬 
+
 			if(Krochi::Books_Power >= 53)
 				Books();
 			if (Krochi::Cross_Power >= 65)
 				cross_();
+			if (Magnet_power == 1)
+				magnet();
 
 			Krochi::Cross_Time += Time::getDeltaTime();
 			Krochi::Light_Time += Time::getDeltaTime();
 			Krochi::Books_Time += Time::getDeltaTime();
 			Krochi::Hp += recovery * Time::getDeltaTime();
+
+			if (PlaySceneManager::Play_Time > EnemyManager::boss_Time - 2.0f 
+				&& !EnemyManager::Boss_on) // 보스가 등장하기 1초 전, Light 쿨타임 초기화
+			{
+				Krochi::Light_Power = 0.0f;
+			}
+			if (PlaySceneManager::Play_Time > EnemyManager::boss_Time + 1.0f)
+			{
+				if(wa == NULL)
+					wa = object::Instantiate<Warning_animation>(Krochi::Playerpos + Vector2(3,-110), eLayerType::EFFECT);
+			}
 		}
 			break;
+
 		case my::Krochi::eSkillState::Skill_Off:
+		{
+			Level_Item::Item_vel = 0.0f;
+		}
 			break;
 		default:
 			break;
 		}
-
+		//Hp 가 0 이면 캐릭터 사망
 		if (Krochi::Hp < 0)
 		{
 			object::Destory(after);
@@ -182,6 +213,7 @@ namespace my
 		if (!Right_Dir)
 			playerAnimator->Play_NO_RE(L"Die_Left", false);
 	}
+
 	void Krochi::idle()
 	{
 		if (Right_Dir)
@@ -189,9 +221,12 @@ namespace my
 		if (!Right_Dir)
 				playerAnimator->Play_NO_RE(L"Idle_L", true);
 
+		//피해를 입었을 때에도, 움직이거나 멈춰있는 상태는 유지해야하기 때문에
+		//스테이트를 바꾸지 않고 그 스테이트에서 애니메니션만 변경
 		if (Krochi::P_Damaged)
 				Damaged(ePlayerState::Idle);
 
+		//방향키 입력시 스테이트 전환, 방향 미리 선정
 		for (int i = 0; i < 4; i++)
 		{
 			if (Input::GetKeyDown(eKeyCode(i)) || Input::GetKey(eKeyCode(i)))
@@ -211,6 +246,7 @@ namespace my
 		Transform* tr = GetComponent<Transform>();
 		Playerpos = tr->getPos();
 
+		//두 방향에 따른 애니메이션
 		if (Right_Dir)
 			playerAnimator->Play_NO_RE(L"RightRun", true);
 
@@ -220,6 +256,7 @@ namespace my
 		if (Krochi::P_Damaged)
 			Damaged(ePlayerState::Move);
 
+		//키 입력을 멈추었을 때 그 방향을 유지하면서 스테이트 변경
 		for (int i = 0; i < 4; i++)
 		{
 			if (Input::GetKeyUp(eKeyCode(i)))
@@ -233,6 +270,7 @@ namespace my
 			}
 		}
 
+		//반대되는 방향의 키를 동시에 입력하면, 움직임을 멈추도록 설정
 		if (Input::GetKey(eKeyCode::A) && Input::GetKey(eKeyCode::D))
 		{
 			mState = ePlayerState::Idle;
@@ -262,11 +300,10 @@ namespace my
 
 	void Krochi::Damaged(ePlayerState state)
 	{
-		Hp -= Time::getDeltaTime() * (5.5f - Armor);	
+		//플레이어의 HP 감소
+		Hp -= Time::getDeltaTime() * (5.0f - Armor);	
 
-		if(EnemyManager::Boss_on)
-			Hp -= Time::getDeltaTime() * 2.5f;
-
+		//데미지를 입는 상황에서 스테이트가 변하면 , 애니메이션을 바꿔주어야함
 		if (state == ePlayerState::Idle)
 		{
 			if (Right_Dir)
@@ -287,15 +324,28 @@ namespace my
 
 	void Krochi::level_up()
 	{
+		//레벨업을 하면, 레이더의 크기를 0으로 줄임
+		//몬스터는 레이더에 감지되지 않으면 이동을멈춤
 		radar->radar_Collider->setSize(Vector2::Zero);
-		PlayerManager::Level_Up = true;
+		PlaySceneManager::Level_Up = true;
 	}
 	void Krochi::show_on()
 	{
+		//보물 상자를 열었을 때도 레벨업 했을 때와 같은 기능 적용
 		radar->radar_Collider->setSize(Vector2::Zero);
-		PlayerManager::Show_on = true;
+		PlaySceneManager::Show_on = true;
 	}
+	void Krochi::magnet()
+	{
+		Magnet_Time += Time::getDeltaTime();
+		Level_Item::Item_vel = 500.0f;
 
+		if (Magnet_Time > 5.5f)
+		{
+			Level_Item::Item_vel = 0.0f;
+			Magnet_power = 0;
+		}
+	}
 	void Krochi::Books()
 	{
 		if (Krochi::Books_Time > 6.5f - defaultTime)
@@ -320,7 +370,7 @@ namespace my
 				book1 = object::Instantiate<Book>(Krochi::Playerpos, eLayerType::SKILL);
 				book1->setR(360 / bookNum * (i));
 				book1->setDistance(70 + (bookNum * 15));
-				book1->setVel(125 + (bookNum * 10));
+				book1->setVel(130 + (bookNum * 10));
 				book1->setTime(2.0f + (bookNum * 0.3f));
 			}
 			Krochi::Books_Time = 0.0f;
@@ -350,7 +400,7 @@ namespace my
 			{
 				int r = rand() % 360 + 1;
 
-				Cross *cross = new Cross();
+				cross = new Cross();
 				Scene* scene = SceneManager::getActiveScene();
 				scene->AddGameObj(cross, eLayerType::SKILL);
 				cross->GameObject::GetComponent<Transform>()->setPos(Krochi::Playerpos);
@@ -375,6 +425,8 @@ namespace my
 	}
 	void Krochi::Light()
 	{
+		if(Krochi::Light_Power >= 90)
+			LightNum = 1;
 		if (Krochi::Light_Power >= 95)
 			LightNum = 2;
 		if (Krochi::Light_Power >= 100)
@@ -390,40 +442,51 @@ namespace my
 		if (Krochi::Light_Power >= 125)
 			LightNum = 8;
 
-		if (Krochi::Light_Time > 6.0f - defaultTime)
+		if (Krochi::Light_Time > 5.5f - defaultTime) // 5.5
 		{ // 해시 테이블 활용
-			randNum = 0;
-			
-			EnemyNum = Radar::getEnemies().size();
 
-			if (EnemyNum < LightNum)
+			if (EnemyManager::Boss_on)
 			{
-				LightNum = EnemyNum;
-			}
-
-			for (int i = 0; i < LightNum; i++)
-			{
-				while(EnemyIndex[randNum] == 1)
-					randNum = rand() % EnemyNum;
-
-				EnemyIndex[randNum] = 1;
-				Vector2 target = Radar::getEnemies()[randNum]->getPos();
-
 				Lightning* light
-					= object::Instantiate<Lightning>(target + Vector2(12.0f, -174.0f), eLayerType::SKILL);
-			}
-			for (int i = 0; i < EnemyNum; i++)
-			{
-				if (EnemyIndex[i] > 0)
-					EnemyIndex[i] = 0;
-			}
+					= object::Instantiate<Lightning>
+					(Boss::getBossPos() + Vector2(12.0f, -174.0f), eLayerType::SKILL);
 
-			Krochi::Light_Time = 0.0f + float(LightNum) * 0.3f;
+				Krochi::Light_Time = 0.0f + float(LightNum) * 0.5f;
+			}
+			else
+			{
+        		randNum = 0;
+				enemyNum = Radar::getEnemyNum();
+
+				if (enemyNum < LightNum)
+					LightNum = enemyNum;
+
+				for (int i = 0; i < LightNum; i++)
+				{
+					while(EnemyIndex[randNum] == 1)
+						randNum = rand() % enemyNum;
+
+					EnemyIndex[randNum] = 1;
+
+					Lightning* light
+						= object::Instantiate<Lightning>
+							(Radar::getRandomEnemyPos(randNum) + Vector2(12.0f, -174.0f), eLayerType::SKILL);
+				}
+
+				for (int i = 0; i < enemyNum; i++)
+				{
+					if (EnemyIndex[i] > 0)
+						EnemyIndex[i] = 0;
+				}
+
+				Krochi::Light_Time = 0.0f + float(LightNum) * 0.2f;
+			}
 		}
 	}
 
 	void Krochi::onCollisionEnter(Collider* other)
 	{
+		//경험치 아이템
 		if (other->getOwner()->getName() == L"Level_Item")
 		{
 			Exp += Monster_Exp;
@@ -436,13 +499,15 @@ namespace my
 				mState = ePlayerState::LevelUP;
 			}
 		}
+		//회복 아이템
 		if (other->getOwner()->getName() == L"Chicken")
 		{
-			Hp += 25.0f;
+			Hp += 30.0f;
 
 			if (Hp > 113)
 				Hp = 113;
 		}
+		//보스 몬스터의 공격 스킬
 		if (other->getOwner()->getName() == L"meteor")
 		{ 
 			Krochi::Hp -= 30.0f;
@@ -450,19 +515,34 @@ namespace my
 			Effect2*mEffect = object::Instantiate<Effect2>
 				(Krochi::getPlayerPos() + Vector2(-20.0f, -20.0f), eLayerType::EFFECT);
 		}
-		if(other->getOwner()->getName() == L"Enemy")
+		//몬스터
+		if (other->getOwner()->getName() == L"Enemy")
+		{
 			Krochi::P_Damaged = true;
+		}
+		//보물상자
 		if (other->getOwner()->getName() == L"Treasure")
 		{
 			mState = ePlayerState::ShowOn;
 		}
+		if (other->getOwner()->getName() == L"Magnet")
+		{
+			Magnet_power = 1;
+		}
 	}											
 	void Krochi::onCollisionStay(Collider* other)
 	{
+		if (other->getOwner()->getName() == L"Enemy"
+		&& other->getOwner()->getState() == GameObject::eState::Death)
+		{
+			Krochi::P_Damaged = false;
+		}
 	}
 	void Krochi::onCollisionExit(Collider* other)
 	{
 		if (other->getOwner()->getName() == L"Enemy")
+		{
 			Krochi::P_Damaged = false;
+		}
 	}
 }

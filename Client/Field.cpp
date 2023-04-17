@@ -2,7 +2,6 @@
 #include "Field.h"
 #include "Time.h"
 #include "myCamera.h"
-
 #include "Krochi.h"
 
 extern my::Application myapplication;

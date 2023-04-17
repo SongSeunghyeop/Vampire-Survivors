@@ -97,32 +97,53 @@
     <Filter Include="Engine\Camera">
       <UniqueIdentifier>{1a8ad8e2-ee37-42db-a9a0-402c6d1fe43e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\GameObject\Bullet">
-      <UniqueIdentifier>{c2bc11b2-f8d3-4fbe-93a7-39bf24f954af}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\GameObject\Skill">
-      <UniqueIdentifier>{005e4193-a7dd-4bed-b9bf-efdbfc0221fe}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\GameObject\Objects\Enemies\Damaged_Effect">
       <UniqueIdentifier>{80a3528d-d195-49fb-b007-9c608b8de6f3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Scene\TileMap">
       <UniqueIdentifier>{19acceb6-4057-479c-8099-324b9efc45fb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\GameObject\Objects\Drop_Items">
-      <UniqueIdentifier>{330cf549-eaba-4ff5-b441-97c093e9bdc4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\GameObject\Intro &amp; Title">
-      <UniqueIdentifier>{5d03fc5f-bc30-4702-8d2b-0cfdb86fac59}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\GameObject\Objects\Enemies\Boss">
       <UniqueIdentifier>{da3e36a5-4a6f-4a45-beb6-0548c52444f2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\GameObject\Objects\Players\Effect">
+    <Filter Include="Engine\GameObject\Objects\Items">
+      <UniqueIdentifier>{49724159-6561-4801-ab51-bc8ffeb3bbbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\Components\Animator">
+      <UniqueIdentifier>{13a4ae8f-b725-41c6-b3eb-9c26bf4aedf5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\Components\Transform">
+      <UniqueIdentifier>{ca5f181e-e579-4337-9a34-6da62466e1f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Objects\Items\Drop_Items">
+      <UniqueIdentifier>{84a64902-458d-42e2-912a-889bc61bae8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Objects\Items\Skill">
+      <UniqueIdentifier>{005e4193-a7dd-4bed-b9bf-efdbfc0221fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Objects\Players\Damaged_Effect">
       <UniqueIdentifier>{09b6aa0f-1ff7-413a-99bf-93c5c8e99eb4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\GameObject\Objects\Radar">
+    <Filter Include="Engine\GameObject\Objects\Items\Drop_Items\Treasure">
+      <UniqueIdentifier>{b20ed219-9489-47e5-bdec-209ac11cb884}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Objects\UI\Intro &amp; Title">
+      <UniqueIdentifier>{5d03fc5f-bc30-4702-8d2b-0cfdb86fac59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Objects\Players\Krochi">
+      <UniqueIdentifier>{e8bba8db-7224-457a-b548-bce9f24ffd5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Objects\Players\Radar">
       <UniqueIdentifier>{a6a9e166-31db-4be8-bc4c-099153afafad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Objects\Items\Drop_Items\Treasure\Arrow">
+      <UniqueIdentifier>{a5760458-1b65-463a-b083-23ed7cdac381}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Objects\Items\Drop_Items\Magnet">
+      <UniqueIdentifier>{56b40161-fc93-40ee-9e89-e6bf2c7c4f45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Objects\Items\Drop_Items\Magnet\Arrow">
+      <UniqueIdentifier>{3639168c-35cf-46d3-aa9f-e42e49eed42c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -186,38 +207,23 @@
     <ClInclude Include="myGameObject.h">
       <Filter>Engine\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="myTransform.h">
-      <Filter>Engine\Component\Components</Filter>
-    </ClInclude>
     <ClInclude Include="Title.h">
-      <Filter>Engine\GameObject\Intro &amp; Title</Filter>
+      <Filter>Engine\GameObject\Objects\UI\Intro &amp; Title</Filter>
     </ClInclude>
     <ClInclude Include="myIntroScene.h">
       <Filter>Engine\Scene\IntroScene</Filter>
     </ClInclude>
-    <ClInclude Include="Krochi.h">
-      <Filter>Engine\GameObject\Objects\Players</Filter>
-    </ClInclude>
     <ClInclude Include="Intro.h">
-      <Filter>Engine\GameObject\Intro &amp; Title</Filter>
+      <Filter>Engine\GameObject\Objects\UI\Intro &amp; Title</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Engine\GameObject\Objects\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="myAnimation.h">
-      <Filter>Engine\Component\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="myAnimator.h">
-      <Filter>Engine\Component\Components</Filter>
     </ClInclude>
     <ClInclude Include="Field.h">
       <Filter>Engine\GameObject\Objects\Fields</Filter>
     </ClInclude>
     <ClInclude Include="GameOption.h">
       <Filter>Engine\GameObject\Objects\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Krochi_after.h">
-      <Filter>Engine\GameObject\Objects\Players</Filter>
     </ClInclude>
     <ClInclude Include="myCollider.h">
       <Filter>Engine\Component\Components\Collider</Filter>
@@ -241,7 +247,7 @@
       <Filter>Engine\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Blade_R.h">
-      <Filter>Engine\GameObject\Skill</Filter>
+      <Filter>Engine\GameObject\Objects\Items\Skill</Filter>
     </ClInclude>
     <ClInclude Include="Effect.h">
       <Filter>Engine\GameObject\Objects\Enemies\Damaged_Effect</Filter>
@@ -253,31 +259,25 @@
       <Filter>Engine\Scene\TileMap</Filter>
     </ClInclude>
     <ClInclude Include="Blade_L.h">
-      <Filter>Engine\GameObject\Skill</Filter>
+      <Filter>Engine\GameObject\Objects\Items\Skill</Filter>
     </ClInclude>
     <ClInclude Include="EnemyManager.h">
       <Filter>Engine\GameObject\Objects\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="Lightning.h">
-      <Filter>Engine\GameObject\Skill</Filter>
-    </ClInclude>
-    <ClInclude Include="Treasure.h">
-      <Filter>Engine\GameObject\Objects\Drop_Items</Filter>
-    </ClInclude>
-    <ClInclude Include="Level_Item.h">
-      <Filter>Engine\GameObject\Objects\Drop_Items</Filter>
+      <Filter>Engine\GameObject\Objects\Items\Skill</Filter>
     </ClInclude>
     <ClInclude Include="Ax2.h">
-      <Filter>Engine\GameObject\Skill</Filter>
+      <Filter>Engine\GameObject\Objects\Items\Skill</Filter>
     </ClInclude>
     <ClInclude Include="Book.h">
-      <Filter>Engine\GameObject\Skill</Filter>
+      <Filter>Engine\GameObject\Objects\Items\Skill</Filter>
     </ClInclude>
     <ClInclude Include="Book_Shadow.h">
-      <Filter>Engine\GameObject\Skill</Filter>
+      <Filter>Engine\GameObject\Objects\Items\Skill</Filter>
     </ClInclude>
     <ClInclude Include="Cross.h">
-      <Filter>Engine\GameObject\Skill</Filter>
+      <Filter>Engine\GameObject\Objects\Items\Skill</Filter>
     </ClInclude>
     <ClInclude Include="Boss.h">
       <Filter>Engine\GameObject\Objects\Enemies\Boss</Filter>
@@ -286,7 +286,7 @@
       <Filter>Engine\GameObject\Objects\Enemies\Boss</Filter>
     </ClInclude>
     <ClInclude Include="Effect2.h">
-      <Filter>Engine\GameObject\Objects\Players\Effect</Filter>
+      <Filter>Engine\GameObject\Objects\Players\Damaged_Effect</Filter>
     </ClInclude>
     <ClInclude Include="Boss_After.h">
       <Filter>Engine\GameObject\Objects\Enemies\Boss</Filter>
@@ -294,23 +294,56 @@
     <ClInclude Include="Client.h">
       <Filter>리소스 파일\헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="chicken.h">
-      <Filter>Engine\GameObject\Objects\Drop_Items</Filter>
-    </ClInclude>
     <ClInclude Include="myEndingScene.h">
       <Filter>Engine\Scene\EndingScene</Filter>
     </ClInclude>
     <ClInclude Include="GameOver.h">
       <Filter>Engine\Scene\EndingScene</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerManager.h">
+    <ClInclude Include="Radar.h">
+      <Filter>Engine\GameObject\Objects\Players\Radar</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemManager.h">
+      <Filter>Engine\GameObject\Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="myAnimation.h">
+      <Filter>Engine\Component\Components\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="myAnimator.h">
+      <Filter>Engine\Component\Components\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="myTransform.h">
+      <Filter>Engine\Component\Components\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="chicken.h">
+      <Filter>Engine\GameObject\Objects\Items\Drop_Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Level_Item.h">
+      <Filter>Engine\GameObject\Objects\Items\Drop_Items</Filter>
+    </ClInclude>
+    <ClInclude Include="PlaySceneManager.h">
       <Filter>Engine\GameObject\Objects\Players</Filter>
     </ClInclude>
-    <ClInclude Include="Radar.h">
-      <Filter>Engine\GameObject\Objects\Radar</Filter>
+    <ClInclude Include="Krochi_after.h">
+      <Filter>Engine\GameObject\Objects\Players\Krochi</Filter>
+    </ClInclude>
+    <ClInclude Include="Krochi.h">
+      <Filter>Engine\GameObject\Objects\Players\Krochi</Filter>
     </ClInclude>
     <ClInclude Include="Treasure_Arrow.h">
-      <Filter>Engine\GameObject\Objects\Radar</Filter>
+      <Filter>Engine\GameObject\Objects\Items\Drop_Items\Treasure\Arrow</Filter>
+    </ClInclude>
+    <ClInclude Include="Treasure.h">
+      <Filter>Engine\GameObject\Objects\Items\Drop_Items\Treasure</Filter>
+    </ClInclude>
+    <ClInclude Include="Magnet.h">
+      <Filter>Engine\GameObject\Objects\Items\Drop_Items\Magnet</Filter>
+    </ClInclude>
+    <ClInclude Include="Magnet_Arrow.h">
+      <Filter>Engine\GameObject\Objects\Items\Drop_Items\Magnet\Arrow</Filter>
+    </ClInclude>
+    <ClInclude Include="Warning_animation.h">
+      <Filter>Engine\GameObject\Objects\Players\Krochi</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -359,38 +392,23 @@
     <ClCompile Include="myGameObject.cpp">
       <Filter>Engine\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="myTransform.cpp">
-      <Filter>Engine\Component\Components</Filter>
-    </ClCompile>
     <ClCompile Include="Title.cpp">
-      <Filter>Engine\GameObject\Intro &amp; Title</Filter>
+      <Filter>Engine\GameObject\Objects\UI\Intro &amp; Title</Filter>
     </ClCompile>
     <ClCompile Include="myIntroScene.cpp">
       <Filter>Engine\Scene\IntroScene</Filter>
     </ClCompile>
-    <ClCompile Include="Krochi.cpp">
-      <Filter>Engine\GameObject\Objects\Players</Filter>
-    </ClCompile>
     <ClCompile Include="Intro.cpp">
-      <Filter>Engine\GameObject\Intro &amp; Title</Filter>
+      <Filter>Engine\GameObject\Objects\UI\Intro &amp; Title</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Engine\GameObject\Objects\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="myAnimation.cpp">
-      <Filter>Engine\Component\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="myAnimator.cpp">
-      <Filter>Engine\Component\Components</Filter>
     </ClCompile>
     <ClCompile Include="Field.cpp">
       <Filter>Engine\GameObject\Objects\Fields</Filter>
     </ClCompile>
     <ClCompile Include="GameOption.cpp">
       <Filter>Engine\GameObject\Objects\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Krochi_after.cpp">
-      <Filter>Engine\GameObject\Objects\Players</Filter>
     </ClCompile>
     <ClCompile Include="myCollider.cpp">
       <Filter>Engine\Component\Components\Collider</Filter>
@@ -411,7 +429,7 @@
       <Filter>Engine\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Blade_R.cpp">
-      <Filter>Engine\GameObject\Skill</Filter>
+      <Filter>Engine\GameObject\Objects\Items\Skill</Filter>
     </ClCompile>
     <ClCompile Include="Effect.cpp">
       <Filter>Engine\GameObject\Objects\Enemies\Damaged_Effect</Filter>
@@ -423,31 +441,25 @@
       <Filter>Engine\Scene\TileMap</Filter>
     </ClCompile>
     <ClCompile Include="Blade_L.cpp">
-      <Filter>Engine\GameObject\Skill</Filter>
+      <Filter>Engine\GameObject\Objects\Items\Skill</Filter>
     </ClCompile>
     <ClCompile Include="EnemyManager.cpp">
       <Filter>Engine\GameObject\Objects\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="Lightning.cpp">
-      <Filter>Engine\GameObject\Skill</Filter>
-    </ClCompile>
-    <ClCompile Include="Treasure.cpp">
-      <Filter>Engine\GameObject\Objects\Drop_Items</Filter>
-    </ClCompile>
-    <ClCompile Include="Level_Item.cpp">
-      <Filter>Engine\GameObject\Objects\Drop_Items</Filter>
+      <Filter>Engine\GameObject\Objects\Items\Skill</Filter>
     </ClCompile>
     <ClCompile Include="Ax2.cpp">
-      <Filter>Engine\GameObject\Skill</Filter>
+      <Filter>Engine\GameObject\Objects\Items\Skill</Filter>
     </ClCompile>
     <ClCompile Include="Book.cpp">
-      <Filter>Engine\GameObject\Skill</Filter>
+      <Filter>Engine\GameObject\Objects\Items\Skill</Filter>
     </ClCompile>
     <ClCompile Include="Book_Shadow.cpp">
-      <Filter>Engine\GameObject\Skill</Filter>
+      <Filter>Engine\GameObject\Objects\Items\Skill</Filter>
     </ClCompile>
     <ClCompile Include="Cross.cpp">
-      <Filter>Engine\GameObject\Skill</Filter>
+      <Filter>Engine\GameObject\Objects\Items\Skill</Filter>
     </ClCompile>
     <ClCompile Include="Boss.cpp">
       <Filter>Engine\GameObject\Objects\Enemies\Boss</Filter>
@@ -456,13 +468,10 @@
       <Filter>Engine\GameObject\Objects\Enemies\Boss</Filter>
     </ClCompile>
     <ClCompile Include="Effect2.cpp">
-      <Filter>Engine\GameObject\Objects\Players\Effect</Filter>
+      <Filter>Engine\GameObject\Objects\Players\Damaged_Effect</Filter>
     </ClCompile>
     <ClCompile Include="Boss_After.cpp">
       <Filter>Engine\GameObject\Objects\Enemies\Boss</Filter>
-    </ClCompile>
-    <ClCompile Include="chicken.cpp">
-      <Filter>Engine\GameObject\Objects\Drop_Items</Filter>
     </ClCompile>
     <ClCompile Include="myEndingScene.cpp">
       <Filter>Engine\Scene\EndingScene</Filter>
@@ -470,14 +479,50 @@
     <ClCompile Include="GameOver.cpp">
       <Filter>Engine\Scene\EndingScene</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerManager.cpp">
+    <ClCompile Include="Radar.cpp">
+      <Filter>Engine\GameObject\Objects\Players\Radar</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemManager.cpp">
+      <Filter>Engine\GameObject\Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="myAnimation.cpp">
+      <Filter>Engine\Component\Components\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="myAnimator.cpp">
+      <Filter>Engine\Component\Components\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="myTransform.cpp">
+      <Filter>Engine\Component\Components\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="chicken.cpp">
+      <Filter>Engine\GameObject\Objects\Items\Drop_Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Level_Item.cpp">
+      <Filter>Engine\GameObject\Objects\Items\Drop_Items</Filter>
+    </ClCompile>
+    <ClCompile Include="PlaySceneManager.cpp">
       <Filter>Engine\GameObject\Objects\Players</Filter>
     </ClCompile>
-    <ClCompile Include="Radar.cpp">
-      <Filter>Engine\GameObject\Objects\Radar</Filter>
+    <ClCompile Include="Krochi.cpp">
+      <Filter>Engine\GameObject\Objects\Players\Krochi</Filter>
+    </ClCompile>
+    <ClCompile Include="Krochi_after.cpp">
+      <Filter>Engine\GameObject\Objects\Players\Krochi</Filter>
     </ClCompile>
     <ClCompile Include="Treasure_Arrow.cpp">
-      <Filter>Engine\GameObject\Objects\Radar</Filter>
+      <Filter>Engine\GameObject\Objects\Items\Drop_Items\Treasure\Arrow</Filter>
+    </ClCompile>
+    <ClCompile Include="Treasure.cpp">
+      <Filter>Engine\GameObject\Objects\Items\Drop_Items\Treasure</Filter>
+    </ClCompile>
+    <ClCompile Include="Magnet.cpp">
+      <Filter>Engine\GameObject\Objects\Items\Drop_Items\Magnet</Filter>
+    </ClCompile>
+    <ClCompile Include="Magnet_Arrow.cpp">
+      <Filter>Engine\GameObject\Objects\Items\Drop_Items\Magnet\Arrow</Filter>
+    </ClCompile>
+    <ClCompile Include="Warning_animation.cpp">
+      <Filter>Engine\GameObject\Objects\Players\Krochi</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

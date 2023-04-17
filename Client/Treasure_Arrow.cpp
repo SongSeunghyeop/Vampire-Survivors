@@ -1,5 +1,5 @@
 #include "Treasure_Arrow.h"
-#include "Treasure.h"
+
 #pragma comment(lib, "msimg32.lib")
 
 namespace my
@@ -33,6 +33,72 @@ namespace my
 	{
 		arrow_Tr = GetComponent<Transform>();
 
+		if (treasure->treasure_Down)
+		{
+			Vector2 pos;
+			if (treasure->treasurePos.x <  Krochi::getPlayerPos().x + 612
+				&& treasure->treasurePos.x >  Krochi::getPlayerPos().x - 612)
+			{
+				pos.x = treasure->treasurePos.x + 24;
+				pos.y = Krochi::getPlayerPos().y + 370;
+			}
+			else if (treasure->treasurePos.x < Krochi::getPlayerPos().x - 612)
+			{
+				pos.x = Krochi::getPlayerPos().x - 608;
+				pos.y = Krochi::getPlayerPos().y + 370;
+			}
+			else if (treasure->treasurePos.x > Krochi::getPlayerPos().x + 612)
+			{
+				pos.x = Krochi::getPlayerPos().x + 624;
+				pos.y = Krochi::getPlayerPos().y + 370;
+			}
+
+			arrow_Tr->setPos(pos);
+		}
+		else if (treasure->treasure_Up)
+		{
+			Vector2 pos;
+
+			if (treasure->treasurePos.x <  Krochi::getPlayerPos().x + 612
+				&& treasure->treasurePos.x >  Krochi::getPlayerPos().x - 612)
+			{
+				pos.x = treasure->treasurePos.x + 24;
+				pos.y = Krochi::getPlayerPos().y - 280;
+			}
+			else if (treasure->treasurePos.x < Krochi::getPlayerPos().x - 612)
+			{
+				pos.x = Krochi::getPlayerPos().x - 608;
+				pos.y = Krochi::getPlayerPos().y - 280;
+			}
+			else if (treasure->treasurePos.x > Krochi::getPlayerPos().x + 612)
+			{
+				pos.x = Krochi::getPlayerPos().x + 625;
+				pos.y = Krochi::getPlayerPos().y - 280;
+			}
+
+			arrow_Tr->setPos(pos);
+		}
+		else if (treasure->treasure_Right)
+		{
+			Vector2 pos;
+			pos.x = Krochi::getPlayerPos().x + 625;
+			pos.y = treasure->treasurePos.y + 40;
+
+			arrow_Tr->setPos(pos);
+		}
+		else if (treasure->treasure_Left)
+		{
+			Vector2 pos;
+			pos.x = Krochi::getPlayerPos().x - 605;
+			pos.y = treasure->treasurePos.y + 40;
+
+			arrow_Tr->setPos(pos);
+		}
+		else
+		{
+			arrow_Tr->setPos(Krochi::getPlayerPos() + Vector2(5000, 5000));
+		}
+
 		GameObject::Update();
 	}
 	void Treasure_Arrow::Render(HDC hdc)
@@ -40,10 +106,10 @@ namespace my
 		arrow_Tr = GetComponent<Transform>();
 		Vector2 pos = Camera::CaluatePos(arrow_Tr->getPos());
 
-		if(treasure->treasure_down)
+		if(treasure->treasure_Down)
 			TransparentBlt(hdc, pos.x - 25, pos.y - 60, Arrow_D->GetWidth() * 3.8, Arrow_D->GetHeight() * 4,
 				Arrow_D->GetHdc(), 0, 0, Arrow_D->GetWidth(), Arrow_D->GetHeight(), RGB(255, 0, 255));
-		else if (treasure->treasure_up)
+		else if (treasure->treasure_Up)
 			TransparentBlt(hdc, pos.x - 25, pos.y - 38, Arrow_U->GetWidth() * 3.8, Arrow_U->GetHeight() * 4,
 				Arrow_U->GetHdc(), 0, 0, Arrow_U->GetWidth(), Arrow_U->GetHeight(), RGB(255, 0, 255));
 		else if(treasure->treasure_Left)

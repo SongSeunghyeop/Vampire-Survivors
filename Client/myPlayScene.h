@@ -9,7 +9,8 @@
 #include "Krochi.h"
 #include "EnemyManager.h"
 #include "Field.h"
-#include "PlayerManager.h"
+#include "ItemManager.h"
+#include "PlaySceneManager.h"
 
 namespace my
 {
@@ -31,7 +32,8 @@ namespace my
 		Krochi* krochi;
 		Field* field;
 		EnemyManager* E_manager;
-		PlayerManager* levelmanager;
+		ItemManager* I_manager;
+		PlaySceneManager* P_manager;
 		Treasure* treasure;
 	};
 }

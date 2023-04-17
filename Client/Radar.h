@@ -33,15 +33,15 @@ namespace my
 				}
 			}
 		}
-		static std::vector<Collider*> getEnemies() { return Enemies; }
-
+		static Vector2 getRandomEnemyPos(int a);
+		static int getEnemyNum();
 	private:
 		Collider* radar_Collider;
 		Transform* rader_Tr;
 		Vector2 Radar_Size;
 	
 		static std::vector<Collider*> Enemies;
-
+		static Vector2* enemyPos;
 		friend class Krochi;
 	};
 }

@@ -15,7 +15,6 @@ namespace my
 		Collider* meteor_Collider;
 
 	private:
-
 		Image* meteor;
 		float mTime = 0.0f;
 		Transform* meteor_Tr;

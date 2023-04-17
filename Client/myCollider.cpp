@@ -34,7 +34,7 @@ namespace my
 
 	void Collider::Render(HDC hdc)
 	{
-		/*HPEN pen = CreatePen(BS_SOLID, 1, RGB(mRgb.r, mRgb.g, mRgb.b));	
+	/*	HPEN pen = CreatePen(BS_SOLID, 1, RGB(mRgb.r, mRgb.g, mRgb.b));	
 		HPEN oldPen = (HPEN)SelectObject(hdc, pen);
 		HBRUSH brush = (HBRUSH)GetStockObject(NULL_BRUSH);
 		HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, brush);

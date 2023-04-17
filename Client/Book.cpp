@@ -72,18 +72,4 @@ namespace my
 	{
 
 	}
-	void Book::onCollisionEnter(Collider* other)
-	{
-
-	}
-
-	void Book::onCollisionStay(Collider* other)
-	{
-
-	}
-
-	void Book::onCollisionExit(Collider* other)
-	{
-
-	}
 }

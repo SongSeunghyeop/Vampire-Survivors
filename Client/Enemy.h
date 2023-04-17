@@ -3,8 +3,8 @@
 #include "myAnimator.h"
 #include "myTransform.h"
 #include "myImage.h" 
-#include "Krochi.h"
 #include "myCollider.h"
+#include "Krochi.h"
 
 namespace my
 {
@@ -65,7 +65,6 @@ namespace my
 		Effect* mEffect;
 		Effect2* mEffect2;
 		Level_Item* lv_Item;
-
 
 		eEnemyType eType;
 		//

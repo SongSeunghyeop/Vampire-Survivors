@@ -16,7 +16,8 @@ namespace my
 		krochi = object::Instantiate<Krochi>(eLayerType::PLAYER);
 		field = object::Instantiate<Field>(eLayerType::BACKGROUND);
 		E_manager = object::Instantiate<EnemyManager>(eLayerType::BACKGROUND);
-		levelmanager = object::Instantiate<PlayerManager>(eLayerType::UI);
+		I_manager = object::Instantiate<ItemManager>(eLayerType::UI);
+		P_manager = object::Instantiate<PlaySceneManager>(eLayerType::UI);
 
 		Camera::SetTarget(krochi);
 	}

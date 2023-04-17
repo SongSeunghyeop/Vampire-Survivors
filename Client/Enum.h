@@ -23,6 +23,7 @@ enum class eLayerType
 	EFFECT,
 	SKILL,
 	UI,
+	ARROW,
 	END,
 };
 

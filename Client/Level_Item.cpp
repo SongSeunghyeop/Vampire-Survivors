@@ -4,6 +4,8 @@
 
 namespace my
 {
+	float Level_Item::Item_vel;
+
 	Level_Item::Level_Item()
 	{
 		setName(L"Level_Item");
@@ -22,11 +24,11 @@ namespace my
 	{
 		if (EnemyManager::Boss_on)
 		{
-			/*Effect2 *effect = object::Instantiate<Effect2>
-				(Item_TR->getPos() + Vector2(3.0f, 0.0f), eLayerType::EFFECT);*/
-
 			object::Destory(this);
 		}
+		Item_pos = Item_TR->getPos();
+		Item_pos += (Krochi::getPlayerPos() - Item_TR->getPos()).Normalize() * Item_vel * Time::getDeltaTime();
+		Item_TR->setPos(Item_pos);
 		GameObject::Update();
 	}
 	void Level_Item::Render(HDC hdc)

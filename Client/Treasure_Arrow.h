@@ -1,13 +1,7 @@
 #pragma once
-#include "MyGameObject.h"
-#include "myTransform.h"
-#include "myImage.h"
-#include "myAnimator.h"
-#include "myResourceManager.h"
-
+#include "Treasure.h"
 namespace my
 {
-	class Treasure;
 	class Treasure_Arrow : public GameObject
 	{
 	public:
@@ -18,7 +12,6 @@ namespace my
 		virtual void Update();
 		virtual void Render(HDC hdc);
 		virtual void Release();
-		void ArrowSetPos(Vector2 v) { arrow_Tr->setPos(v); }
 		void SetTreasure(Treasure* t) { treasure = t; }
 	private:
 		Transform* arrow_Tr;

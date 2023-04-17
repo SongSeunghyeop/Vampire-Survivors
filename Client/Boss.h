@@ -1,10 +1,5 @@
 #pragma once
-#include "MyGameObject.h"
-#include "myAnimator.h"
-#include "myTransform.h"
-#include "myImage.h" 
-#include "Krochi.h"
-#include "myCollider.h"
+#include "Enemy.h"
 
 namespace my
 {
@@ -39,15 +34,14 @@ namespace my
 		virtual void onCollisionEnter(class Collider* other) override;
 		virtual void onCollisionExit(class Collider* other) override;
 		virtual void onCollisionStay(class Collider* other) override;
+		
+	static Vector2 getBossPos() { return movePos; }
 
 	private:
 		static Vector2 movePos;
-		static float Boss_vel;
-		static eBossState eState;
 
 		Animator* BossAnimator;
 		Collider* BossCollider;
-
 		Transform* Boss_TR;
 		Vector2 Ppos;
 
@@ -64,6 +58,8 @@ namespace my
 		int boss_hp;
 		float delay = 0.0f;
 		float skill_Time = 0.0f;
+		float Boss_vel;
+		eBossState eState;
 
 		friend class Boss_After;
 	};

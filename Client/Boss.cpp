@@ -1,17 +1,10 @@
-#include "myResourceManager.h"
 #include "Boss.h"
-#include "Time.h"
-#include "Effect.h"
-#include "myObject.h"
-#include "EnemyManager.h"
 #include "Boss_Skill.h"
 #include "Boss_After.h"
 
 namespace my
 {
 	Vector2 Boss::movePos;
-	float Boss::Boss_vel;
-	Boss::eBossState Boss::eState;
 
 	Boss::Boss()
 	{
@@ -62,6 +55,7 @@ namespace my
 		{
 			Boss_After* shadow = 
 				object::Instantiate<Boss_After>(Boss_TR->getPos(), eLayerType::ENEMYAFTER);
+
 			shadow->setShadowDistance(20.0f - i * 5);
 		}
 
@@ -91,6 +85,7 @@ namespace my
 			attack();
 			break;
 		}
+
 		Boss_TR->setPos(movePos);
 
 		if (skill_Time >= 4.5f)
@@ -207,10 +202,6 @@ namespace my
 
 	void Boss::onCollisionStay(Collider* other)
 	{
-		if (other->getOwner()->getName() == L"Radar")
-		{
-			Boss_vel = 280.0f;
-		}
 		if (other->getOwner()->getName() == L"Player")
 		{
 			Boss_vel = 0.0f;
@@ -219,10 +210,9 @@ namespace my
 
 	void Boss::onCollisionExit(Collider* other)
 	{
-		if (other->getOwner()->getName() == L"Radar")
+		if (other->getOwner()->getName() == L"Player")
 		{
-			Boss_vel = 0.0f;
-			skill_Time -= 8.0f;
+			Boss_vel = 280.0f;
 		}
 	}
 }

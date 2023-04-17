@@ -1,7 +1,6 @@
 #include "Treasure.h"
 #include "Treasure_Arrow.h"
 #include "myObject.h"
-#include "Krochi.h"
 
 namespace my
 {
@@ -12,16 +11,27 @@ namespace my
 	void Treasure::Initialize()
 	{
 		treasure = ResourceManager::Load<Image>(L"Treasure", L"..\\Resources\\Treasure.bmp");
+		
+		Vector2 RandPos;
+		RandPos.x = rand() % 1600 - 800;  // -800 ~ 800
+		RandPos.y = rand() % 1000 - 500; //  -500 ~ 500
+
+		while ((RandPos.x > -750 && RandPos.x < 750) && // 750
+			(RandPos.y > -450 && RandPos.y < 450)) //450
+		{
+			RandPos.x = rand() % 1600 - 800;
+			RandPos.y = rand() % 1000 - 500;
+		}
 
 		Item_TR = GetComponent<Transform>();
-		Item_TR->setPos(Vector2(1200,800)); // 1000,600
+		Item_TR->setPos(Krochi::getPlayerPos() + RandPos); // 1000,600
 
 		Item_Collider = AddComponent<Collider>();
 		Item_Collider->setCenter(Vector2(3, 43));
 		Item_Collider->setSize(Vector2(38, 35));
 		Item_Collider->setRGB(255, 0, 255);
 
-		arrow = object::Instantiate<Treasure_Arrow>(Item_TR->getPos() + Vector2(5000, 5000), eLayerType::UI);
+		arrow = object::Instantiate<Treasure_Arrow>(Item_TR->getPos() + Vector2(5000, 5000), eLayerType::ARROW);
 		arrow->SetTreasure(this);
 
 		GameObject::Initialize();
@@ -31,44 +41,44 @@ namespace my
 	{
 		treasurePos = Item_TR->getPos(); // Vector2(1000,600) 아닐시 문제 생길 수 있음
 
-		setArrowDir();
-
-		if (treasure_down)
+		if (treasurePos.y > Krochi::getPlayerPos().y + 380)
 		{
-			Vector2 pos;
-			pos.x = treasurePos.x + 24;
-			pos.y = Krochi::getPlayerPos().y + 370;
-
-			arrow->ArrowSetPos(pos);
-		}
-		else if (treasure_up)
-		{
-			Vector2 pos;
-			pos.x = treasurePos.x + 24;
-			pos.y = Krochi::getPlayerPos().y - 280;
-
-			arrow->ArrowSetPos(pos);
-		}
-		else if (treasure_Right)
-		{
-			Vector2 pos;
-			pos.x = Krochi::getPlayerPos().x + 625;
-			pos.y = treasurePos.y + 78;
-
-			arrow->ArrowSetPos(pos);
-		}
-		else if (treasure_Left)
-		{
-			Vector2 pos;
-			pos.x = Krochi::getPlayerPos().x - 605;
-			pos.y = treasurePos.y + 78;
-
-			arrow->ArrowSetPos(pos);
+			treasure_Down = true;
 		}
 		else
 		{
-			arrow->ArrowSetPos(Krochi::getPlayerPos() + Vector2(5000, 5000));
+			treasure_Down = false;
 		}
+		if (treasurePos.y < Krochi::getPlayerPos().y - 392)
+		{
+			treasure_Up = true;
+		}
+		else
+		{
+			treasure_Up = false;
+		}
+		if (treasurePos.x > Krochi::getPlayerPos().x + 633
+			&& treasurePos.y > Krochi::getPlayerPos().y - 370
+			&& treasurePos.y < Krochi::getPlayerPos().y + 360
+			)
+		{
+			treasure_Right = true;
+		}
+		else
+		{
+			treasure_Right = false;
+		}
+		if (treasurePos.x <  Krochi::getPlayerPos().x - 631
+			&& treasurePos.y > Krochi::getPlayerPos().y - 370
+			&& treasurePos.y < Krochi::getPlayerPos().y + 360)
+		{
+			treasure_Left = true;
+		}
+		else
+		{
+			treasure_Left = false;
+		}
+
 		GameObject::Update();
 	}
 
@@ -88,50 +98,6 @@ namespace my
 		{
 			object::Destory(arrow);
 			object::Destory(this);
-		}
-	}
-	void Treasure::setArrowDir()
-	{
-		if (treasurePos.y > Krochi::getPlayerPos().y + 373
-			&& treasurePos.x <  Krochi::getPlayerPos().x + 612
-			&& treasurePos.x >  Krochi::getPlayerPos().x - 612)
-		{
-			treasure_down = true;
-		}
-		else
-		{
-			treasure_down = false;
-		}
-		if (treasurePos.y < Krochi::getPlayerPos().y - 392
-			&& treasurePos.x <  Krochi::getPlayerPos().x + 612
-			&& treasurePos.x >  Krochi::getPlayerPos().x - 612)
-		{
-			treasure_up = true;
-		}
-		else
-		{
-			treasure_up = false;
-		}
-		if (treasurePos.x > Krochi::getPlayerPos().x + 633
-			&& treasurePos.y > Krochi::getPlayerPos().y - 397
-			&& treasurePos.y < Krochi::getPlayerPos().y + 291
-			)
-		{
-			treasure_Right = true;
-		}
-		else
-		{
-			treasure_Right = false;
-		}
-		if (treasurePos.x <  Krochi::getPlayerPos().x - 631
-			&& treasurePos.y > Krochi::getPlayerPos().y - 397
-			&& treasurePos.y < Krochi::getPlayerPos().y + 291)
-		{
-			treasure_Left = true;
-		}
-		else
-		{
-			treasure_Left = false;
 		}
 	}
 }

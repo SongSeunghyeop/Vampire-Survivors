@@ -1,5 +1,6 @@
 #include "Boss_Skill.h"
 #include "Effect2.h"
+
 namespace my
 {
 	Boss_Skill::Boss_Skill()
@@ -10,7 +11,6 @@ namespace my
 	void Boss_Skill::Initialize()
 	{
 		meteor = ResourceManager::Load<Image>(L"meteor", L"..\\Resources\\Boss_Attack.bmp");
-
 
 		meteor_Animation = AddComponent<Animator>(); // 애니메이터 컴포넌트 배열에 동적할당 및 초기화
 		meteor_Animation->CreateAnimation(L"meteor", meteor, Vector2::Zero, 1, 1, 1, 0.1f, 255, 0, 255);

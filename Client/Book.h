@@ -22,14 +22,11 @@ namespace my
 		virtual void Render(HDC hdc) override;
 		virtual void Release() override;
 
-		void onCollisionEnter(Collider* other);
-		void onCollisionStay(Collider* other);
-		void onCollisionExit(Collider* other);
-
 		void setR(int r) { R = r; }
 		void setDistance(float d) { distance = d;}
 		void setVel(float v) { book_vel = v; }
 		void setTime(float t) { book_Time = t; }
+
 	private:
 		Vector2 bookPos;
 		Vector2 EnemyPos;

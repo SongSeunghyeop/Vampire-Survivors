@@ -1,9 +1,13 @@
 #pragma once
-#include "Enemy.h"
+#include "myGameObject.h"
+#include "myTransform.h"
+#include "myAnimator.h"
+#include "myImage.h"
+#include "myResourceManager.h"
 
 namespace my
 {
-	class Effect : public Enemy
+	class Effect : public GameObject
 	{
 	public:
 		Effect();
@@ -18,7 +22,6 @@ namespace my
 		Image* Damaged_Effect;
 
 		friend class Enemy;
-		friend class White_Fly;
 	};
 }
 

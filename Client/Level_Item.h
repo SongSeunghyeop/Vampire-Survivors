@@ -15,9 +15,11 @@ namespace my
 
 		virtual void onCollisionEnter(class Collider* other) override;
 
+		static float Item_vel;
 	private:
 		Collider* Item_Collider;
 		Image* Item_Image;
 		Transform* Item_TR;
+		Vector2 Item_pos;
 	};
 }

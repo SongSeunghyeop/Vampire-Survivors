@@ -5,12 +5,11 @@
 namespace my
 {
 	Cross::Cross()
-		: mTime(0.0f)
-		, effect_Time(0.0f)
 	{
 		this->setName(L"Cross");
-		bullet_vel = 250.0f;
-
+		bullet_vel = 300.0f;
+		mTime = 0.0f;
+		effect_Time = 0.0f;
 	}
 	Cross::~Cross()
 	{
@@ -33,7 +32,7 @@ namespace my
 		collider->setRGB(0, 255,0);
 
 		Ax_Animator = AddComponent<Animator>();
-		Ax_Animator->CreateAnimation(L"Cross", ax_Image, Vector2::Zero, 2, 1, 2, 0.045f, 255, 0, 255);
+		Ax_Animator->CreateAnimation(L"Cross", ax_Image, Vector2::Zero, 2, 1, 2, 0.035f, 255, 0, 255);
 		Ax_Animator->Play(L"Cross", true);
 
 		GameObject::Initialize();
@@ -56,11 +55,11 @@ namespace my
 
 		mTime += Time::getDeltaTime();
 		
-		if (mTime > 0.5f)
+		if (mTime > 0.3f)
 		{
-			bullet_vel -= Time::getDeltaTime() * 540.0f;
+			bullet_vel -= Time::getDeltaTime() * 800.0f;
 		}
-		if (mTime > 4.0f)
+		if (mTime > 3.0f)
 		{
 			object::Destory(this);
 		}

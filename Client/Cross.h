@@ -26,14 +26,16 @@ namespace my
 
 		void setR(int r) { R = r; }
 		void setCrossScale(float f) { cross_scale = f; }
+
 	private:
+		float mTime;
+		float bullet_vel;
+
 		Vector2 bulletPos;
 		Vector2 EnemyPos;
 
 		int R;
-		float mTime;
 		float effect_Time;
-		float bullet_vel;
 		float cross_scale;
 		Image* ax_Image;
 

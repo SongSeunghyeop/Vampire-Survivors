@@ -10,7 +10,6 @@
 #include "myImage.h"
 #include "myInput.h"
 
-
 namespace my
 {
 	//Skills
@@ -19,7 +18,7 @@ namespace my
 	class Cross;
 	class Book;
 	class Effect2;
-
+	class Warning_animation;
 	class Krochi_after;
 	class Krochi : public GameObject
 	{
@@ -55,16 +54,17 @@ namespace my
 		static float getPlayerPower(std::wstring p) 
 		{ 
 			if(p == L"Lightning")
-				return Krochi::Light_Power;
+				return Krochi::Light_Power + spinach;
 			if (p == L"Book")
-				return Krochi::Books_Power;
+				return Krochi::Books_Power + spinach;
 			if(p == L"Cross")
-				return Krochi::Cross_Power;
+				return Krochi::Cross_Power + spinach;
 		}
 		static ePlayerState getPlayerState() { return mState; }
 
 	public:
 		static int Death_count;
+
 	protected:
 		static ePlayerState mState;
 		static eSkillState skillState;
@@ -73,7 +73,6 @@ namespace my
 		static Vector2 Playerpos;
 
 	private:
-
 		static float Hp;
 		static float Exp;
 		static float Monster_Exp;
@@ -92,7 +91,7 @@ namespace my
 		static float Armor;
 		static float recovery;
 		static float defaultTime;
-
+		static float spinach; // ½Ã±ÝÄ¡
 		Animator* playerAnimator;
 
 		Image* playerImg_R;
@@ -103,11 +102,10 @@ namespace my
 		Image* die_L;
 
 		Book* book1;
-
+		Cross* cross;
 		Radar* radar;
-
 		Krochi_after	*after;
-
+		Warning_animation* wa;
 		// --- move
 		void move();
 		void idle();
@@ -120,12 +118,15 @@ namespace my
 		void cross_();
 		void Light();
 		void Books();
-
+		void magnet();
 		int EnemyIndex[200] = { 0 };
-		int EnemyNum;
+		int enemyNum;
 		int randNum;
+		int Magnet_power;
+		float Magnet_Time;
 
-		friend class PlayerManager;
+		friend class PlaySceneManager;
+		friend class ItemManager;
 	};
 }
 

@@ -5,10 +5,12 @@
 #include "myResourceManager.h"
 #include "myCollider.h"
 #include "myAnimator.h"
+#include "Krochi.h"
 
 namespace my
 {
 	class Treasure_Arrow;
+
 	class Treasure : public GameObject
 	{
 	public:
@@ -22,8 +24,6 @@ namespace my
 		virtual void onCollisionEnter(class Collider* other) override;
 	
 		Vector2 getTreasurePos() { return Item_TR->getPos(); }
-
-		void setArrowDir();
 	private:
 		Collider* Item_Collider;
 		Image* treasure;
@@ -31,8 +31,9 @@ namespace my
 		Treasure_Arrow* arrow;
 
 		Vector2 treasurePos;
-		bool treasure_down;
-		bool treasure_up;
+
+		bool treasure_Down;
+		bool treasure_Up;
 		bool treasure_Right;
 		bool treasure_Left;
 
