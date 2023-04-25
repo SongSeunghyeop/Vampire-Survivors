@@ -3,7 +3,7 @@
 
 namespace my
 {
-	class Book_Shadow : public GameObject
+	class Book_Shadow : public SkillManager
 	{
 	public:
 		Book_Shadow();
@@ -16,20 +16,8 @@ namespace my
 
 		void setBook(Book* b) { book = b; }
 	private:
-		Vector2 EnemyPos;
-
-		float R;
-		float mTime;
-		float effect_Time;
-		float bullet_vel;
-
 		Image* shadow_Image;
-
 		Animator* Shadow_Animator;
-
-		Vector2 dir;
-		Vector2 rotation;
-	
 		Book* book;
 	};
 }

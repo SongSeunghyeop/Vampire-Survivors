@@ -13,14 +13,14 @@ namespace my
 		magnet = ResourceManager::Load<Image>(L"Magnet", L"..\\Resources\\magnet.bmp");
 
 		Vector2 RandPos;
-		RandPos.x = rand() % 1600 - 800;  // -800 ~ 800
-		RandPos.y = rand() % 1000 - 500; //  -500 ~ 500
+		RandPos.x = rand() % 1900 - 950;  // -950 ~ 950
+		RandPos.y = rand() % 1300 - 650; //  -650 ~ 650
 
-		while ((RandPos.x > -750 && RandPos.x < 750) && // 750
-			(RandPos.y > -450 && RandPos.y < 450)) //450
+		while ((RandPos.x > -900 && RandPos.x < 900) && // 900
+			(RandPos.y > -600 && RandPos.y < 600)) //600
 		{
-			RandPos.x = rand() % 1600 - 800;
-			RandPos.y = rand() % 1000 - 500;
+			RandPos.x = rand() % 1900 - 950;  // -950 ~ 950
+			RandPos.y = rand() % 1300 - 650; //  -650 ~ 650
 		}
 
 		Item_TR = GetComponent<Transform>();
@@ -28,8 +28,8 @@ namespace my
 		Item_TR->setScale(2.0f,2.0f); 
 
 		Item_Collider = AddComponent<Collider>();
-		Item_Collider->setCenter(Vector2(0, 0));
-		Item_Collider->setSize(Vector2(38, 38));
+		Item_Collider->setCenter(Vector2(-10, -18));
+		Item_Collider->setSize(Vector2(37, 37));
 		Item_Collider->setRGB(255, 0, 255);
 
 		magnet_Animator = AddComponent<Animator>();
@@ -46,7 +46,7 @@ namespace my
 	{
 		magnetPos = Item_TR->getPos();
 
-		if (magnetPos.y > Krochi::getPlayerPos().y + 380)
+		if (magnetPos.y > Krochi::getPlayerPos().y + 410)
 		{
 			magnet_Down = true;
 		}
@@ -62,9 +62,9 @@ namespace my
 		{
 			magnet_Up = false;
 		}
-		if (magnetPos.x > Krochi::getPlayerPos().x + 633
-			&& magnetPos.y > Krochi::getPlayerPos().y - 370
-			&& magnetPos.y < Krochi::getPlayerPos().y + 360
+		if (magnetPos.x > Krochi::getPlayerPos().x + 640
+			&& magnetPos.y > Krochi::getPlayerPos().y - 380
+			&& magnetPos.y < Krochi::getPlayerPos().y + 390
 			)
 		{
 			magnet_Right = true;
@@ -73,9 +73,9 @@ namespace my
 		{
 			magnet_Right = false;
 		}
-		if (magnetPos.x <  Krochi::getPlayerPos().x - 631
-			&& magnetPos.y > Krochi::getPlayerPos().y - 370
-			&& magnetPos.y < Krochi::getPlayerPos().y + 360)
+		if (magnetPos.x <  Krochi::getPlayerPos().x - 640
+			&& magnetPos.y > Krochi::getPlayerPos().y - 380
+			&& magnetPos.y < Krochi::getPlayerPos().y + 390)
 		{
 			magnet_Left = true;
 		}

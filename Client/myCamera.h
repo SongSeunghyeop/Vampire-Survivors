@@ -22,9 +22,8 @@ namespace my
 
 		static void SetTarget(GameObject* target) { mTarget = target; }
 		static Vector2 CaluatePos(Vector2 pos) { return pos - mDistance; }
-
-
-	private:
+		static void SetType(eCameraEffectType e) { mType = e; }
+	private: 
 		static Vector2 mResolution;
 		static Vector2 mLookPosition;
 		static Vector2 mDistance;

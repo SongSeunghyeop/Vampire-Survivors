@@ -3,9 +3,6 @@
 
 namespace my
 {
-	class Effect;
-	class Level_Item;
-
 	class Boss_After : public Boss
 	{
 		enum class eAfterState
@@ -39,8 +36,6 @@ namespace my
 		//
 		Image* Boss_R;
 		Image* Boss_L;
-		Image* Boss_Die_R;
-		Image* Boss_Die_L;
 		//
 		float delay = 0.0f;
 		float shadow_distance;

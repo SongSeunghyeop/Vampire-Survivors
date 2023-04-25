@@ -34,10 +34,9 @@ namespace my
 
 		//무기 종류
 		//8
-		
 		items = new Item_Info[20];
 
-		Item_Num = sizeof(items);
+		Item_Num = (int)eItems::NONE;
 		//Items -> 이미지, 레벨
 		items[(int)eItems::WIND].item_image = ResourceManager::Load<Image>(L"wind", L"..\\Resources\\wind.bmp");
 		items[(int)eItems::WIND].item_name = L"날개";
@@ -63,6 +62,9 @@ namespace my
 		items[(int)eItems::HEART].item_image = ResourceManager::Load<Image>(L"Heart", L"..\\Resources\\Heart.bmp");
 		items[(int)eItems::HEART].item_name = L"붉은 심장";
 		items[(int)eItems::HEART].item_effect = L"레벨당 매 초 0.3 의 체력이 회복됩니다.";
+		items[(int)eItems::AX1].item_image = ResourceManager::Load<Image>(L"ax1", L"..\\Resources\\ax1_select.bmp");
+		items[(int)eItems::AX1].item_name = L"도끼";
+		items[(int)eItems::AX1].item_effect = L"피해량이 높고 공격 범위가 넓습니다.";
 
 		items[(int)eItems::LIGHTNING].item_level = 1;
 	
@@ -98,12 +100,11 @@ namespace my
 		case(eItems::HEART):
 			heart_up();
 			break;
+		case(eItems::AX1):
+			ax1();
+			break;
 		}
 		// 레벨업 혹은 보물상자 오픈 시 아이템 스킬 일시정지
-		if (PlaySceneManager::Level_Up || PlaySceneManager::Show_on)
-		{
-
-		}
 		if (!PlaySceneManager::Level_Up && !PlaySceneManager::Show_on)
 		{
 			//아이템의 레벨이 8이 되면 배열에서 맨 뒤로 보내고, 아이템 랜덤 선택 리스트에서 배제
@@ -130,10 +131,10 @@ namespace my
 		}
 
 		//플레이타임이 일정 시간 지났을 때 보물 등장
-		if(PlaySceneManager::Play_Time > 120.0f && treasure == NULL)
+		if(PlaySceneManager::Play_Time > 90.0f && treasure == NULL)
 			treasure = object::Instantiate<Treasure>(eLayerType::ITEMS);
 
-		if (PlaySceneManager::Play_Time > 120.0f && magnet == NULL)
+		if (PlaySceneManager::Play_Time > 90.0f && magnet == NULL)
 			magnet = object::Instantiate<Magnet>(eLayerType::ITEMS);
 
 		GameObject::Update();
@@ -154,7 +155,7 @@ namespace my
 	}
 	void ItemManager::book_up()
 	{
-		Krochi::Books_Power += 3;
+		Krochi::Books_Power += 5;
 		items[(int)eItems::BOOK].item_level += 1;
 		selected_item = eItems::NONE;
 	}
@@ -189,16 +190,24 @@ namespace my
 		items[(int)eItems::HEART].item_level += 1;
 		selected_item = eItems::NONE;
 	}
+	void ItemManager::ax1()
+	{
+		Krochi::Ax_Power += 5;
+
+		items[(int)eItems::AX1].item_level += 1;
+		selected_item = eItems::NONE;
+	}
 	//
 	void ItemManager::Render(HDC hdc)
 	{
-		Tr->setPos(Krochi::getPlayerPos() + Vector2(8,320)); // Treasure_show 애니메이션 위치
+		Tr->setPos(Krochi::getPlayerPos() + Vector2(10,290)); // Treasure_show 애니메이션 위치
 
 		//보물상자 오픈 시 
 		if (PlaySceneManager::Show_on)
 		{
-			TransparentBlt(hdc, 382, 65, Tresure_UI->GetWidth(), Tresure_UI->GetHeight(),
+			TransparentBlt(hdc, 391, 70, Tresure_UI->GetWidth(), Tresure_UI->GetHeight(),
 				Tresure_UI->GetHdc(), 0, 0, Tresure_UI->GetWidth(), Tresure_UI->GetHeight(), RGB(255, 0, 255));
+			
 
 			Treasure_show->Play_NO_RE(L"TreasuresShow2", false);
 
@@ -216,16 +225,16 @@ namespace my
 			SetBkMode(hdc, TRANSPARENT);
 			oldfont = (HFONT)SelectObject(hdc, font2);
 				
-			TransparentBlt(hdc, 382, 65, menuImg->GetWidth(), menuImg->GetHeight(),
+			TransparentBlt(hdc, 391, 70, menuImg->GetWidth(), menuImg->GetHeight(),
 				menuImg->GetHdc(), 0, 0, menuImg->GetWidth(), menuImg->GetHeight(), RGB(255, 0, 255));
 
-			TransparentBlt(hdc, 397, 176, items[Num1].item_image->GetWidth() * 2, items[Num1].item_image->GetHeight() * 2,
+			TransparentBlt(hdc, 406, 181, items[Num1].item_image->GetWidth() * 2, items[Num1].item_image->GetHeight() * 2,
 				items[Num1].item_image->GetHdc(), 0, 0, items[Num1].item_image->GetWidth() , items[Num1].item_image->GetHeight(), RGB(255, 0, 255));
 	
-			TransparentBlt(hdc, 397, 305, items[Num2].item_image->GetWidth() * 2, items[Num2].item_image->GetHeight() * 2,
+			TransparentBlt(hdc, 406, 310, items[Num2].item_image->GetWidth() * 2, items[Num2].item_image->GetHeight() * 2,
 				items[Num2].item_image->GetHdc(), 0, 0, items[Num2].item_image->GetWidth(), items[Num2].item_image->GetHeight(), RGB(255, 0, 255));
 
-			TransparentBlt(hdc, 397, 434, items[Num3].item_image->GetWidth() * 2, items[Num3].item_image->GetHeight() * 2,
+			TransparentBlt(hdc, 406, 439, items[Num3].item_image->GetWidth() * 2, items[Num3].item_image->GetHeight() * 2,
 				items[Num3].item_image->GetHdc(), 0, 0, items[Num3].item_image->GetWidth(), items[Num3].item_image->GetHeight(), RGB(255, 0, 255));
 
 				new_item = L"신규 무기!";
@@ -243,57 +252,57 @@ namespace my
 
 			if (items[Num1].item_level == 0)
 			{
-				TextOut(hdc, 460, 176, name1.c_str(), name1.length());
-				TextOut(hdc, 400, 240, info1.c_str(), info1.length());
-				TextOut(hdc, 780, 176, new_item.c_str(), new_item.length());
+				TextOut(hdc, 469, 181, name1.c_str(), name1.length());
+				TextOut(hdc, 409, 245, info1.c_str(), info1.length());
+				TextOut(hdc, 789, 181, new_item.c_str(), new_item.length());
 			}
 			else if (items[Num1].item_level > 0)
 			{
-				TextOut(hdc, 460, 176, name1.c_str(), name1.length());
-				TextOut(hdc, 400, 240, info1.c_str(), info1.length());
-				TextOut(hdc, 780, 176, num1_LV.c_str(), num1_LV.length());
+				TextOut(hdc, 469, 181, name1.c_str(), name1.length());
+				TextOut(hdc, 409, 245, info1.c_str(), info1.length());
+				TextOut(hdc, 789, 181, num1_LV.c_str(), num1_LV.length());
 			}
 			if (items[Num2].item_level == 0)
 			{
-				TextOut(hdc, 460, 305, name2.c_str(), name2.length());
-				TextOut(hdc, 400, 369, info2.c_str(), info2.length());
-				TextOut(hdc, 780, 305, new_item.c_str(), new_item.length());
+				TextOut(hdc, 469, 310, name2.c_str(), name2.length());
+				TextOut(hdc, 409, 374, info2.c_str(), info2.length());
+				TextOut(hdc, 789, 310, new_item.c_str(), new_item.length());
 			}
 			else if (items[Num2].item_level > 0)
 			{
-				TextOut(hdc, 460, 305, name2.c_str(), name2.length());
-				TextOut(hdc, 400, 369, info2.c_str(), info2.length());
-				TextOut(hdc, 780, 305, num2_LV.c_str(), num2_LV.length());
+				TextOut(hdc, 469, 310, name2.c_str(), name2.length());
+				TextOut(hdc, 409, 374, info2.c_str(), info2.length());
+				TextOut(hdc, 789, 310, num2_LV.c_str(), num2_LV.length());
 			}
 			if (items[Num3].item_level == 0)
 			{
-				TextOut(hdc, 460, 434, name3.c_str(), name3.length());
-				TextOut(hdc, 400, 498, info3.c_str(), info3.length());
-				TextOut(hdc, 780, 434, new_item.c_str(), new_item.length());
+				TextOut(hdc, 469, 439, name3.c_str(), name3.length());
+				TextOut(hdc, 409, 503, info3.c_str(), info3.length());
+				TextOut(hdc, 789, 439, new_item.c_str(), new_item.length());
 			}
 			else if (items[Num3].item_level > 0)
 			{
-				TextOut(hdc, 460, 434, name3.c_str(), name3.length());
-				TextOut(hdc, 400, 498, info3.c_str(), info3.length());
-				TextOut(hdc, 780, 434, num3_LV.c_str(), num3_LV.length());
+				TextOut(hdc, 469, 439, name3.c_str(), name3.length());
+				TextOut(hdc, 409, 503, info3.c_str(), info3.length());
+				TextOut(hdc, 789, 439, num3_LV.c_str(), num3_LV.length());
 			}
 
 			if (Input::GetKeyDown(eKeyCode::LBUTTON))
 			{
 				Vector2 mPos = Input::GetMousePos();
 
-				if (mPos.x > 400 && mPos.x < 881
-					&& mPos.y > 175 && mPos.y < 288) // 첫번째 칸
+				if (mPos.x > 409 && mPos.x < 890
+					&& mPos.y > 180 && mPos.y < 293) // 첫번째 칸
 				{
 					selected_item = (eItems)Num1;
 				}
-				if (mPos.x > 400 && mPos.x < 881
-					&& mPos.y > 304 && mPos.y < 417) // 두번째 칸
+				if (mPos.x > 409 && mPos.x < 890
+					&& mPos.y > 309 && mPos.y < 422) // 두번째 칸
 				{
 					selected_item = (eItems)Num2;
 				}
-				if (mPos.x > 400 && mPos.x < 881
-					&& mPos.y > 436 && mPos.y < 549) // 세번째 칸
+				if (mPos.x > 409 && mPos.x < 890
+					&& mPos.y > 441 && mPos.y < 554) // 세번째 칸
 				{
 					selected_item = (eItems)Num3;
 				}

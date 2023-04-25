@@ -3,12 +3,11 @@
 #include "Krochi.h"
 #include "Radar.h"
 #include "Krochi_after.h"
-#include "Lightning.h"
-#include "Cross.h"
-#include "Book.h"
 #include "Level_Item.h"
 #include "Boss.h"
 #include "warning_animation.h"
+//
+#include "SkillManager.h"
 
 #pragma comment(lib, "msimg32.lib")
 
@@ -27,6 +26,8 @@ namespace my
 	float Krochi::Cross_Time;
 	float Krochi::Light_Time;
 	float Krochi::Books_Time;
+	int		Krochi::Ax_Power;
+	float Krochi::Ax_Time;
 	float Krochi::Power_up;
 	int    Krochi::level;
 	int    Krochi::Cross_Power;
@@ -34,6 +35,7 @@ namespace my
 	int    Krochi::Books_Power;
 	int		Krochi::bookNum;
 	int		Krochi::LightNum;
+	int	    Krochi::axNum;
 	int		Krochi::CrossNum;
 	float Krochi::Armor;
 	float Krochi::defaultTime;
@@ -49,26 +51,25 @@ namespace my
 		Krochi::Exp = 0.0f; // max = 1126.0f
 		Krochi::level = 1;
 		Krochi::Monster_Exp = 400; // 400
-		Krochi::vel = 150.0f;
-		Krochi::Cross_Time = 1.0f;
-		Krochi::Light_Time = 1.0f;
-		Krochi::Books_Time = 1.0f;
+		Krochi::vel = 160.0f;
+		Krochi::Cross_Time = 3.0f;
+		Krochi::Light_Time = 3.0f;
+		Krochi::Books_Time = 3.0f;
+		Krochi::Ax_Time = 3.0f;
 		Krochi::bookNum = 1;
 		Krochi::LightNum = 1; 
+		Krochi::axNum = 1; 
 		Krochi::CrossNum = 1;
-		Krochi::Cross_Power = 60;
-		Krochi::Light_Power = 90;
+		Krochi::Cross_Power = 65;
+		Krochi::Light_Power = 100;
 		Krochi::Books_Power = 50;
+		Krochi::Ax_Power = 85;
 		Krochi::Armor = 0;
 		Krochi::Power_up = 0;
 		Krochi::defaultTime = 0;
 		Krochi::recovery = 0.0f;
 		Krochi::Death_count = 0;
 		Krochi::spinach = 0;
-	}
-	Krochi::~Krochi()
-	{
-
 	}
 	void Krochi::Initialize()
 	{
@@ -109,6 +110,7 @@ namespace my
 		//ÇÃ·¹ÀÌ¾î ÁÖÀ§ÀÇ ·¹ÀÌ´õ¿Í , ÇÃ·¹ÀÌ¾î ±×¸²ÀÚ »ý¼º
 		radar = object::Instantiate<Radar>(Krochi::Playerpos, eLayerType::RADAR);
 		after = object::Instantiate<Krochi_after>(Krochi::Playerpos, eLayerType::PLAYERAFTER);
+		skillmanager = object::Instantiate<SkillManager>(eLayerType::PLAYER);
 		//±×¸²ÀÚ¿Í ÇÃ·¹ÀÌ¾î »çÀÌÀÇ °Å¸® Á¶Àý
 		after->SetShadow(5);
 
@@ -117,6 +119,15 @@ namespace my
 		skillState = eSkillState::Skill_On;
 
 		Right_Dir = true;
+
+		Light_sound
+			= ResourceManager::Load<Sound>(L"Lightning_Sound", L"..\\Resources\\Sound\\sfx_lightningimpact.wav");
+		Gem 
+			= ResourceManager::Load<Sound>(L"Gem", L"..\\Resources\\Sound\\sfx_gem.wav");
+		lvup
+			=ResourceManager::Load<Sound>(L"lvup", L"..\\Resources\\Sound\\sfx_levelup.wav");
+		hpup
+			= ResourceManager::Load<Sound>(L"hpup", L"..\\Resources\\Sound\\sfx_sounds_powerup2.wav");
 
  		GameObject::Initialize();
 	}
@@ -138,7 +149,11 @@ namespace my
 			level_up();
 			break;
 		case  my::Krochi::ePlayerState::ShowOn:
+		{
 			show_on();
+
+			upGrade = true;
+		}
 			break;
 		case  my::Krochi::ePlayerState::Death:
 			death();
@@ -153,27 +168,53 @@ namespace my
 			//½ºÅ³ ½ºÅ×ÀÌÆ®
 			Light(); // ±âº» ½ºÅ³ 
 
-			if(Krochi::Books_Power >= 53)
+			if(Krochi::Books_Power >= 55)
 				Books();
-			if (Krochi::Cross_Power >= 65)
+			if (Krochi::Cross_Power >= 70)
 				cross_();
+			if (Krochi::Ax_Power >= 90)
+			{
+				if(!upGrade)
+					ax1();
+				if (upGrade)
+					ax2();
+			}
 			if (Magnet_power == 1)
 				magnet();
 
 			Krochi::Cross_Time += Time::getDeltaTime();
 			Krochi::Light_Time += Time::getDeltaTime();
 			Krochi::Books_Time += Time::getDeltaTime();
+			Krochi::Ax_Time += Time::getDeltaTime();
 			Krochi::Hp += recovery * Time::getDeltaTime();
 
+<<<<<<< HEAD
+
+			if (PlaySceneManager::Play_Time > EnemyManager::boss_Time + 5.5f)
+=======
 			if (PlaySceneManager::Play_Time > EnemyManager::boss_Time - 2.0f 
 				&& !EnemyManager::Boss_on) // º¸½º°¡ µîÀåÇÏ±â 1ÃÊ Àü, Light ÄðÅ¸ÀÓ ÃÊ±âÈ­
 			{
 				Krochi::Light_Power = 0.0f;
 			}
-			if (PlaySceneManager::Play_Time > EnemyManager::boss_Time + 0.5f)
+			if (PlaySceneManager::Play_Time > EnemyManager::boss_Time + 1.0f)
+>>>>>>> parent of 76d27cb (2023.04.17 ìµœì¢…ìˆ˜ì •)
 			{
 				if(wa == NULL)
 					wa = object::Instantiate<Warning_animation>(Krochi::Playerpos + Vector2(3,-110), eLayerType::EFFECT);
+			}
+			if (PlaySceneManager::Play_Time > EnemyManager::boss_Time - 5.6f 
+				&& PlaySceneManager::Play_Time <  EnemyManager::boss_Time + 5.5f)
+			{
+				Krochi::Hp = 100.0f;
+
+				Light_Time = 0.0f;
+				Books_Time = 0.0f;
+				Ax_Time = 0.0f;
+				Cross_Time = 0.0f;
+
+				Right_Dir = true;
+				mState = Krochi::ePlayerState::Idle;
 			}
 		}
 			break;
@@ -301,8 +342,10 @@ namespace my
 	void Krochi::Damaged(ePlayerState state)
 	{
 		//ÇÃ·¹ÀÌ¾îÀÇ HP °¨¼Ò
-		Hp -= Time::getDeltaTime() * (5.0f - Armor);	
-
+		if(Hp > 10)
+			Hp -= Time::getDeltaTime() * (5.5f - Armor);	
+		if (EnemyManager::Boss_on)
+			Hp -= Time::getDeltaTime() * (2.5f - Armor);
 		//µ¥¹ÌÁö¸¦ ÀÔ´Â »óÈ²¿¡¼­ ½ºÅ×ÀÌÆ®°¡ º¯ÇÏ¸é , ¾Ö´Ï¸ÞÀÌ¼ÇÀ» ¹Ù²ãÁÖ¾î¾ßÇÔ
 		if (state == ePlayerState::Idle)
 		{
@@ -327,12 +370,14 @@ namespace my
 		//·¹º§¾÷À» ÇÏ¸é, ·¹ÀÌ´õÀÇ Å©±â¸¦ 0À¸·Î ÁÙÀÓ
 		//¸ó½ºÅÍ´Â ·¹ÀÌ´õ¿¡ °¨ÁöµÇÁö ¾ÊÀ¸¸é ÀÌµ¿À»¸ØÃã
 		radar->radar_Collider->setSize(Vector2::Zero);
+		
 		PlaySceneManager::Level_Up = true;
 	}
 	void Krochi::show_on()
 	{
 		//º¸¹° »óÀÚ¸¦ ¿­¾úÀ» ¶§µµ ·¹º§¾÷ ÇßÀ» ¶§¿Í °°Àº ±â´É Àû¿ë
 		radar->radar_Collider->setSize(Vector2::Zero);
+		Ax_Time = 0.0f;
 		PlaySceneManager::Show_on = true;
 	}
 	void Krochi::magnet()
@@ -340,159 +385,105 @@ namespace my
 		Magnet_Time += Time::getDeltaTime();
 		Level_Item::Item_vel = 500.0f;
 
-		if (Magnet_Time > 5.5f)
+		if (Magnet_Time > 5.0f)
 		{
 			Level_Item::Item_vel = 0.0f;
 			Magnet_power = 0;
 		}
 	}
+	//Skills
+	void Krochi::ax1()
+	{
+		if(Krochi::Ax_Time > 5.0f - defaultTime)
+		{
+			for (int i = 0; i < 8; i++)
+			{
+				if (Krochi::Ax_Power >= 85 + i  * 5 )
+					axNum = i + 1;
+			}
+
+			skillmanager->skill_Instantiate(eSkillname::AX1, axNum);
+			Krochi::Ax_Time = 0.0f + float(axNum) * 0.2f;
+		}
+	}
+	void Krochi::ax2()
+	{
+		axNum = 18;
+
+		if (Krochi::Ax_Time > 3.5f - defaultTime)
+		{
+			skillmanager->skill_Instantiate(eSkillname::AX2, axNum);
+			Krochi::Ax_Time = 0.0f;	
+		}
+	}
 	void Krochi::Books()
 	{
+		for (int i = 0; i < 8; i++)
+		{
+			if (Krochi::Books_Power >= 50 + i * 5)
+				bookNum = i + 1;
+		}
+
 		if (Krochi::Books_Time > 6.5f - defaultTime)
 		{
-			if (Krochi::Books_Power >= 53)
-				bookNum = 2;
-			if (Krochi::Books_Power >= 56)
-				bookNum = 3;
-			if (Krochi::Books_Power >= 59)
-				bookNum = 4;
-			if (Krochi::Books_Power >= 62)
-				bookNum = 5;
-			if (Krochi::Books_Power >= 65)
-				bookNum = 6;
-			if (Krochi::Books_Power >= 68)
-				bookNum = 7;
-			if (Krochi::Books_Power >= 71)
-				bookNum = 8;
-
-			for (int i = 0; i < bookNum; i++)
-			{
-				book1 = object::Instantiate<Book>(Krochi::Playerpos, eLayerType::SKILL);
-				book1->setR(360 / bookNum * (i));
-				book1->setDistance(70 + (bookNum * 15));
-				book1->setVel(130 + (bookNum * 10));
-				book1->setTime(2.0f + (bookNum * 0.3f));
-			}
+			skillmanager->skill_Instantiate(eSkillname::BOOK, bookNum);
 			Krochi::Books_Time = 0.0f;
 		}
 	}
 
 	void Krochi::cross_()
 	{
-		if (Krochi::Cross_Time > 6.0f - defaultTime)
+		for (int i = 0; i < 8; i++)
 		{
-			if (Krochi::Cross_Power >= 65)
-				CrossNum = 2;
-			if (Krochi::Cross_Power >= 70)
-				CrossNum = 3;
-			if (Krochi::Cross_Power >= 75)
-				CrossNum = 4;
-			if (Krochi::Cross_Power >= 80)
-				CrossNum = 5;
-			if (Krochi::Cross_Power >= 85)
-				CrossNum = 6;
-			if (Krochi::Cross_Power >= 90)
-				CrossNum = 7;
-			if (Krochi::Cross_Power >= 95)
-				CrossNum = 8;
+			if (Krochi::Cross_Power >= 65 + i * 5)
+				CrossNum = i + 1;
+		}
 
-			for (int i = 0; i < CrossNum; i++)
-			{
-				int r = rand() % 360 + 1;
+		if (Krochi::Cross_Time > 3.5f - defaultTime)
+		{
+			skillmanager->skill_Instantiate(eSkillname::CROSS, CrossNum);
 
-				cross = new Cross();
-				Scene* scene = SceneManager::getActiveScene();
-				scene->AddGameObj(cross, eLayerType::SKILL);
-				cross->GameObject::GetComponent<Transform>()->setPos(Krochi::Playerpos);
-				cross->setCrossScale(2.8f + CrossNum * 0.2f);
-				cross->setR(r);
-				cross->Initialize();
-			}
-
-			//ax = object::Instantiate<Ax>(Krochi::Playerpos, eLayerType::SKILL);
-			//ax->setR(135);
-			//ax = object::Instantiate<Ax>(Krochi::Playerpos, eLayerType::SKILL);
-			//ax->setR(180);
-			//ax = object::Instantiate<Ax>(Krochi::Playerpos, eLayerType::SKILL);
-			//ax->setR(225);
-			//ax = object::Instantiate<Ax>(Krochi::Playerpos, eLayerType::SKILL);
-			//ax->setR(270);
-			//ax = object::Instantiate<Ax>(Krochi::Playerpos, eLayerType::SKILL);
-			//ax->setR(315);
-
-			Krochi::Cross_Time = 0.0f + float(CrossNum) * 0.2f;
+			Krochi::Cross_Time = 0.0f + float(CrossNum) * 0.1f;
 		}
 	}
 	void Krochi::Light()
 	{
-		if(Krochi::Light_Power >= 90)
-			LightNum = 1;
-		if (Krochi::Light_Power >= 95)
-			LightNum = 2;
-		if (Krochi::Light_Power >= 100)
-			LightNum = 3;
-		if (Krochi::Light_Power >= 105)
-			LightNum = 4;
-		if (Krochi::Light_Power >= 110)
-			LightNum = 5;
-		if (Krochi::Light_Power >= 115)
-			LightNum = 6;
-		if (Krochi::Light_Power >= 120)
-			LightNum = 7;
-		if (Krochi::Light_Power >= 125)
-			LightNum = 8;
+		for (int i = 0; i < 8; i++)
+		{
+			if (Krochi::Light_Power >= 100 + i * 5)
+				LightNum = i + 1;
+		}
 
 		if (Krochi::Light_Time > 5.5f - defaultTime) // 5.5
-		{ // ÇØ½Ã Å×ÀÌºí È°¿ë
-
+		{
 			if (EnemyManager::Boss_on)
 			{
 				Lightning* light
 					= object::Instantiate<Lightning>
 					(Boss::getBossPos() + Vector2(12.0f, -174.0f), eLayerType::SKILL);
-
-				Krochi::Light_Time = 0.0f + float(LightNum) * 0.5f;
 			}
 			else
 			{
-        		randNum = 0;
-				enemyNum = Radar::getEnemyNum();
-
-				if (enemyNum < LightNum)
-					LightNum = enemyNum;
-
-				for (int i = 0; i < LightNum; i++)
-				{
-					while(EnemyIndex[randNum] == 1)
-						randNum = rand() % enemyNum;
-
-					EnemyIndex[randNum] = 1;
-
-					Lightning* light
-						= object::Instantiate<Lightning>
-							(Radar::getRandomEnemyPos(randNum) + Vector2(12.0f, -174.0f), eLayerType::SKILL);
-				}
-
-				for (int i = 0; i < enemyNum; i++)
-				{
-					if (EnemyIndex[i] > 0)
-						EnemyIndex[i] = 0;
-				}
-
-				Krochi::Light_Time = 0.0f + float(LightNum) * 0.2f;
+				skillmanager->skill_Instantiate(eSkillname::LIGHT, LightNum);
 			}
+
+			Krochi::Light_Time = 0.0f + float(LightNum) * 0.2f;
 		}
+
+		Light_sound->Play(false);
 	}
 
 	void Krochi::onCollisionEnter(Collider* other)
 	{
 		//°æÇèÄ¡ ¾ÆÀÌÅÛ
-		if (other->getOwner()->getName() == L"Level_Item")
+		if (other->getOwner()->getName() == L"Level_Item"
+			&& mState != ePlayerState::LevelUP)
 		{
 			Exp += Monster_Exp;
-
+			Gem->Play(false);
 			if (Exp > 1126.0f)
 			{
+				lvup->Play(false);
 				Exp = 0.0f;
 				Monster_Exp /= 1.15f;
 				++Krochi::level;
@@ -502,7 +493,9 @@ namespace my
 		//È¸º¹ ¾ÆÀÌÅÛ
 		if (other->getOwner()->getName() == L"Chicken")
 		{
-			Hp += 30.0f;
+			hpup->Play(false);
+
+			Hp += 50.0f;
 
 			if (Hp > 113)
 				Hp = 113;
@@ -510,19 +503,25 @@ namespace my
 		//º¸½º ¸ó½ºÅÍÀÇ °ø°Ý ½ºÅ³
 		if (other->getOwner()->getName() == L"meteor")
 		{ 
-			Krochi::Hp -= 30.0f;
+			Krochi::Hp -= 15.0f;
 
 			Effect2*mEffect = object::Instantiate<Effect2>
 				(Krochi::getPlayerPos() + Vector2(-20.0f, -20.0f), eLayerType::EFFECT);
 		}
+		if (other->getOwner()->getName() == L"dBullet")
+		{
+			object::Destory(other->getOwner());
+		}
 		//¸ó½ºÅÍ
-		if (other->getOwner()->getName() == L"Enemy")
+		if (other->getOwner()->getName() == L"Enemy"
+			|| other->getOwner()->getName() == L"dBullet")
 		{
 			Krochi::P_Damaged = true;
 		}
 		//º¸¹°»óÀÚ
 		if (other->getOwner()->getName() == L"Treasure")
 		{
+			ResourceManager::Find<Sound>(L"treasure_sound")->Play(false);
 			mState = ePlayerState::ShowOn;
 		}
 		if (other->getOwner()->getName() == L"Magnet")
@@ -533,14 +532,18 @@ namespace my
 	void Krochi::onCollisionStay(Collider* other)
 	{
 		if (other->getOwner()->getName() == L"Enemy"
-		&& other->getOwner()->getState() == GameObject::eState::Death)
+			|| other->getOwner()->getName() == L"dBullet")
 		{
-			Krochi::P_Damaged = false;
+			if(other->getOwner()->getState() == GameObject::eState::Death)
+			{
+				Krochi::P_Damaged = false;
+			}
 		}
 	}
 	void Krochi::onCollisionExit(Collider* other)
 	{
-		if (other->getOwner()->getName() == L"Enemy")
+		if (other->getOwner()->getName() == L"Enemy"
+			|| other->getOwner()->getName() == L"dBullet")
 		{
 			Krochi::P_Damaged = false;
 		}

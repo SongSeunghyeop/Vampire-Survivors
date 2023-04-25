@@ -1,9 +1,9 @@
 #pragma once
-#include "Krochi.h"
+#include "Effect.h"
 
 namespace my
 {
-	class Effect2 : public GameObject
+	class Effect2 : public Effect
 	{
 	public:
 		Effect2();
@@ -11,14 +11,6 @@ namespace my
 		virtual void Initialize();
 		virtual void Update();
 		virtual void Render(HDC hdc);
-
-	private:
-		Transform* EffectPos;
-		Animator* EffectAnimator;
-		Image* Damaged_Effect;
-
-		friend class Enemy;
-		friend class White_Fly;
 	};
 }
 

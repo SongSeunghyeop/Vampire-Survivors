@@ -16,7 +16,7 @@ namespace my
 		virtual void Update();
 		virtual void Render(HDC hdc);
 
-	private:
+	protected:
 		Transform* EffectPos;
 		Animator* EffectAnimator;
 		Image* Damaged_Effect;

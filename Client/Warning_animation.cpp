@@ -14,17 +14,17 @@ namespace my
 		warning_Effect = ResourceManager::Load<Image>(L"warning_Effect", L"..\\Resources\\warning.bmp");
 
 		EffectAnimator = AddComponent<Animator>();
-		EffectAnimator->CreateAnimation(L"warning_Effect", warning_Effect, Vector2::Zero, 7, 1, 7, 0.08f, 255, 0, 255);
+		EffectAnimator->CreateAnimation(L"warning_Effect", warning_Effect, Vector2::Zero, 12, 1, 12, 0.06f, 255, 0, 255);
 
 		EffectPos = GetComponent<Transform>();
-		EffectPos->setScale(2.2f, 2.2f);
+		EffectPos->setScale(2.4f, 2.4f);
 
 		EffectAnimator->Play_NO_RE(L"warning_Effect", false);
 	}
 	void Warning_animation::Update()
 	{
 		EffectPos = GetComponent<Transform>();
-		EffectPos->setPos(Krochi::getPlayerPos() + Vector2(3, -110));
+		EffectPos->setPos(Krochi::getPlayerPos() + Vector2(3, -115));
 
 		if (EffectAnimator->IsComplete())
 		{

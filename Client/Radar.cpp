@@ -12,8 +12,8 @@ namespace my
 	{
 		this->setName(L"Radar");
 
-		Radar_Size.x = 1270; 
-		Radar_Size.y = 710;	
+		Radar_Size.x = 1280; 
+		Radar_Size.y = 780;	
 	}
 	Radar::~Radar()
 	{
@@ -57,7 +57,7 @@ namespace my
 		{
 			radar_Collider->setRGB(255, 0, 0);
 
-			if(other->getOwner()->getState() == GameObject::eState::Death)
+			if (other->getOwner()->getState() == GameObject::eState::Death)
 				myErase(other);
 		}
 	}
@@ -65,24 +65,18 @@ namespace my
 	{
 		if (other->getOwner()->getName() == L"Enemy")
 		{
-		radar_Collider->setRGB(0, 255, 0);
-		myErase(other);
+			radar_Collider->setRGB(0, 255, 0);
+			myErase(other);
 		}
 	}
 
 	Vector2 Radar::getRandomEnemyPos(int a)
 	{			
-		for (int i = 0; i < Enemies.size(); i++)
-		{
-			if (a >= Enemies.size())
-			{
-				return Enemies[a % Enemies.size()]->getPos();
-			}
-			else
-			{
-				return Enemies[a]->getPos();
-			}
-		}
+		if (Enemies.empty())
+			return Vector2(Krochi::getPlayerPos() + Vector2(5000, 5000));
+
+		int index = a % Enemies.size();
+		return Enemies[index]->getPos();
 	}
 	int Radar::getEnemyNum()
 	{

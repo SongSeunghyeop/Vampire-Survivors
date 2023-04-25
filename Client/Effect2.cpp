@@ -1,4 +1,5 @@
 #include "Effect2.h"
+#include "myObject.h"
 
 namespace my
 {

@@ -28,11 +28,14 @@ namespace my
 		Image* Ex_value;
 		Image* Item_list;
 		Image* monster_icon;
+		Image* Black;
 
 		HFONT font1;
 		HFONT font2;
 		HFONT font3;
 		HFONT oldfont;
+
+		float screen_Y = -1.0f;
 	};
 }
 

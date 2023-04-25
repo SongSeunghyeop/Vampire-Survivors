@@ -40,17 +40,17 @@ namespace my
 				&& treasure->treasurePos.x >  Krochi::getPlayerPos().x - 612)
 			{
 				pos.x = treasure->treasurePos.x + 24;
-				pos.y = Krochi::getPlayerPos().y + 370;
+				pos.y = Krochi::getPlayerPos().y + 395;
 			}
 			else if (treasure->treasurePos.x < Krochi::getPlayerPos().x - 612)
 			{
 				pos.x = Krochi::getPlayerPos().x - 608;
-				pos.y = Krochi::getPlayerPos().y + 370;
+				pos.y = Krochi::getPlayerPos().y + 395;
 			}
 			else if (treasure->treasurePos.x > Krochi::getPlayerPos().x + 612)
 			{
 				pos.x = Krochi::getPlayerPos().x + 624;
-				pos.y = Krochi::getPlayerPos().y + 370;
+				pos.y = Krochi::getPlayerPos().y + 395;
 			}
 
 			arrow_Tr->setPos(pos);
@@ -63,17 +63,17 @@ namespace my
 				&& treasure->treasurePos.x >  Krochi::getPlayerPos().x - 612)
 			{
 				pos.x = treasure->treasurePos.x + 24;
-				pos.y = Krochi::getPlayerPos().y - 280;
+				pos.y = Krochi::getPlayerPos().y - 305;
 			}
 			else if (treasure->treasurePos.x < Krochi::getPlayerPos().x - 612)
 			{
 				pos.x = Krochi::getPlayerPos().x - 608;
-				pos.y = Krochi::getPlayerPos().y - 280;
+				pos.y = Krochi::getPlayerPos().y - 305;
 			}
 			else if (treasure->treasurePos.x > Krochi::getPlayerPos().x + 612)
 			{
 				pos.x = Krochi::getPlayerPos().x + 625;
-				pos.y = Krochi::getPlayerPos().y - 280;
+				pos.y = Krochi::getPlayerPos().y - 305;
 			}
 
 			arrow_Tr->setPos(pos);

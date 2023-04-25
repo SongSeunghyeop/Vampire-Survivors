@@ -1,17 +1,11 @@
 #include "Book_Shadow.h"
-#include "Time.h"
-#include "myObject.h"
-#include "Krochi.h"
 
 namespace my
 {
 	Book_Shadow::Book_Shadow()
-		: mTime(0.0f)
-		, effect_Time(0.0f)
 	{
 		this->setName(L"Ax&Book");
-		bullet_vel = 120.0f;
-
+		mTime = 0.0f;
 	}
 	Book_Shadow::~Book_Shadow()
 	{
@@ -33,17 +27,12 @@ namespace my
 	}
 	void Book_Shadow::Update()
 	{
-		/*float x = cosf(-PI / 4.0f);
-		float y = sinf(-PI / 4.0f);*/
-		//float x = dir.x * cosf(PI / 5.0f) - dir.y * sinf(PI / 5.0f);
-		//float y = dir.x * sinf(PI / 5.0f) + dir.y * cosf(PI / 5.0f);
-
 		Transform* tr = GetComponent<Transform>();
-		tr->setPos(book->bookPos - Vector2(5, 20));
+		tr->setPos(book->Skill_Pos - Vector2(5, 20));
 
 		mTime += Time::getDeltaTime();
 
-		if (mTime > book->book_Time + 0.1f)
+		if (mTime > book->sustain_time + 0.1f)
 		{
 			object::Destory(this);
 		}

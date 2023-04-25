@@ -37,7 +37,8 @@ namespace my
  		}
 
 		activeScene = mScenes[(UINT)eSceneType::Intro];
-	}
+		activeScene->OnEnter();
+	 }
 
 	void SceneManager::Update()
 	{	

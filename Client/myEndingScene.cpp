@@ -29,10 +29,10 @@ namespace my
 		func.BlendOp = AC_SRC_OVER;
 		func.BlendFlags = 0;
 		func.AlphaFormat = AC_SRC_ALPHA;
-		func.SourceConstantAlpha = 3;//
+		func.SourceConstantAlpha = 3.0;//
 
 		AlphaBlend(hdc, -1, -1
-			, 1281, 721
+			, 1301, 801
 			, ending->GetHdc()
 			, 0, 0 
 			, ending->GetWidth(), ending->GetHeight()

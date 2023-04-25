@@ -1,6 +1,11 @@
 #include "Boss.h"
 #include "Boss_Skill.h"
+#include "Boss_Hp.h"
 #include "Boss_After.h"
+#include "myObject.h"
+#include "Time.h"
+#include "PlaySceneManager.h"
+#include "EnemyManager.h"
 
 namespace my
 {
@@ -21,75 +26,82 @@ namespace my
 		Boss_L = ResourceManager::Load<Image>(L"Boss_L", L"..\\Resources\\Boss_L.bmp");
 		bDamaged_R = ResourceManager::Load<Image>(L"bDamaged_R", L"..\\Resources\\Boss_Damaged_R.bmp");
 		bDamaged_L = ResourceManager::Load<Image>(L"bDamaged_L", L"..\\Resources\\Boss_Damaged_L.bmp");
-		//Boss_Die_R = ResourceManager::Load<Image>(L"Boss_Die_R", L"..\\Resources\\Boss_Die_R.bmp");
-		//Boss_Die_L = ResourceManager::Load<Image>(L"Boss_Die_L", L"..\\Resources\\Boss_Die_L.bmp");
-	
-		BossAnimator = AddComponent<Animator>();
-		BossAnimator ->CreateAnimation(L"Boss_MoveR", Boss_R, Vector2::Zero, 1, 1, 1, 0.5f, 255, 0, 255);
-		BossAnimator ->CreateAnimation(L"Boss_MoveL", Boss_L, Vector2::Zero, 1, 1, 1, 0.5f, 255, 0, 255);
 
-		BossAnimator ->CreateAnimation(L"Boss_IdleR", Boss_R, Vector2::Zero, 1, 1, 1, 0.5f, 255, 0, 255);
-		BossAnimator ->CreateAnimation(L"Boss_IdleL", Boss_L, Vector2::Zero, 1, 1, 1, 0.5f, 255, 0, 255);
+		boss_Animator = AddComponent<Animator>();
+		boss_Animator ->CreateAnimation(L"Boss_MoveR", Boss_R, Vector2::Zero, 1, 1, 1, 0.5f, 255, 0, 255);
+		boss_Animator ->CreateAnimation(L"Boss_MoveL", Boss_L, Vector2::Zero, 1, 1, 1, 0.5f, 255, 0, 255);
 
-		BossAnimator ->CreateAnimation(L"bDamaged_R", bDamaged_R, Vector2::Zero, 1, 1, 1, 0.15f, 255, 0, 255);
-		BossAnimator ->CreateAnimation(L"bDamaged_L", bDamaged_L, Vector2::Zero, 1, 1, 1, 0.15f, 255, 0, 255);
+		boss_Animator ->CreateAnimation(L"Boss_IdleR", Boss_R, Vector2::Zero, 1, 1, 1, 0.5f, 255, 0, 255);
+		boss_Animator ->CreateAnimation(L"Boss_IdleL", Boss_L, Vector2::Zero, 1, 1, 1, 0.5f, 255, 0, 255);
 
-		//EnemyAnimator->CreateAnimation(L"Boss_DieR", Boss_Die_R, Vector2::Zero, 3, 1, 3, 0.1f, 255, 0, 255);
-		//EnemyAnimator->CreateAnimation(L"Boss_DieL", Boss_Die_L, Vector2::Zero, 3, 1, 3, 0.1f, 255, 0, 255);
+		boss_Animator ->CreateAnimation(L"bDamaged_R", bDamaged_R, Vector2::Zero, 1, 1, 1, 0.15f, 255, 0, 255);
+		boss_Animator ->CreateAnimation(L"bDamaged_L", bDamaged_L, Vector2::Zero, 1, 1, 1, 0.15f, 255, 0, 255);
 
-		Boss_TR = GetComponent<Transform>();
-		Boss_TR->setScale(Vector2(3.3f, 3.3f));
+		boss_Tr = GetComponent<Transform>();
+		boss_Tr->setScale(Vector2(3.5f, 3.5f));
 
-		BossCollider = AddComponent<Collider>();
-		BossCollider->setRGB(0, 255, 0);
-		BossCollider->setCenter(Vector2(-8, -28));
-		BossCollider->setSize(Vector2(100, 130));
+		boss_Collider = AddComponent<Collider>();
+		boss_Collider->setRGB(0, 255, 0);
+		boss_Collider->setCenter(Vector2(-5, -25));
+		boss_Collider->setSize(Vector2(110, 140));
 
-		BossAnimator->Play(L"Boss_MoveR", true);
-		boss_hp = 9999;
-		Boss_vel = 280;
+		boss_Animator->Play(L"Boss_MoveL", true);
+		boss_hp = 160;
+		Boss_vel = 330;
 		//
-		eState = eBossState::Move;
+		eState = eBossState::Idle;
 
 		for (int i = 0; i < 4; i++)
 		{
 			Boss_After* shadow = 
-				object::Instantiate<Boss_After>(Boss_TR->getPos(), eLayerType::ENEMYAFTER);
+				object::Instantiate<Boss_After>(boss_Tr->getPos(), eLayerType::ENEMYAFTER);
 
 			shadow->setShadowDistance(20.0f - i * 5);
 		}
-
+		hp = object::Instantiate<Boss_Hp>(eLayerType::ENEMYAFTER);
+		hp->SetBoss(this);
 		GameObject::Initialize();
 	}
 	void Boss::Update()
 	{
 		skill_Time += Time::getDeltaTime();
 
-		BossCollider->setRGB(0, 255, 0);
-		Boss_TR = GetComponent<Transform>();
+		boss_Collider->setRGB(0, 255, 0);
+		boss_Tr = GetComponent<Transform>();
 		Ppos = Krochi::getPlayerPos();
-		movePos = Boss_TR->getPos();
+		movePos = boss_Tr->getPos();
 
 		switch (eState)
 		{
+		case (eBossState::Idle):
+		{
+			delay += Time::getDeltaTime();
+			skill_Time = 0.0f;
+			if (delay >= 6.5f)
+			{
+				delay = 0.0f;
+
+				eState = eBossState::Move;
+			}
+		}
+			break;
 		case (eBossState::Move):
 			move();
 			break;
 		case (eBossState::Back_Move):
 			back_move();
 			break;
-		case (eBossState::Death):
-			death();
-			break;
 		case (eBossState::Attack):
 			attack();
 			break;
 		}
 
-		Boss_TR->setPos(movePos);
+		boss_Tr->setPos(movePos);
 
 		if (skill_Time >= 4.5f)
 			eState = eBossState::Attack;
+
+		boss_hp += 0.5f * Time::getDeltaTime();
 
 		GameObject::Update();
 	}
@@ -127,13 +139,13 @@ namespace my
 
 	void Boss::move()
 	{
-		movePos += (Ppos - Boss_TR->getPos()).Normalize() * Boss_vel * Time::getDeltaTime();
+		movePos += (Ppos - boss_Tr->getPos()).Normalize() * Boss_vel * Time::getDeltaTime();
 
 		if (Ppos.x - 10 > movePos.x)
-			BossAnimator->Play_NO_RE(L"Boss_MoveR", true);
+			boss_Animator->Play_NO_RE(L"Boss_MoveR", true);
 
 		if (Ppos.x + 10 < movePos.x)
-			BossAnimator->Play_NO_RE(L"Boss_MoveL", true);
+			boss_Animator->Play_NO_RE(L"Boss_MoveL", true);
 	}
 
 	void Boss::back_move()
@@ -141,30 +153,16 @@ namespace my
 		delay += Time::getDeltaTime();
 
 		if (Ppos.x - 10 > movePos.x)
-			BossAnimator->Play_NO_RE(L"bDamaged_R", true);
+			boss_Animator->Play_NO_RE(L"bDamaged_R", true);
 
 		if (Ppos.x + 10 < movePos.x)
-			BossAnimator->Play_NO_RE(L"bDamaged_L", true);
+			boss_Animator->Play_NO_RE(L"bDamaged_L", true);
 
 		if (delay >= 0.15f)
 		{
 			delay = 0.0f;
 
-			if (boss_hp <= 0)
-				eState = eBossState::Death;
-			else
-				eState = eBossState::Move;
-		}
-	}
-	void Boss::death()
-	{
-		if (Ppos.x > movePos.x)
-		{
-
-		}
-		if (Ppos.x < movePos.x)
-		{
-	
+			eState = eBossState::Move;
 		}
 	}
 
@@ -172,30 +170,40 @@ namespace my
 	{
 		if (other->getOwner()->getName() == L"Book")
 		{
-			BossCollider->setRGB(255, 0, 0);
+			boss_Collider->setRGB(255, 0, 0);
 
 			mEffect = object::Instantiate<Effect>
-				(Boss_TR->getPos() + Vector2(20.0f, 0.0f), eLayerType::EFFECT);
+				(boss_Tr->getPos() + Vector2(20.0f, 0.0f), eLayerType::EFFECT);
 
-			boss_hp -= Krochi::getPlayerPower(L"Book");
+			boss_hp -= Krochi::getPlayerPower(L"Book") / 40;
+			this->eState = eBossState::Back_Move;
+		}
+		if (other->getOwner()->getName() == L"Ax1")
+		{
+			boss_Collider->setRGB(255, 0, 0);
+
+			mEffect = object::Instantiate<Effect>
+				(boss_Tr->getPos() + Vector2(20.0f, 0.0f), eLayerType::EFFECT);
+
+			boss_hp -= Krochi::getPlayerPower(L"Ax1") / 40;
 			this->eState = eBossState::Back_Move;
 		}
 		if (other->getOwner()->getName() == L"Cross")
 		{
-			BossCollider->setRGB(255, 0, 0);
+			boss_Collider->setRGB(255, 0, 0);
 
 			mEffect = object::Instantiate<Effect>
-				(Boss_TR->getPos() + Vector2(20.0f, 0.0f), eLayerType::EFFECT);
-			boss_hp -= Krochi::getPlayerPower(L"Cross");
+				(boss_Tr->getPos() + Vector2(20.0f, 0.0f), eLayerType::EFFECT);
+			boss_hp -= Krochi::getPlayerPower(L"Cross") / 40;
 			this->eState = eBossState::Back_Move;
 		}
 		if (other->getOwner()->getName() == L"Lightning")
 		{
-			BossCollider->setRGB(255, 0, 0);
+			boss_Collider->setRGB(255, 0, 0);
 
 			mEffect = object::Instantiate<Effect>
-				(Boss_TR->getPos() + Vector2(20.0f, 0.0f), eLayerType::EFFECT);
-			boss_hp -= Krochi::getPlayerPower(L"Lightning");
+				(boss_Tr->getPos() + Vector2(20.0f, 0.0f), eLayerType::EFFECT);
+			boss_hp -= Krochi::getPlayerPower(L"Lightning") / 40;
 			this->eState = eBossState::Back_Move;
 		}
 	}
@@ -212,7 +220,7 @@ namespace my
 	{
 		if (other->getOwner()->getName() == L"Player")
 		{
-			Boss_vel = 280.0f;
+			Boss_vel = 330.0f;
 		}
 	}
 }

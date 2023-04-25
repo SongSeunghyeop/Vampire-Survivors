@@ -132,16 +132,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Ax1.h" />
+    <ClInclude Include="Boss_Hp.h" />
+    <ClInclude Include="DragonBullet.h" />
+    <ClInclude Include="Cutton.h" />
     <ClInclude Include="Magnet.h" />
     <ClInclude Include="Magnet_Arrow.h" />
     <ClInclude Include="PlaySceneManager.h" />
+    <ClInclude Include="SkillManager.h" />
+    <ClInclude Include="Sound.h" />
+    <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Treasure_Arrow.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="Boss_After.h" />
     <ClInclude Include="Boss_Skill.h" />
     <ClInclude Include="chicken.h" />
     <ClInclude Include="Cross.h" />
-    <ClInclude Include="Blade_L.h" />
     <ClInclude Include="Book.h" />
     <ClInclude Include="Book_Shadow.h" />
     <ClInclude Include="Effect.h" />
@@ -156,7 +162,6 @@
     <ClInclude Include="myCamera.h" />
     <ClInclude Include="myObject.h" />
     <ClInclude Include="InGameUI.h" />
-    <ClInclude Include="Blade_R.h" />
     <ClInclude Include="myToolScene.h" />
     <ClInclude Include="Radar.h" />
     <ClInclude Include="TileMap_Tool.h" />
@@ -200,16 +205,22 @@
     <ClInclude Include="Warning_animation.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Ax1.cpp" />
+    <ClCompile Include="Boss_Hp.cpp" />
+    <ClCompile Include="DragonBullet.cpp" />
+    <ClCompile Include="Cutton.cpp" />
     <ClCompile Include="Magnet.cpp" />
     <ClCompile Include="Magnet_Arrow.cpp" />
     <ClCompile Include="PlaySceneManager.cpp" />
+    <ClCompile Include="SkillManager.cpp" />
+    <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Treasure_Arrow.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Boss_After.cpp" />
     <ClCompile Include="Boss_Skill.cpp" />
     <ClCompile Include="chicken.cpp" />
     <ClCompile Include="Cross.cpp" />
-    <ClCompile Include="Blade_L.cpp" />
     <ClCompile Include="Book.cpp" />
     <ClCompile Include="Book_Shadow.cpp" />
     <ClCompile Include="Effect.cpp" />
@@ -223,7 +234,6 @@
     <ClCompile Include="Ax2.cpp" />
     <ClCompile Include="myCamera.cpp" />
     <ClCompile Include="InGameUI.cpp" />
-    <ClCompile Include="Blade_R.cpp" />
     <ClCompile Include="myToolScene.cpp" />
     <ClCompile Include="Radar.cpp" />
     <ClCompile Include="TileMap_Tool.cpp" />

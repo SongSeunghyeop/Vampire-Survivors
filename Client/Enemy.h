@@ -1,14 +1,17 @@
 #pragma once
+#include "myResourceManager.h"
 #include "MyGameObject.h"
 #include "myAnimator.h"
 #include "myTransform.h"
-#include "myImage.h" 
-#include "myCollider.h"
 #include "Krochi.h"
+#include "myImage.h" 
+#include "Time.h"
+#include "myCollider.h"
+#include "Sound.h"
+#include "Effect.h"
 
 namespace my
 {
-	class Effect;
 	class Level_Item;
 
 	class Enemy : public GameObject
@@ -26,13 +29,13 @@ namespace my
 			BLACK,
 			ZOMBIE,
 			SKULL,
+			DRAGON,
+			GHOST,
 			CANDLE,
 		};
 
-		
 	public:
 		Enemy();
-		~Enemy();
 
 		virtual void Initialize();
 		virtual void Update();
@@ -49,9 +52,11 @@ namespace my
 		virtual void onCollisionExit(class Collider* other) override;
 		virtual void onCollisionStay(class Collider* other) override;
 		
-		Transform* getEnemyPos() { return Enemy_TR; }
+		void dskill_CompleteEvent();
+
 	private:
 		eEnemyState eState;
+		eEnemyType eType;
 
 		Animator* EnemyAnimator;
 		Collider* EnemyCollider;
@@ -63,10 +68,7 @@ namespace my
 
 		Enemy *otherEnemy;
 		Effect* mEffect;
-		Effect2* mEffect2;
 		Level_Item* lv_Item;
-
-		eEnemyType eType;
 		//
 		Image* EnemyR_Img;
 		Image* EnemyL_Img;
@@ -89,8 +91,24 @@ namespace my
 		Image* Skull_Die_R;
 		Image* Skull_Die_L;
 		//
-
+		Image* Dragon_R;
+		Image* Dragon_L;
+		Image* dAttack_R;
+		Image* dAttack_L;
+		Image* dDamaged_R;
+		Image* dDamaged_L;
+		//
+		Image* Ghost_R;
+		Image* Ghost_L;
+		Image* Ghost_Run_R;
+		Image* Ghost_Run_L;
+		Image* gDamaged_R;
+		Image* gDamaged_L;
+		Image* Ghost_DieR;
+		Image* Ghost_DieL;
+		//
 		Image* candle;
+
 		int monster_hp;
 		float Distance;
 		float delay = 0.0f;
@@ -99,8 +117,10 @@ namespace my
 		float vel_type1;
 		float vel_type2;
 		float vel_type3;
-
+		float vel_type4;
 		Vector2 Init_Pos;
+
+		Sound* damaged_Sound;
 
 		friend class EnemyManager;
 	};

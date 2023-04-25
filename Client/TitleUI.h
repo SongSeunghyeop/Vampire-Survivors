@@ -2,6 +2,7 @@
 #include "MyGameObject.h"
 #include "myImage.h" 
 #include "myTransform.h"
+#include "Sound.h"
 
 namespace my
 {
@@ -25,7 +26,6 @@ namespace my
 		Image* info;
 		Image* Selection;
 		Image* Select_Button;
-
 
 		Vector2 mPos;
 	};

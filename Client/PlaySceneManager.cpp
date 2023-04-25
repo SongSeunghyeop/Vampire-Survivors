@@ -35,7 +35,8 @@ namespace my
 		Ex_value = ResourceManager::Load<Image>(L"Ex_value", L"..\\Resources\\Ex_value.bmp");
 		Item_list = ResourceManager::Load<Image>(L"Item_list", L"..\\Resources\\Item_list.bmp");
 		monster_icon = ResourceManager::Load<Image>(L"monster_icon", L"..\\Resources\\monster_icon.bmp");
-
+		Black = ResourceManager::Load<Image>(L"Black", L"..\\Resources\\Black.bmp");
+	
 		GameObject::Initialize();
 	}
 	void PlaySceneManager::Update()
@@ -56,6 +57,24 @@ namespace my
 
 	void PlaySceneManager::Render(HDC hdc)
 	{
+
+		if (PlaySceneManager::Play_Time > EnemyManager::boss_Time - 5.5f && !EnemyManager::Boss_on)
+		{
+			if (screen_Y <= 120)
+				screen_Y += Time::getDeltaTime() * 55.0f;
+		}
+		if (PlaySceneManager::Play_Time > EnemyManager::boss_Time + 6.5f && EnemyManager::Boss_on)
+		{
+			if (screen_Y >= 70)
+				screen_Y -= Time::getDeltaTime() * 200.0f;
+		}
+
+		TransparentBlt(hdc, -1, screen_Y - 120, 1301, 121,
+			Black->GetHdc(), 0, 0, Black->GetWidth(), Black->GetHeight(), RGB(255, 0, 255));
+
+		TransparentBlt(hdc, -1, 801.0f - screen_Y, 1301, 121,
+			Black->GetHdc(), 0, 0, Black->GetWidth(), Black->GetHeight(), RGB(255, 0, 255));
+
 		//플레이어 인포 UI
 		TransparentBlt(hdc, 152, 5, level_bar->GetWidth(), level_bar->GetHeight(),
 			level_bar->GetHdc(), 0, 0, level_bar->GetWidth(), level_bar->GetHeight(), RGB(255, 0, 255));
@@ -86,7 +105,7 @@ namespace my
 		SetBkMode(hdc, TRANSPARENT);
 
 		oldfont = (HFONT)SelectObject(hdc, font1);
-		TextOut(hdc, 592, 37, text.c_str(), text.length());
+		TextOut(hdc, 604, 37, text.c_str(), text.length());
 		SelectObject(hdc, oldfont);
 		oldfont = (HFONT)SelectObject(hdc, font2);
 		TextOut(hdc, 1222, 11, text2.c_str(), text2.length());

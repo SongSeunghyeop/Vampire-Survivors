@@ -8,16 +8,12 @@ namespace my
 {
 	class EnemyManager : public GameObject
 	{
-		enum class eEnemyType
-		{
-			BLACK,
-			ZOMBIE,
-		};
 	public:
 		EnemyManager();
 		~EnemyManager();
 
 		void Enemy_Create();
+		void Dragon_Create();
 
 		virtual void Initialize();
 		virtual void Update();
@@ -27,13 +23,23 @@ namespace my
 		static bool Boss_on;
 		static float boss_Time;
 
+		void setR(int r) { R = r; }
+
 	private:
 		float Enemy_Time;
 		Vector2 RandPos;
 		int Init_Num;
 		Enemy* enemy;
+		Enemy* dragon;
 		Boss* boss;
-		int CountDown;
+
+		Vector2 dir;
+		Vector2 rotation;
+		Vector2 dragon_Pos;
+
+		bool dragon_init;
+		float distance;
+		float R;
 	};
 }
 

@@ -23,5 +23,7 @@ namespace my
 	private:
 		Title* title;
 		TitleUI* cs;
+
+		Sound * input_Sound;
 	};
 }

@@ -3,18 +3,18 @@
 
 namespace my
 {
-	class Effect;
-	class Level_Item;
 	class Boss_After;
+	class Boss_Hp;
 
 	class Boss : public GameObject
 	{
 		enum class eBossState
 		{
-			Death,
 			Move,
 			Back_Move,
 			Attack,
+			Idle,
+			None,
 		};
 
 	public:
@@ -27,7 +27,6 @@ namespace my
 		virtual void Release();
 
 		void move();
-		void death();
 		void back_move();
 		void attack();
 
@@ -36,13 +35,15 @@ namespace my
 		virtual void onCollisionStay(class Collider* other) override;
 		
 	static Vector2 getBossPos() { return movePos; }
-
+	float getBoss_hp() { return boss_hp; }
+	protected:
 	private:
 		static Vector2 movePos;
+		float boss_hp;
 
-		Animator* BossAnimator;
-		Collider* BossCollider;
-		Transform* Boss_TR;
+		Animator* boss_Animator;
+		Collider* boss_Collider;
+		Transform* boss_Tr;
 		Vector2 Ppos;
 
 		Boss* otherEnemy;
@@ -52,14 +53,13 @@ namespace my
 		Image* Boss_L;
 		Image* bDamaged_R;
 		Image* bDamaged_L;
-		Image* Boss_Die_R;
-		Image* Boss_Die_L;
 		//
-		int boss_hp;
 		float delay = 0.0f;
 		float skill_Time = 0.0f;
 		float Boss_vel;
 		eBossState eState;
+
+		Boss_Hp* hp;
 
 		friend class Boss_After;
 	};

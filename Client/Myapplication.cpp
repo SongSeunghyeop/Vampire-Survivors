@@ -3,6 +3,8 @@
 #include "myCollisionManager.h"
 #include "Time.h"
 #include "myInput.h"
+#include "SoundManager.h"
+
 
 namespace my 
 {
@@ -21,13 +23,13 @@ namespace my
 		mhwnd = hwnd; // 핸들
 		mhdc = GetDC(hwnd); // HDC : 비트맵에 그려주는 역할 
 		                                              // getDC : 현재 윈도우가 갖고있는 비트맵을 할당받는 DC가 목적지로 삼는 것
-		mWidth = 1280;
-		mHeight = 720;
+		mWidth = 1300;
+		mHeight = 800;
 
 		rect = { 0,0,mWidth,mHeight };
 		AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false); // 해상도를 입력하면, 그에 맞게 수정
 		
-		SetWindowPos(mhwnd, NULL, 246,0, rect.right - rect.left, rect.bottom - rect.top, 0); // 윈도우 처음 시작 시 크기 및 위치 조정
+		SetWindowPos(mhwnd, NULL, 100,0, rect.right - rect.left, rect.bottom - rect.top, 0); // 윈도우 처음 시작 시 크기 및 위치 조정
 		ShowWindow(hwnd, true); // 윈도우 해상도 조절을 위한 함수(타이틀바, 테두리,메뉴바 등을 포함한 해상도이므로, 조절이 필요)
 		//윈도우 전체 덮을 흰색 사각형
 
@@ -42,6 +44,7 @@ namespace my
 
 		Time::Initialize();
 		Input::Initialize();
+		SoundManager::Initialize();
 		SceneManager::Initialize();
   		Camera::Initiailize();
 
@@ -76,7 +79,7 @@ namespace my
 		Camera::Render(backHdc);
 
 		//백버퍼의 그림 원본(구현용)에 복사 ( 흰색의 화면까지 전체가 계속 포함되어서 복사가 되는 것이므로 깜빡이지 않는다 
-		StretchBlt(mhdc, 0, 0, WindowPos.x, WindowPos.y, backHdc, 0, 0, 1280, 720, SRCCOPY); //1500
+		StretchBlt(mhdc, 0, 0, WindowPos.x, WindowPos.y, backHdc, 0, 0, 1300, 800, SRCCOPY); //1500
 	}
 
 	void Application::SetMenuBar(bool power)
@@ -90,7 +93,7 @@ namespace my
 	{
 		HBRUSH BlackBrush = CreateSolidBrush(RGB(0,0,0));
 		HBRUSH oldBrush = (HBRUSH)SelectObject(backHdc, BlackBrush);
-		Rectangle(backHdc, -1, -1, 1282, 722);
+		Rectangle(backHdc, -1, -1, 1300, 800);
 		SelectObject(backHdc, oldBrush);
 		DeleteObject(BlackBrush);
 	}

@@ -15,8 +15,6 @@ namespace my
 	{
 		Boss_R = ResourceManager::Load<Image>(L"Shadow_R", L"..\\Resources\\Boss_Shadow_R.bmp");
 		Boss_L = ResourceManager::Load<Image>(L"Shadow_L", L"..\\Resources\\Boss_Shadow_L.bmp");
-		//Boss_Die_R = ResourceManager::Load<Image>(L"Boss_Die_R", L"..\\Resources\\Boss_Die_R.bmp");
-		//Boss_Die_L = ResourceManager::Load<Image>(L"Boss_Die_L", L"..\\Resources\\Boss_Die_L.bmp");
 	
 		BossAnimator = AddComponent<Animator>();
 		BossAnimator->CreateAnimation(L"Shadow_MoveR", Boss_R, Vector2::Zero, 1, 1, 1, 0.5f, 255, 0, 255);
@@ -24,9 +22,6 @@ namespace my
 
 		BossAnimator->CreateAnimation(L"Shadow_IdleR", Boss_R, Vector2::Zero, 1, 1, 1, 0.5f, 255, 0, 255);
 		BossAnimator->CreateAnimation(L"Shadow_IdleL", Boss_L, Vector2::Zero, 1, 1, 1, 0.5f, 255, 0, 255);
-
-		//EnemyAnimator->CreateAnimation(L"Boss_DieR", Boss_Die_R, Vector2::Zero, 3, 1, 3, 0.1f, 255, 0, 255);
-		//EnemyAnimator->CreateAnimation(L"Boss_DieL", Boss_Die_L, Vector2::Zero, 3, 1, 3, 0.1f, 255, 0, 255);
 
 		After_TR = GetComponent<Transform>();
 		After_TR->setScale(Vector2(3.3f, 3.3f));
@@ -90,6 +85,5 @@ namespace my
 			BossAnimator->Play_NO_RE(L"Shadow_MoveL", true);
 
 		tr->setPos(afterPos);
-
 	}
 }

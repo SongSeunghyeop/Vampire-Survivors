@@ -1,5 +1,5 @@
 #include "InGameUI.h"
-
+#include "myObject.h"
 namespace my
 {
 	Option::Option()
@@ -12,17 +12,16 @@ namespace my
 	}
 	void Option::Initialize()
 	{
-		menu = new GameOption();
-
-		AddGameObj(menu, eLayerType::UI);
-
-		menu->Initialize();
+		cutton = object::Instantiate<Cutton>
+			(eLayerType::UI);
+		menu = object::Instantiate<GameOption>
+			(eLayerType::UI);
 	}
 	void Option::Update()
 	{
-
 		if (Input::GetKeyState(eKeyCode::ESC) == eKeyState::Down)
 		{
+			cutton->setCutton(false);
 			SceneManager::LoadScene(eSceneType::Play);
 			Input::SetKeyState(eKeyCode::ESC, eKeyState::None);
 		}

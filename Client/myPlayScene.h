@@ -5,6 +5,7 @@
 #include "myScene.h"
 #include "mySceneManager.h"
 #include "myInput.h"
+#include "Sound.h"
 
 #include "Krochi.h"
 #include "EnemyManager.h"
@@ -35,5 +36,8 @@ namespace my
 		ItemManager* I_manager;
 		PlaySceneManager* P_manager;
 		Treasure* treasure;
+
+		Sound* treasure_Sound;
+		Sound* PlayScene_Sound;
 	};
 }

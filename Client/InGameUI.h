@@ -3,7 +3,7 @@
 #include "mySceneManager.h"
 #include "myInput.h"
 #include "GameOption.h"
-
+#include "Cutton.h"
 namespace my
 {
 	class Option : public Scene
@@ -22,6 +22,6 @@ namespace my
 
 	private:
 		GameOption* menu;
-
+		Cutton* cutton;
 	};
 }

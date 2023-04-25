@@ -32,7 +32,7 @@ namespace my
 		/*TransparentBlt(hdc, -1, -1, black->GetWidth(), black->GetHeight(),
 			black->GetHdc(), 0, 0, black->GetWidth(), black->GetHeight(), RGB(255, 0, 255));*/
 
-		TransparentBlt(hdc, 382, 65, menuImg->GetWidth(), menuImg->GetHeight(), 
+		TransparentBlt(hdc, 391, 70, menuImg->GetWidth(), menuImg->GetHeight(),
 			menuImg->GetHdc(), 0, 0, menuImg->GetWidth(), menuImg->GetHeight(), RGB(255,0,255));
 
 		//BLENDFUNCTION func = {};

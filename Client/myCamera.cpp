@@ -5,6 +5,8 @@
 #include "myInput.h"
 #include "Time.h"
 #include "myImage.h"
+#include "PlaySceneManager.h"
+#include "EnemyManager.h"
 
 extern my::Application myapplication;
 
@@ -35,9 +37,21 @@ namespace my
 	{
 		if (mTarget != nullptr)
 		{
+			if (PlaySceneManager::Play_Time  <  EnemyManager::boss_Time + 5.0f && EnemyManager::Boss_on)
+			{
+				if(mLookPosition.x < Boss::getBossPos().x)
+					mLookPosition -= (Krochi::getPlayerPos() - Boss::getBossPos()).Normalize() * 250 * Time::getDeltaTime();
+
+				//mLookPosition.x
+				//	+= Time::getDeltaTime() * 250.0f;
+				//mLookPosition.y
+				//	-= Time::getDeltaTime() * 250.0f;
+			}
+			else
 			mLookPosition
 				= mTarget->GetComponent<Transform>()->getPos() + Vector2(10,10);
 		}
+
 
 
 		if (mAlphaTime < mEndTime)

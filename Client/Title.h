@@ -27,7 +27,7 @@ namespace my
 		Image* SelectUI;
 		Image* Option_Button;
 		Image* Exit_Button;
-
+		Image* Select_Button;
 		Vector2 mPos;
 	};
 }

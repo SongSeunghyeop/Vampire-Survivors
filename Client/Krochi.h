@@ -9,17 +9,17 @@
 #include "myObject.h"
 #include "myImage.h"
 #include "myInput.h"
+#include "Sound.h"
+#include "Effect2.h"
 
 namespace my
 {
 	//Skills
-	class Lightning;
 	class Radar;
-	class Cross;
-	class Book;
-	class Effect2;
 	class Warning_animation;
 	class Krochi_after;
+	class SkillManager;
+
 	class Krochi : public GameObject
 	{
 	public:
@@ -38,7 +38,6 @@ namespace my
 		};
 
 		Krochi();
-		~Krochi();
 
 		virtual void Initialize();
 		virtual void Update();
@@ -59,12 +58,13 @@ namespace my
 				return Krochi::Books_Power + spinach;
 			if(p == L"Cross")
 				return Krochi::Cross_Power + spinach;
+			if (p == L"Ax1")
+				return Krochi::Ax_Power + spinach;
 		}
 		static ePlayerState getPlayerState() { return mState; }
-
+		
 	public:
 		static int Death_count;
-
 	protected:
 		static ePlayerState mState;
 		static eSkillState skillState;
@@ -82,12 +82,15 @@ namespace my
 		static int Cross_Power;
 		static int Light_Power;
 		static int Books_Power;
+		static int Ax_Power;
 		static float Cross_Time;
 		static float Light_Time;
 		static float Books_Time;
+		static float Ax_Time;
 		static int bookNum;
 		static int LightNum;
 		static int CrossNum;
+		static int axNum;
 		static float Armor;
 		static float recovery;
 		static float defaultTime;
@@ -101,9 +104,10 @@ namespace my
 		Image* die_R;
 		Image* die_L;
 
-		Book* book1;
-		Cross* cross;
+		//Skills
+		SkillManager* skillmanager;
 		Radar* radar;
+		//
 		Krochi_after	*after;
 		Warning_animation* wa;
 		// --- move
@@ -118,13 +122,19 @@ namespace my
 		void cross_();
 		void Light();
 		void Books();
+		void ax1();
+		void ax2();
 		void magnet();
-		int EnemyIndex[200] = { 0 };
-		int enemyNum;
-		int randNum;
+
 		int Magnet_power;
 		float Magnet_Time;
 
+		Sound* Light_sound;
+		Sound* Gem;
+		Sound* lvup;
+		Sound* hpup;
+
+		bool upGrade;
 		friend class PlaySceneManager;
 		friend class ItemManager;
 	};

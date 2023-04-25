@@ -97,9 +97,6 @@
     <Filter Include="Engine\Camera">
       <UniqueIdentifier>{1a8ad8e2-ee37-42db-a9a0-402c6d1fe43e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\GameObject\Objects\Enemies\Damaged_Effect">
-      <UniqueIdentifier>{80a3528d-d195-49fb-b007-9c608b8de6f3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Scene\TileMap">
       <UniqueIdentifier>{19acceb6-4057-479c-8099-324b9efc45fb}</UniqueIdentifier>
     </Filter>
@@ -121,9 +118,6 @@
     <Filter Include="Engine\GameObject\Objects\Items\Skill">
       <UniqueIdentifier>{005e4193-a7dd-4bed-b9bf-efdbfc0221fe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\GameObject\Objects\Players\Damaged_Effect">
-      <UniqueIdentifier>{09b6aa0f-1ff7-413a-99bf-93c5c8e99eb4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\GameObject\Objects\Items\Drop_Items\Treasure">
       <UniqueIdentifier>{b20ed219-9489-47e5-bdec-209ac11cb884}</UniqueIdentifier>
     </Filter>
@@ -144,6 +138,12 @@
     </Filter>
     <Filter Include="Engine\GameObject\Objects\Items\Drop_Items\Magnet\Arrow">
       <UniqueIdentifier>{3639168c-35cf-46d3-aa9f-e42e49eed42c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Sound">
+      <UniqueIdentifier>{7e719219-3a93-47c2-8fdf-03e6fa5a3b31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\GameObject\Damaged_Effect">
+      <UniqueIdentifier>{80a3528d-d195-49fb-b007-9c608b8de6f3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -246,20 +246,14 @@
     <ClInclude Include="myCamera.h">
       <Filter>Engine\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Blade_R.h">
-      <Filter>Engine\GameObject\Objects\Items\Skill</Filter>
-    </ClInclude>
     <ClInclude Include="Effect.h">
-      <Filter>Engine\GameObject\Objects\Enemies\Damaged_Effect</Filter>
+      <Filter>Engine\GameObject\Damaged_Effect</Filter>
     </ClInclude>
     <ClInclude Include="TileMap_Tool.h">
       <Filter>Engine\Scene\TileMap</Filter>
     </ClInclude>
     <ClInclude Include="myToolScene.h">
       <Filter>Engine\Scene\TileMap</Filter>
-    </ClInclude>
-    <ClInclude Include="Blade_L.h">
-      <Filter>Engine\GameObject\Objects\Items\Skill</Filter>
     </ClInclude>
     <ClInclude Include="EnemyManager.h">
       <Filter>Engine\GameObject\Objects\Enemies</Filter>
@@ -284,9 +278,6 @@
     </ClInclude>
     <ClInclude Include="Boss_Skill.h">
       <Filter>Engine\GameObject\Objects\Enemies\Boss</Filter>
-    </ClInclude>
-    <ClInclude Include="Effect2.h">
-      <Filter>Engine\GameObject\Objects\Players\Damaged_Effect</Filter>
     </ClInclude>
     <ClInclude Include="Boss_After.h">
       <Filter>Engine\GameObject\Objects\Enemies\Boss</Filter>
@@ -344,6 +335,30 @@
     </ClInclude>
     <ClInclude Include="Warning_animation.h">
       <Filter>Engine\GameObject\Objects\Players\Krochi</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>Engine\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>Engine\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Cutton.h">
+      <Filter>Engine\GameObject\Objects\UI\Intro &amp; Title</Filter>
+    </ClInclude>
+    <ClInclude Include="Ax1.h">
+      <Filter>Engine\GameObject\Objects\Items\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="DragonBullet.h">
+      <Filter>Engine\GameObject\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect2.h">
+      <Filter>Engine\GameObject\Damaged_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillManager.h">
+      <Filter>Engine\GameObject\Objects\Items\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss_Hp.h">
+      <Filter>Engine\GameObject\Objects\Enemies\Boss</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -428,20 +443,14 @@
     <ClCompile Include="myCamera.cpp">
       <Filter>Engine\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="Blade_R.cpp">
-      <Filter>Engine\GameObject\Objects\Items\Skill</Filter>
-    </ClCompile>
     <ClCompile Include="Effect.cpp">
-      <Filter>Engine\GameObject\Objects\Enemies\Damaged_Effect</Filter>
+      <Filter>Engine\GameObject\Damaged_Effect</Filter>
     </ClCompile>
     <ClCompile Include="TileMap_Tool.cpp">
       <Filter>Engine\Scene\TileMap</Filter>
     </ClCompile>
     <ClCompile Include="myToolScene.cpp">
       <Filter>Engine\Scene\TileMap</Filter>
-    </ClCompile>
-    <ClCompile Include="Blade_L.cpp">
-      <Filter>Engine\GameObject\Objects\Items\Skill</Filter>
     </ClCompile>
     <ClCompile Include="EnemyManager.cpp">
       <Filter>Engine\GameObject\Objects\Enemies</Filter>
@@ -466,9 +475,6 @@
     </ClCompile>
     <ClCompile Include="Boss_Skill.cpp">
       <Filter>Engine\GameObject\Objects\Enemies\Boss</Filter>
-    </ClCompile>
-    <ClCompile Include="Effect2.cpp">
-      <Filter>Engine\GameObject\Objects\Players\Damaged_Effect</Filter>
     </ClCompile>
     <ClCompile Include="Boss_After.cpp">
       <Filter>Engine\GameObject\Objects\Enemies\Boss</Filter>
@@ -523,6 +529,30 @@
     </ClCompile>
     <ClCompile Include="Warning_animation.cpp">
       <Filter>Engine\GameObject\Objects\Players\Krochi</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>Engine\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>Engine\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Cutton.cpp">
+      <Filter>Engine\GameObject\Objects\UI\Intro &amp; Title</Filter>
+    </ClCompile>
+    <ClCompile Include="Ax1.cpp">
+      <Filter>Engine\GameObject\Objects\Items\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="DragonBullet.cpp">
+      <Filter>Engine\GameObject\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect2.cpp">
+      <Filter>Engine\GameObject\Damaged_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillManager.cpp">
+      <Filter>Engine\GameObject\Objects\Items\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss_Hp.cpp">
+      <Filter>Engine\GameObject\Objects\Enemies\Boss</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

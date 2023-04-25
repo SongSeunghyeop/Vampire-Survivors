@@ -22,6 +22,7 @@ namespace my
 			EMEPY_BOOK,
 			CROSS,
 			HEART,
+			AX1,
 			NONE,
 		};
 
@@ -49,6 +50,7 @@ namespace my
 		void empty_book();
 		void cross_up();
 		void heart_up();
+		void ax1();
 
 	private:
 		Animator* Treasure_show;

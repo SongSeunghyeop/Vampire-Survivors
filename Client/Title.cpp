@@ -18,12 +18,12 @@ namespace my
 	}
 	void Title::Initialize()
 	{
-		titleImg = ResourceManager::Load<Image>(L"Title", L"..\\Resources\\Title.bmp"); // 이미지의 키와 경로 정보를 받음
+		titleImg = ResourceManager::Load<Image>(L"Title", L"..\\Resources\\intro4.bmp"); // 이미지의 키와 경로 정보를 받음
 		start = ResourceManager::Load<Image>(L"start", L"..\\Resources\\Start_Button.bmp"); // 이미지의 키와 경로 정보를 받음
 		start_M = ResourceManager::Load<Image>(L"start_M", L"..\\Resources\\Start_M.bmp"); // 이미지의 키와 경로 정보를 받음
 		Exit_Button = ResourceManager::Load<Image>(L"Exit_Button", L"..\\Resources\\Exit_Button.bmp"); // 이미지의 키와 경로 정보를 받음
-
 		Option_Button = ResourceManager::Load<Image>(L"option_button", L"..\\Resources\\Option_Button.bmp"); // 이미지의 키와 경로 정보를 받음
+		Select_Button = ResourceManager::Load<Image>(L"Select_Button", L"..\\Resources\\Select_Button.bmp"); // 이미지의 키와 경로 정보를 받음
 	}
 
 	void Title::Update()
@@ -32,8 +32,8 @@ namespace my
 
 		if (Input::GetKeyDown(eKeyCode::LBUTTON))
 		{
-			if (mPos.x > 1029 && mPos.x < 1029 + start->GetWidth() * 1.1
-				&& mPos.y > 442 && mPos.y < 442 + start->GetHeight() * 1.1)
+			if (mPos.x > 557 && mPos.x < 557 + start->GetWidth() * 1.8
+				&& mPos.y > 508 && mPos.y < 508 + start->GetHeight() * 1.8)
 				TitleUIButton = true;
 		}
 
@@ -42,16 +42,16 @@ namespace my
 	void Title::Render(HDC hdc)
 	{
 		BitBlt(hdc, 0, 0, titleImg->GetWidth(), titleImg->GetHeight(), titleImg->GetHdc(), 0, 0, SRCCOPY);
-		TransparentBlt(hdc, 1020, 430, start->GetWidth() * 1.1, start->GetHeight() * 1.1, start->GetHdc(), 0, 0, start->GetWidth(), start->GetHeight(), RGB(255, 0, 255));
-		//TransparentBlt(hdc, 1076, 440, start_M->GetWidth(), start_M->GetHeight() * 0.9, start_M->GetHdc(), 0, 0, start_M->GetWidth(), start_M->GetHeight(), RGB(255, 0, 255));
-		TransparentBlt(hdc, 1020, 510, Option_Button->GetWidth() * 1.1, Option_Button->GetHeight() * 1.1, Option_Button->GetHdc(), 0, 0, Option_Button->GetWidth(), Option_Button->GetHeight(), RGB(255, 0, 255));
-		TransparentBlt(hdc, 1020, 590, Exit_Button->GetWidth() * 1.1, Exit_Button->GetHeight() * 1.1, Exit_Button->GetHdc(), 0, 0, Exit_Button->GetWidth(), Exit_Button->GetHeight(), RGB(255, 0, 255));
+		TransparentBlt(hdc, 547, 500, start->GetWidth() * 1.9, start->GetHeight() * 1.9, start->GetHdc(), 0, 0, start->GetWidth(), start->GetHeight(), RGB(184, 187, 185));
+		TransparentBlt(hdc, 560, 625, Select_Button->GetWidth() * 1.8, Select_Button->GetHeight() * 1.8, Select_Button->GetHdc(), 0, 0, Select_Button->GetWidth(), Select_Button->GetHeight(), RGB(182, 185, 183));
+	
+		TransparentBlt(hdc, 402, 6, Exit_Button->GetWidth() * 2, Exit_Button->GetHeight() * 2, Exit_Button->GetHdc(), 0, 0, Exit_Button->GetWidth(), Exit_Button->GetHeight(), RGB(182, 185, 183));
+		TransparentBlt(hdc, 790, 6, Option_Button->GetWidth() * 2, Option_Button->GetHeight() * 2, Option_Button->GetHdc(), 0, 0, Option_Button->GetWidth(), Option_Button->GetHeight(), RGB(184, 187, 185));
 		 
-		if (mPos.x > 1029 && mPos.x < 1029 + start->GetWidth() * 1.1
-			&& mPos.y > 442 && mPos.y < 442 + start->GetHeight() * 1.1)
+		if (mPos.x > 557 && mPos.x < 557 + start->GetWidth() * 1.8
+			&& mPos.y > 508 && mPos.y < 508 + start->GetHeight() * 1.8)
 		{
-			TransparentBlt(hdc, 1012, 427, start->GetWidth() * 1.2, start->GetHeight() * 1.2, start->GetHdc(), 0, 0, start->GetWidth(), start->GetHeight(), RGB(255, 0, 255));
-			//TransparentBlt(hdc, 1076, 439, start_M->GetWidth() * 1.1, start_M->GetHeight() , start_M->GetHdc(), 0, 0, start_M->GetWidth(), start_M->GetHeight(), RGB(255, 0, 255));
+			TransparentBlt(hdc, 542, 498, start->GetWidth() * 2, start->GetHeight() * 2, start->GetHdc(), 0, 0, start->GetWidth(), start->GetHeight(), RGB(184, 187, 185));
 		}
 
 		GameObject::Render(hdc);

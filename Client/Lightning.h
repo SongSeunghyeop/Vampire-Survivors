@@ -1,9 +1,9 @@
 #pragma once
-#include "Krochi.h"
+#include "Skillmanager.h"
 
 namespace my
 {
-	class Lightning : public GameObject
+	class Lightning : public SkillManager
 	{
 	public:
 		Lightning();
@@ -13,15 +13,7 @@ namespace my
 		virtual void Render(HDC hdc) override;
 
 		void skill_CompleteEvent();
-		Collider* lightning_Collider;
 
 	private:
-
-		Image* lightning;
-
-		Transform* lightning_Tr;
-		Animator* lightning_Animation;
-
-		Vector2 lightning_Pos;
 	};
 }

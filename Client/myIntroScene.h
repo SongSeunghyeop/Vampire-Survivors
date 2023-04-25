@@ -2,7 +2,7 @@
 #include "myScene.h"
 #include "myInput.h"
 #include "myObject.h"
-
+#include "Sound.h"
 namespace my
 {
 	class IntroScene : public Scene
@@ -18,7 +18,7 @@ namespace my
 
 		virtual void OnEnter();
 		virtual void OnExit();
-
 	private:
+		Sound* input_Sound;
 	};
 }
