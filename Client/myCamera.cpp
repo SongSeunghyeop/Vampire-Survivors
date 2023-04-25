@@ -42,6 +42,7 @@ namespace my
 				if(mLookPosition.x < Boss::getBossPos().x)
 					mLookPosition -= (Krochi::getPlayerPos() - Boss::getBossPos()).Normalize() * 250 * Time::getDeltaTime();
 
+				int a = 0;
 				//mLookPosition.x
 				//	+= Time::getDeltaTime() * 250.0f;
 				//mLookPosition.y
