@@ -10,14 +10,9 @@ namespace my
 	EnemyManager::EnemyManager()
 	{
 		Enemy_Time = 0.0f;
-<<<<<<< HEAD
 		Init_Num = 8;
 		boss_Time = 180.0f;
 		dragon_init = false;
-=======
-		Init_Num = 10;
-		boss_Time = 20.0f;
->>>>>>> parent of 76d27cb (2023.04.17 최종수정)
 	}
 	EnemyManager::~EnemyManager()
 	{
@@ -27,7 +22,7 @@ namespace my
 	void EnemyManager::Initialize()
 	{
 		Enemy_Create();
-	
+
 		GameObject::Initialize();
 	}
 	void EnemyManager::Update()
@@ -42,16 +37,8 @@ namespace my
 
 			if (boss == NULL)
 			{
-<<<<<<< HEAD
 				boss = object::Instantiate<Boss>
 					(Krochi::getPlayerPos() + Vector2(650, -650), eLayerType::ENEMY);
-=======
-				boss = new Boss();
-				Scene* scene = SceneManager::getActiveScene();
-				scene->AddGameObj(boss, eLayerType::ENEMY);
-				boss->GameObject::GetComponent<Transform>()->setPos(Krochi::getPlayerPos() + Vector2(600,-500));
-				boss->Initialize();
->>>>>>> parent of 76d27cb (2023.04.17 최종수정)
 			}
 		}
 
@@ -59,7 +46,7 @@ namespace my
 		{
 			Enemy_Create();
 
-			Init_Num+= 2;
+			Init_Num += 2;
 			Enemy_Time = 0.0f;
 		}
 		GameObject::Update();
@@ -115,11 +102,11 @@ namespace my
 			enemy->GameObject::GetComponent<Transform>()->setPos(Krochi::getPlayerPos() + RandPos);
 			enemy->Init_Pos = RandPos;
 
-			if(i < 14)
+			if (i < 14)
 				enemy->eType = Enemy::eEnemyType::BLACK;
-			else if(i < 28)
+			else if (i < 28)
 				enemy->eType = Enemy::eEnemyType::ZOMBIE;
-			else if(i < 42)
+			else if (i < 42)
 				enemy->eType = Enemy::eEnemyType::SKULL;
 			else
 				enemy->eType = Enemy::eEnemyType::GHOST;
