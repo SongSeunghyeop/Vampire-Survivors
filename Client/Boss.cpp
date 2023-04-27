@@ -1,5 +1,6 @@
 #include "Boss.h"
 #include "Boss_Skill.h"
+#include "Boss_Skill2.h"
 #include "Boss_Hp.h"
 #include "Boss_After.h"
 #include "myObject.h"
@@ -38,26 +39,19 @@ namespace my
 		boss_Animator ->CreateAnimation(L"bDamaged_L", bDamaged_L, Vector2::Zero, 1, 1, 1, 0.15f, 255, 0, 255);
 
 		boss_Tr = GetComponent<Transform>();
-		boss_Tr->setScale(Vector2(3.5f, 3.5f));
+		boss_Tr->setScale(Vector2(4.0f, 4.0f));
 
 		boss_Collider = AddComponent<Collider>();
 		boss_Collider->setRGB(0, 255, 0);
-		boss_Collider->setCenter(Vector2(-5, -25));
-		boss_Collider->setSize(Vector2(110, 140));
+		boss_Collider->setCenter(Vector2(0, -20));
+		boss_Collider->setSize(Vector2(120, 150));
 
 		boss_Animator->Play(L"Boss_MoveL", true);
 		boss_hp = 160;
-		Boss_vel = 330;
+		Boss_vel = 340.0f;
 		//
 		eState = eBossState::Idle;
 
-		for (int i = 0; i < 4; i++)
-		{
-			Boss_After* shadow = 
-				object::Instantiate<Boss_After>(boss_Tr->getPos(), eLayerType::ENEMYAFTER);
-
-			shadow->setShadowDistance(20.0f - i * 5);
-		}
 		hp = object::Instantiate<Boss_Hp>(eLayerType::ENEMYAFTER);
 		hp->SetBoss(this);
 		GameObject::Initialize();
@@ -65,7 +59,6 @@ namespace my
 	void Boss::Update()
 	{
 		skill_Time += Time::getDeltaTime();
-
 		boss_Collider->setRGB(0, 255, 0);
 		boss_Tr = GetComponent<Transform>();
 		Ppos = Krochi::getPlayerPos();
@@ -77,9 +70,17 @@ namespace my
 		{
 			delay += Time::getDeltaTime();
 			skill_Time = 0.0f;
-			if (delay >= 6.5f)
+			if (delay >= 6.0f)
 			{
 				delay = 0.0f;
+
+				for (int i = 0; i < 4; i++)
+				{
+					Boss_After* shadow =
+						object::Instantiate<Boss_After>(boss_Tr->getPos(), eLayerType::ENEMYAFTER);
+
+					shadow->setShadowDistance(20.0f - i * 5);
+				}
 
 				eState = eBossState::Move;
 			}
@@ -92,16 +93,23 @@ namespace my
 			back_move();
 			break;
 		case (eBossState::Attack):
-			attack();
+		{
+			int randnum = rand() % 2; // 0,1
+
+			if(randnum == 0)
+				attack_1();
+			if (randnum == 1)
+				attack_1();
+		}
 			break;
 		}
 
 		boss_Tr->setPos(movePos);
 
-		if (skill_Time >= 4.5f)
+		if (skill_Time >= 9.0f)
 			eState = eBossState::Attack;
 
-		boss_hp += 0.5f * Time::getDeltaTime();
+		boss_hp += 1.0f * Time::getDeltaTime();
 
 		GameObject::Update();
 	}
@@ -114,7 +122,7 @@ namespace my
 		GameObject::Release();
 	}
 
-	void Boss::attack()
+	void Boss::attack_1()
 	{
 		Boss_Skill* m1
 			= object::Instantiate<Boss_Skill>(Krochi::getPlayerPos() + Vector2(-280.0f, -500.0f), eLayerType::SKILL);
@@ -133,6 +141,11 @@ namespace my
 		Boss_Skill* m8
 			= object::Instantiate<Boss_Skill>(Krochi::getPlayerPos() + Vector2(280.0f, -500.0f), eLayerType::SKILL);
 		
+		eState = eBossState::Move;
+		skill_Time = 0.0f;
+	}
+	void Boss::attack_2()
+	{
 		eState = eBossState::Move;
 		skill_Time = 0.0f;
 	}
@@ -175,7 +188,7 @@ namespace my
 			mEffect = object::Instantiate<Effect>
 				(boss_Tr->getPos() + Vector2(20.0f, 0.0f), eLayerType::EFFECT);
 
-			boss_hp -= Krochi::getPlayerPower(L"Book") / 40;
+			boss_hp -= Krochi::getPlayerPower(L"Book") / 100;
 			this->eState = eBossState::Back_Move;
 		}
 		if (other->getOwner()->getName() == L"Ax1")
@@ -185,7 +198,7 @@ namespace my
 			mEffect = object::Instantiate<Effect>
 				(boss_Tr->getPos() + Vector2(20.0f, 0.0f), eLayerType::EFFECT);
 
-			boss_hp -= Krochi::getPlayerPower(L"Ax1") / 40;
+			boss_hp -= Krochi::getPlayerPower(L"Ax1") / 100;
 			this->eState = eBossState::Back_Move;
 		}
 		if (other->getOwner()->getName() == L"Cross")
@@ -194,7 +207,7 @@ namespace my
 
 			mEffect = object::Instantiate<Effect>
 				(boss_Tr->getPos() + Vector2(20.0f, 0.0f), eLayerType::EFFECT);
-			boss_hp -= Krochi::getPlayerPower(L"Cross") / 40;
+			boss_hp -= Krochi::getPlayerPower(L"Cross") / 100;
 			this->eState = eBossState::Back_Move;
 		}
 		if (other->getOwner()->getName() == L"Lightning")
@@ -203,7 +216,7 @@ namespace my
 
 			mEffect = object::Instantiate<Effect>
 				(boss_Tr->getPos() + Vector2(20.0f, 0.0f), eLayerType::EFFECT);
-			boss_hp -= Krochi::getPlayerPower(L"Lightning") / 40;
+			boss_hp -= Krochi::getPlayerPower(L"Lightning") / 100;
 			this->eState = eBossState::Back_Move;
 		}
 	}
@@ -220,7 +233,7 @@ namespace my
 	{
 		if (other->getOwner()->getName() == L"Player")
 		{
-			Boss_vel = 330.0f;
+			Boss_vel = 340.0f;
 		}
 	}
 }

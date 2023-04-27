@@ -47,7 +47,7 @@ namespace my
 	{
 		this->setName(L"Player");
 
-		Krochi::Hp = 112.0f;
+		Krochi::Hp = 112.0f;//112
 		Krochi::Exp = 0.0f; // max = 1126.0f
 		Krochi::level = 1;
 		Krochi::Monster_Exp = 400; // 400
@@ -122,13 +122,22 @@ namespace my
 
 		Light_sound
 			= ResourceManager::Load<Sound>(L"Lightning_Sound", L"..\\Resources\\Sound\\sfx_lightningimpact.wav");
+		book_sound
+			= ResourceManager::Load<Sound>(L"book_sound", L"..\\Resources\\Sound\\book_03.wav");
+		ax_sound
+			= ResourceManager::Load<Sound>(L"ax_sound", L"..\\Resources\\Sound\\cross_01.wav");
+		ax2_sound
+			= ResourceManager::Load<Sound>(L"ax2_sound", L"..\\Resources\\Sound\\ax2_01.wav");
 		Gem
 			= ResourceManager::Load<Sound>(L"Gem", L"..\\Resources\\Sound\\sfx_gem.wav");
 		lvup
 			= ResourceManager::Load<Sound>(L"lvup", L"..\\Resources\\Sound\\sfx_levelup.wav");
 		hpup
 			= ResourceManager::Load<Sound>(L"hpup", L"..\\Resources\\Sound\\sfx_sounds_powerup2.wav");
-
+		magnet_sound
+			= ResourceManager::Load<Sound>(L"magnet_sound", L"..\\Resources\\Sound\\sfx_sounds_powerup18.wav");
+		cross_sound
+			= ResourceManager::Load<Sound>(L"cross_sound", L"..\\Resources\\Sound\\ax_02.wav");
 		GameObject::Initialize();
 	}
 	void Krochi::Update()
@@ -189,15 +198,15 @@ namespace my
 			Krochi::Hp += recovery * Time::getDeltaTime();
 
 
-			if (PlaySceneManager::Play_Time > EnemyManager::boss_Time + 5.5f)
+			if (PlaySceneManager::Play_Time > EnemyManager::boss_Time + 5.7f)
 			{
 				if (wa == NULL)
 					wa = object::Instantiate<Warning_animation>(Krochi::Playerpos + Vector2(3, -110), eLayerType::EFFECT);
 			}
-			if (PlaySceneManager::Play_Time > EnemyManager::boss_Time - 5.6f
-				&& PlaySceneManager::Play_Time < EnemyManager::boss_Time + 5.5f)
+			if (PlaySceneManager::Play_Time > EnemyManager::boss_Time - 6.5f
+				&& PlaySceneManager::Play_Time < EnemyManager::boss_Time + 6.0f)
 			{
-				Krochi::Hp = 100.0f;
+				Krochi::Hp = 115.0f;
 
 				Light_Time = 0.0f;
 				Books_Time = 0.0f;
@@ -334,9 +343,8 @@ namespace my
 	{
 		//플레이어의 HP 감소
 		if (Hp > 10)
-			Hp -= Time::getDeltaTime() * (5.5f - Armor);
-		if (EnemyManager::Boss_on)
-			Hp -= Time::getDeltaTime() * (2.5f - Armor);
+			Hp -= Time::getDeltaTime() * (5.0f - Armor);
+	
 		//데미지를 입는 상황에서 스테이트가 변하면 , 애니메이션을 바꿔주어야함
 		if (state == ePlayerState::Idle)
 		{
@@ -376,8 +384,9 @@ namespace my
 		Magnet_Time += Time::getDeltaTime();
 		Level_Item::Item_vel = 500.0f;
 
-		if (Magnet_Time > 5.0f)
+		if (Magnet_Time > 5.5f)
 		{
+			magnet_sound->Play(false);
 			Level_Item::Item_vel = 0.0f;
 			Magnet_power = 0;
 		}
@@ -385,8 +394,11 @@ namespace my
 	//Skills
 	void Krochi::ax1()
 	{
+
 		if (Krochi::Ax_Time > 5.0f - defaultTime)
 		{
+			ax_sound->Play(false);
+
 			for (int i = 0; i < 8; i++)
 			{
 				if (Krochi::Ax_Power >= 85 + i * 5)
@@ -401,8 +413,9 @@ namespace my
 	{
 		axNum = 18;
 
-		if (Krochi::Ax_Time > 3.5f - defaultTime)
+		if (Krochi::Ax_Time > 4.0f - defaultTime)
 		{
+			ax2_sound->Play(false);
 			skillmanager->skill_Instantiate(eSkillname::AX2, axNum);
 			Krochi::Ax_Time = 0.0f;
 		}
@@ -417,6 +430,7 @@ namespace my
 
 		if (Krochi::Books_Time > 6.5f - defaultTime)
 		{
+			book_sound->Play(false);
 			skillmanager->skill_Instantiate(eSkillname::BOOK, bookNum);
 			Krochi::Books_Time = 0.0f;
 		}
@@ -432,6 +446,8 @@ namespace my
 
 		if (Krochi::Cross_Time > 3.5f - defaultTime)
 		{
+			cross_sound->Play(false);
+
 			skillmanager->skill_Instantiate(eSkillname::CROSS, CrossNum);
 
 			Krochi::Cross_Time = 0.0f + float(CrossNum) * 0.1f;
@@ -458,10 +474,9 @@ namespace my
 				skillmanager->skill_Instantiate(eSkillname::LIGHT, LightNum);
 			}
 
+			Light_sound->Play(false);
 			Krochi::Light_Time = 0.0f + float(LightNum) * 0.2f;
 		}
-
-		Light_sound->Play(false);
 	}
 
 	void Krochi::onCollisionEnter(Collider* other)
@@ -494,13 +509,14 @@ namespace my
 		//보스 몬스터의 공격 스킬
 		if (other->getOwner()->getName() == L"meteor")
 		{
-			Krochi::Hp -= 15.0f;
+			Krochi::Hp -= 8.0f;
 
 			Effect2* mEffect = object::Instantiate<Effect2>
 				(Krochi::getPlayerPos() + Vector2(-20.0f, -20.0f), eLayerType::EFFECT);
 		}
 		if (other->getOwner()->getName() == L"dBullet")
 		{
+			Krochi::Hp -= 0.05f;
 			object::Destory(other->getOwner());
 		}
 		//몬스터

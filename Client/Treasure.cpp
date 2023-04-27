@@ -13,14 +13,14 @@ namespace my
 		treasure = ResourceManager::Load<Image>(L"Treasure", L"..\\Resources\\Treasure.bmp");
 		
 		Vector2 RandPos;
-		RandPos.x = rand() % 1900 - 950;  // -950 ~ 950
-		RandPos.y = rand() % 1300 - 650; //  -650 ~ 650
+		RandPos.x = rand() % 3000 - 1500;  // -1500 ~ 1500
+		RandPos.y = rand() % 3000 - 1500; //  -1500 ~ 1500
 
-		while ((RandPos.x > -900 && RandPos.x < 900) && // 900
-			(RandPos.y > -600 && RandPos.y < 600)) //600
+		while ((RandPos.x > -1450 && RandPos.x < 1450) && // 1450
+			(RandPos.y > -1450 && RandPos.y < 1450)) // 1450
 		{
-			RandPos.x = rand() % 1900 - 950;  // -950 ~ 950
-			RandPos.y = rand() % 1300 - 650; //  -650 ~ 650
+			RandPos.x = rand() % 3000 - 1500;  // -1500 ~ 1500
+			RandPos.y = rand() % 3000 - 1500; //  -1500 ~ 1500
 		}
 
 		Item_TR = GetComponent<Transform>();

@@ -17,7 +17,7 @@ namespace my
 	{
 		Transform* tr = GetComponent<Transform>();
 
-		Vector2 pos = Camera::CaluatePos(Boss::getBossPos() + Vector2(-30, 120));
+		Vector2 pos = Camera::CaluatePos(Boss::getBossPos() + Vector2(-22, 150));
 
 		TransparentBlt(hdc, pos.x, pos.y, 160, hp_bar2->GetHeight(),
 			hp_bar2->GetHdc(), 0, 0, hp_bar2->GetWidth(), hp_bar2->GetHeight(), RGB(255, 0, 255));

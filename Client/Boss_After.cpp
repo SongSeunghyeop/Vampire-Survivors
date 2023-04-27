@@ -24,9 +24,9 @@ namespace my
 		BossAnimator->CreateAnimation(L"Shadow_IdleL", Boss_L, Vector2::Zero, 1, 1, 1, 0.5f, 255, 0, 255);
 
 		After_TR = GetComponent<Transform>();
-		After_TR->setScale(Vector2(3.3f, 3.3f));
+		After_TR->setScale(Vector2(3.8f, 3.8f));
 
-		BossAnimator->Play(L"Shadow_MoveR", true);
+		BossAnimator->Play(L"Shadow_MoveL", true);
 		//
 		eState = eAfterState::Move;
 
@@ -68,20 +68,20 @@ namespace my
 		afterPos = After_TR->getPos();
 
 		if (afterPos.x <  Boss::movePos.x - shadow_distance)
-			afterPos.x += Boss::Boss_vel * Time::getDeltaTime();
+			afterPos.x += 340.0f * Time::getDeltaTime();
 
 		if (afterPos.x > Boss::movePos.x + shadow_distance)
-			afterPos.x -= Boss::Boss_vel * Time::getDeltaTime();
+			afterPos.x -= 340.0f * Time::getDeltaTime();
 
 		if (afterPos.y < Boss::movePos.y - shadow_distance)
-			afterPos.y += Boss::Boss_vel * Time::getDeltaTime();
+			afterPos.y += 340.0f * Time::getDeltaTime();
 
 		if (afterPos.y > Boss::movePos.y + shadow_distance)
-			afterPos.y -= Boss::Boss_vel * Time::getDeltaTime();
+			afterPos.y -= 340.0f * Time::getDeltaTime();
 
-		if (afterPos.x < Boss::movePos.x - 5)
+		if (afterPos.x < Boss::movePos.x - 10)
 			BossAnimator->Play_NO_RE(L"Shadow_MoveR", true);
-		else if(afterPos.x > Boss::movePos.x + 5)
+		else if(afterPos.x > Boss::movePos.x + 10)
 			BossAnimator->Play_NO_RE(L"Shadow_MoveL", true);
 
 		tr->setPos(afterPos);

@@ -44,7 +44,6 @@ namespace my
 		(HPEN)SelectObject(hdc, oldPen);
 		(HBRUSH)SelectObject(hdc, oldBrush);
 		DeleteObject(pen);*/
-
 	}
 	void Collider::Release()
 	{

@@ -24,6 +24,10 @@ namespace my
 		
 		PlayScene_Sound
 			= ResourceManager::Load<Sound>(L"PlayScene_Sound", L"..\\Resources\\Sound\\bgm_vica_01.wav");
+
+		boss_bgm
+			= ResourceManager::Load<Sound>(L"boss_bgm", L"..\\Resources\\Sound\\boss_bgm.wav");
+
 		Camera::SetTarget(krochi);
 	}
 
@@ -38,11 +42,12 @@ namespace my
 
 		if (PlaySceneManager::Show_on)
 		{
-			PlayScene_Sound->Stop(true);
+			PlayScene_Sound->Stop(false);
 		}
-		if (!PlaySceneManager::Show_on && PlayScene_Sound->stoped)
+		if (EnemyManager::Boss_on && !PlayScene_Sound->stoped)
 		{
-			PlayScene_Sound->Play(true);
+			PlayScene_Sound->Stop(false);
+			boss_bgm->Play(true);
 		}
 		if (Krochi::getPlayerState() == Krochi::ePlayerState::Death)
 		{
@@ -60,7 +65,7 @@ namespace my
 	}
 	void PlayScene::OnEnter()
 	{
-		PlayScene_Sound->Play(false);
+		PlayScene_Sound->Play(true);
 
 		CollisionManager::setLayer(eLayerType::PLAYER, eLayerType::ENEMY, true);
 		CollisionManager::setLayer(eLayerType::PLAYER, eLayerType::SKILL, true);

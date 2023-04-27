@@ -39,5 +39,6 @@ namespace my
 
 		Sound* treasure_Sound;
 		Sound* PlayScene_Sound;
+		Sound* boss_bgm;
 	};
 }

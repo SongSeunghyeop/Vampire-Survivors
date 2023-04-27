@@ -88,6 +88,21 @@ struct Vector2
 		x -= other.x;
 		y -= other.y;
 	}
+	bool operator==(const Vector2& other)
+	{
+		if (x == other.x && y == other.y)
+			return true;
+		else
+			return false;
+	}
+
+	bool operator>(const Vector2& other)
+	{
+		if (x > other.x && y > other.y)
+			return true;
+		else
+			return false;
+	}
 	float Length()
 	{
 		return sqrtf(x * x + y * y);

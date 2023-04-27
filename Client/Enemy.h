@@ -119,7 +119,7 @@ namespace my
 		float vel_type3;
 		float vel_type4;
 		Vector2 Init_Pos;
-
+		float activeTime;
 		Sound* damaged_Sound;
 
 		friend class EnemyManager;

@@ -37,16 +37,10 @@ namespace my
 	{
 		if (mTarget != nullptr)
 		{
-			if (PlaySceneManager::Play_Time  <  EnemyManager::boss_Time + 5.0f && EnemyManager::Boss_on)
+			if (PlaySceneManager::Play_Time  <  EnemyManager::boss_Time + 5.5f && EnemyManager::Boss_on)
 			{
 				if(mLookPosition.x < Boss::getBossPos().x)
-					mLookPosition -= (Krochi::getPlayerPos() - Boss::getBossPos()).Normalize() * 250 * Time::getDeltaTime();
-
-				int a = 0;
-				//mLookPosition.x
-				//	+= Time::getDeltaTime() * 250.0f;
-				//mLookPosition.y
-				//	-= Time::getDeltaTime() * 250.0f;
+					mLookPosition -= (Krochi::getPlayerPos() - Boss::getBossPos() + Vector2(0,-60)).Normalize() * 260 * Time::getDeltaTime();
 			}
 			else
 			mLookPosition

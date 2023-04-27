@@ -1,7 +1,7 @@
 #include "PlaySceneManager.h"
 #include "myInput.h"
 #include "myPlayScene.h"
-
+#include "Sound.h"
 namespace my
 {
 	bool PlaySceneManager::Level_Up;
@@ -52,18 +52,18 @@ namespace my
 			Play_Time += Time::getDeltaTime();
 			Krochi::skillState = Krochi::eSkillState::Skill_On;
 		}
+		
 		GameObject::Update();
 	}
 
 	void PlaySceneManager::Render(HDC hdc)
 	{
-
-		if (PlaySceneManager::Play_Time > EnemyManager::boss_Time - 5.5f && !EnemyManager::Boss_on)
+		if (PlaySceneManager::Play_Time > EnemyManager::boss_Time - 5.0f && !EnemyManager::Boss_on)
 		{
 			if (screen_Y <= 120)
-				screen_Y += Time::getDeltaTime() * 55.0f;
+				screen_Y += Time::getDeltaTime() * 60.0f;
 		}
-		if (PlaySceneManager::Play_Time > EnemyManager::boss_Time + 6.5f && EnemyManager::Boss_on)
+		if (PlaySceneManager::Play_Time > EnemyManager::boss_Time + 6.6f && EnemyManager::Boss_on)
 		{
 			if (screen_Y >= 70)
 				screen_Y -= Time::getDeltaTime() * 200.0f;

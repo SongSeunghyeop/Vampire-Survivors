@@ -10,8 +10,8 @@ namespace my
 	EnemyManager::EnemyManager()
 	{
 		Enemy_Time = 0.0f;
-		Init_Num = 8;
-		boss_Time = 180.0f;
+		Init_Num = 6;
+		boss_Time = 10.0f; // 210
 		dragon_init = false;
 	}
 	EnemyManager::~EnemyManager()
@@ -42,12 +42,22 @@ namespace my
 			}
 		}
 
-		if (Enemy_Time >= 6.0f)
+		if (Enemy_Time >= 7.0f)
 		{
 			Enemy_Create();
 
 			Init_Num += 2;
 			Enemy_Time = 0.0f;
+		}
+
+		if (PlaySceneManager::Play_Time >= EnemyManager::boss_Time + 30.0f && !dragon_init)
+		{
+			Dragon_Create();
+		}
+		if (dragon_init
+			&& dragons.at(35)->getState() != GameObject::eState::Active)
+		{
+			Dragon_Active();
 		}
 		GameObject::Update();
 	}
@@ -59,14 +69,25 @@ namespace my
 	{
 		GameObject::Release();
 	}
+	void EnemyManager::Dragon_Active()
+	{
+		mTime
+			+= Time::getDeltaTime();
+
+		for (int i = 0; i < 36; i++)
+		{
+			if (mTime >= ( i+1 ) * 0.03f && dragons.at(i)->getState() != GameObject::eState::Active)
+				dragons.at(i)->setState(GameObject::eState::Active);
+		}
+	}
 	void EnemyManager::Dragon_Create()
 	{
 		dir = Vector2(500.0f, 500.0f);
 		dir.Normalize();
 
-		for (int i = 0; i < 30; i++)
+		for (int i = 0; i < 36; i++)
 		{
-			R = i * 12;
+			R = i * 10;
 
 			rotation = math::Rotate(dir, R);
 			dragon_Pos.x = Krochi::getPlayerPos().x + 450 * rotation.x;
@@ -78,7 +99,10 @@ namespace my
 			dragon->GameObject::GetComponent<Transform>()->setPos(dragon_Pos);
 			dragon->Init_Pos = dragon_Pos;
 			dragon->eType = Enemy::eEnemyType::DRAGON;
+			dragon->setState(GameObject::eState::None);
 			dragon->Initialize();
+
+			dragons.push_back(dragon);
 		}
 		dragon_init = true;
 	}
@@ -102,11 +126,11 @@ namespace my
 			enemy->GameObject::GetComponent<Transform>()->setPos(Krochi::getPlayerPos() + RandPos);
 			enemy->Init_Pos = RandPos;
 
-			if (i < 14)
+			if (i < 16)
 				enemy->eType = Enemy::eEnemyType::BLACK;
-			else if (i < 28)
+			else if (i < 32)
 				enemy->eType = Enemy::eEnemyType::ZOMBIE;
-			else if (i < 42)
+			else if (i < 48)
 				enemy->eType = Enemy::eEnemyType::SKULL;
 			else
 				enemy->eType = Enemy::eEnemyType::GHOST;
@@ -115,13 +139,10 @@ namespace my
 
 			int random = rand() % 10;// 0~9;
 
-			if (i == 0 && random == 0)
+			if (i == 0 && random < 2)
 				enemy->eType = Enemy::eEnemyType::CANDLE;
 
 			enemy->Initialize();
-
-			if (PlaySceneManager::Play_Time >= 140.0f && !dragon_init)
-				Dragon_Create();
 		}
 	}
 }

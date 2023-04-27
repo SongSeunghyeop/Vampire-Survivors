@@ -14,7 +14,7 @@ namespace my
 
 		void Enemy_Create();
 		void Dragon_Create();
-
+		void Dragon_Active();
 		virtual void Initialize();
 		virtual void Update();
 		virtual void Render(HDC hdc);
@@ -31,6 +31,7 @@ namespace my
 		int Init_Num;
 		Enemy* enemy;
 		Enemy* dragon;
+		std::vector<Enemy*> dragons;
 		Boss* boss;
 
 		Vector2 dir;
@@ -40,6 +41,7 @@ namespace my
 		bool dragon_init;
 		float distance;
 		float R;
+		float mTime = 0.0f;
 	};
 }
 

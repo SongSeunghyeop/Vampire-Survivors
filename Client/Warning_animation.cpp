@@ -14,7 +14,7 @@ namespace my
 		warning_Effect = ResourceManager::Load<Image>(L"warning_Effect", L"..\\Resources\\warning.bmp");
 
 		EffectAnimator = AddComponent<Animator>();
-		EffectAnimator->CreateAnimation(L"warning_Effect", warning_Effect, Vector2::Zero, 12, 1, 12, 0.06f, 255, 0, 255);
+		EffectAnimator->CreateAnimation(L"warning_Effect", warning_Effect, Vector2::Zero, 12, 1, 12, 0.045f, 255, 0, 255);
 
 		EffectPos = GetComponent<Transform>();
 		EffectPos->setScale(2.4f, 2.4f);

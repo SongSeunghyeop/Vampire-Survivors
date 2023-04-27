@@ -30,7 +30,7 @@ namespace my
 	{
 		Transform* tr = GetComponent<Transform>();
 		bulletPos = tr->getPos();
-		bulletPos +=  (Krochi::getPlayerPos() - tr->getPos()).Normalize()* 200* Time::getDeltaTime();
+		bulletPos +=  (Krochi::getPlayerPos() - tr->getPos()).Normalize()* 210* Time::getDeltaTime();
 		tr->setPos(bulletPos);
 
 		mTime += Time::getDeltaTime();

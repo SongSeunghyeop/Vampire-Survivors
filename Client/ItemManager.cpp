@@ -131,10 +131,10 @@ namespace my
 		}
 
 		//플레이타임이 일정 시간 지났을 때 보물 등장
-		if(PlaySceneManager::Play_Time > 90.0f && treasure == NULL)
+		if(PlaySceneManager::Play_Time > 150.0f && treasure == NULL) // 150
 			treasure = object::Instantiate<Treasure>(eLayerType::ITEMS);
 
-		if (PlaySceneManager::Play_Time > 90.0f && magnet == NULL)
+		if (PlaySceneManager::Play_Time > 100.0f && magnet == NULL)
 			magnet = object::Instantiate<Magnet>(eLayerType::ITEMS);
 
 		GameObject::Update();
@@ -215,6 +215,7 @@ namespace my
 			{
 				Treasure_show->Play_NO_RE(L"NULL", false);
 				PlaySceneManager::Show_on = false;
+				ResourceManager::Find<Sound>(L"PlayScene_Sound")->Play(true);
 				Krochi::mState = Krochi::ePlayerState::Idle;
 			}
 		}

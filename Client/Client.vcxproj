@@ -134,6 +134,7 @@
   <ItemGroup>
     <ClInclude Include="Ax1.h" />
     <ClInclude Include="Boss_Hp.h" />
+    <ClInclude Include="Boss_Skill2.h" />
     <ClInclude Include="DragonBullet.h" />
     <ClInclude Include="Cutton.h" />
     <ClInclude Include="Magnet.h" />
@@ -207,6 +208,7 @@
   <ItemGroup>
     <ClCompile Include="Ax1.cpp" />
     <ClCompile Include="Boss_Hp.cpp" />
+    <ClCompile Include="Boss_Skill2.cpp" />
     <ClCompile Include="DragonBullet.cpp" />
     <ClCompile Include="Cutton.cpp" />
     <ClCompile Include="Magnet.cpp" />

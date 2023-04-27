@@ -102,11 +102,8 @@ namespace my
 		EnemyAnimator->CreateAnimation(L"Skull_DieL", Skull_Die_L, Vector2::Zero, 3, 1, 3, 0.1f, 255, 0, 255);
 		// 
 		//  ------ Dragon
-		EnemyAnimator->CreateAnimation(L"Dragon_AttackR", Dragon_R, Vector2::Zero, 10, 1, 10, 0.4f, 255, 0, 255);
-		EnemyAnimator->CreateAnimation(L"Dragon_AttackL", Dragon_L, Vector2::Zero, 10, 1, 10, 0.4f, 255, 0, 255);
-
-		EnemyAnimator->CreateAnimation(L"Dragon_IdleR", Dragon_R, Vector2::Zero, 8, 1, 2, 0.4f, 255, 0, 255);
-		EnemyAnimator->CreateAnimation(L"Dragon_IdleL", Dragon_L, Vector2::Zero, 8, 1, 2, 0.4f, 255, 0, 255);
+		EnemyAnimator->CreateAnimation(L"Dragon_AttackR", Dragon_R, Vector2::Zero, 10, 1, 10, 0.5f, 255, 0, 255);
+		EnemyAnimator->CreateAnimation(L"Dragon_AttackL", Dragon_L, Vector2::Zero, 10, 1, 10, 0.5f, 255, 0, 255);
 
 		EnemyAnimator->CreateAnimation(L"dDamaged_R", dDamaged_R, Vector2::Zero, 2, 1, 1, 0.15f, 255, 0, 255);
 		EnemyAnimator->CreateAnimation(L"dDamaged_L", dDamaged_L, Vector2::Zero, 2, 1, 1, 0.15f, 255, 0, 255);
@@ -150,7 +147,7 @@ namespace my
 		case(eEnemyType::ZOMBIE):
 		{
 			EnemyAnimator->Play(L"Zombie_MoveR", true);
-			monster_hp = 140;
+			monster_hp = 170;
 			Enemy_vel = vel_type2;
 			Enemy_TR->setScale(Vector2(2.0f, 2.0f));
 			EnemyCollider->setCenter(Vector2(-10, -22));
@@ -160,7 +157,7 @@ namespace my
 		case(eEnemyType::SKULL):
 		{
 			EnemyAnimator->Play(L"Skull_MoveR", true);
-			monster_hp = 200;
+			monster_hp = 250;
 			Enemy_vel = vel_type3;
 			Enemy_TR->setScale(Vector2(2.7f, 2.7f));
 			EnemyCollider->setCenter(Vector2(-7, -27));
@@ -170,7 +167,7 @@ namespace my
 		case(eEnemyType::GHOST):
 		{
 			EnemyAnimator->Play(L"Ghost_Run_R", true);
-			monster_hp = 300;
+			monster_hp = 330;
 			Enemy_vel = vel_type4;
 			Enemy_TR->setScale(Vector2(2.2f, 2.2f));
 			EnemyCollider->setCenter(Vector2(0, -30));
@@ -239,16 +236,19 @@ namespace my
 
 		if (Distance > 1600) // 플레이어와의 거리가 멀어진다면, 위치를 가까이 옮겨줌
 			Enemy_TR->setPos(Krochi::getPlayerPos() + Init_Pos);
+		
+		
 
-		if (PlaySceneManager::Play_Time > EnemyManager::boss_Time - 5.6f)
+		if (PlaySceneManager::Play_Time > EnemyManager::boss_Time - 6.5f)
 		{
 			Enemy_vel = 0.0f;
 		}
-		if (PlaySceneManager::Play_Time > EnemyManager::boss_Time - 1.5f)
+		if (PlaySceneManager::Play_Time > EnemyManager::boss_Time - 1.0f)
 		{
-			eState = eEnemyState::Death;
+			if(eType != eEnemyType::DRAGON)
+				eState = eEnemyState::Death;
 		}
-		if (PlaySceneManager::Play_Time > 165.0f)
+		if (PlaySceneManager::Play_Time > EnemyManager::boss_Time + 60.0f)
 		{
 			if (eType == eEnemyType::DRAGON)
 				object::Destory(this);

@@ -130,9 +130,14 @@ namespace my
 		float Magnet_Time;
 
 		Sound* Light_sound;
+		Sound* cross_sound;
 		Sound* Gem;
 		Sound* lvup;
 		Sound* hpup;
+		Sound* ax_sound;
+		Sound* ax2_sound;
+		Sound* book_sound;
+		Sound* magnet_sound;
 
 		bool upGrade;
 		friend class PlaySceneManager;

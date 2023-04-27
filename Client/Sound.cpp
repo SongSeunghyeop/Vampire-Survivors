@@ -86,7 +86,7 @@ namespace my
 		mmioClose(hFile, 0);
 
 		// 초기 음량 절반으로 설정
-		SetVolume(50.f);
+		SetVolume(40.f);
 
 		return true;
 	}
@@ -109,6 +109,11 @@ namespace my
 			mSoundBuffer->SetCurrentPosition(0);
 
 		stoped = true;
+	}
+	void Sound::Change(Sound* s, bool b)
+	{
+		mSoundBuffer->Stop();
+		s->Play(b);
 	}
 	void Sound::SetPosition(float position, bool loop)
 	{

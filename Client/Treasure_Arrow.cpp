@@ -40,17 +40,17 @@ namespace my
 				&& treasure->treasurePos.x >  Krochi::getPlayerPos().x - 612)
 			{
 				pos.x = treasure->treasurePos.x + 24;
-				pos.y = Krochi::getPlayerPos().y + 395;
+				pos.y = Krochi::getPlayerPos().y + 390;
 			}
 			else if (treasure->treasurePos.x < Krochi::getPlayerPos().x - 612)
 			{
 				pos.x = Krochi::getPlayerPos().x - 608;
-				pos.y = Krochi::getPlayerPos().y + 395;
+				pos.y = Krochi::getPlayerPos().y + 390;
 			}
 			else if (treasure->treasurePos.x > Krochi::getPlayerPos().x + 612)
 			{
 				pos.x = Krochi::getPlayerPos().x + 624;
-				pos.y = Krochi::getPlayerPos().y + 395;
+				pos.y = Krochi::getPlayerPos().y + 390;
 			}
 
 			arrow_Tr->setPos(pos);
@@ -63,17 +63,17 @@ namespace my
 				&& treasure->treasurePos.x >  Krochi::getPlayerPos().x - 612)
 			{
 				pos.x = treasure->treasurePos.x + 24;
-				pos.y = Krochi::getPlayerPos().y - 305;
+				pos.y = Krochi::getPlayerPos().y - 300;
 			}
 			else if (treasure->treasurePos.x < Krochi::getPlayerPos().x - 612)
 			{
 				pos.x = Krochi::getPlayerPos().x - 608;
-				pos.y = Krochi::getPlayerPos().y - 305;
+				pos.y = Krochi::getPlayerPos().y - 300;
 			}
 			else if (treasure->treasurePos.x > Krochi::getPlayerPos().x + 612)
 			{
 				pos.x = Krochi::getPlayerPos().x + 625;
-				pos.y = Krochi::getPlayerPos().y - 305;
+				pos.y = Krochi::getPlayerPos().y - 300;
 			}
 
 			arrow_Tr->setPos(pos);
@@ -81,7 +81,7 @@ namespace my
 		else if (treasure->treasure_Right)
 		{
 			Vector2 pos;
-			pos.x = Krochi::getPlayerPos().x + 625;
+			pos.x = Krochi::getPlayerPos().x + 620;
 			pos.y = treasure->treasurePos.y + 40;
 
 			arrow_Tr->setPos(pos);
@@ -89,7 +89,7 @@ namespace my
 		else if (treasure->treasure_Left)
 		{
 			Vector2 pos;
-			pos.x = Krochi::getPlayerPos().x - 605;
+			pos.x = Krochi::getPlayerPos().x - 600;
 			pos.y = treasure->treasurePos.y + 40;
 
 			arrow_Tr->setPos(pos);
@@ -107,16 +107,16 @@ namespace my
 		Vector2 pos = Camera::CaluatePos(arrow_Tr->getPos());
 
 		if(treasure->treasure_Down)
-			TransparentBlt(hdc, pos.x - 25, pos.y - 60, Arrow_D->GetWidth() * 3.8, Arrow_D->GetHeight() * 4,
+			TransparentBlt(hdc, pos.x - 26, pos.y - 60, Arrow_D->GetWidth() * 4, Arrow_D->GetHeight() * 4.2,
 				Arrow_D->GetHdc(), 0, 0, Arrow_D->GetWidth(), Arrow_D->GetHeight(), RGB(255, 0, 255));
 		else if (treasure->treasure_Up)
-			TransparentBlt(hdc, pos.x - 25, pos.y - 38, Arrow_U->GetWidth() * 3.8, Arrow_U->GetHeight() * 4,
+			TransparentBlt(hdc, pos.x - 26, pos.y - 38, Arrow_U->GetWidth() * 4, Arrow_U->GetHeight() * 4.2,
 				Arrow_U->GetHdc(), 0, 0, Arrow_U->GetWidth(), Arrow_U->GetHeight(), RGB(255, 0, 255));
 		else if(treasure->treasure_Left)
-			TransparentBlt(hdc, pos.x -20, pos.y - 45, Arrow_L->GetWidth() * 4, Arrow_L->GetHeight() * 3.8,
+			TransparentBlt(hdc, pos.x -20, pos.y - 46, Arrow_L->GetWidth() * 4.2, Arrow_L->GetHeight() * 4,
 				Arrow_L->GetHdc(), 0, 0, Arrow_L->GetWidth(), Arrow_L->GetHeight(), RGB(255, 0, 255));
 		else if (treasure->treasure_Right)
-			TransparentBlt(hdc, pos.x - 35, pos.y - 45, Arrow_R->GetWidth() * 4, Arrow_R->GetHeight() * 3.8,
+			TransparentBlt(hdc, pos.x - 35, pos.y - 46, Arrow_R->GetWidth() * 4.2, Arrow_R->GetHeight() * 4,
 				Arrow_R->GetHdc(), 0, 0, Arrow_R->GetWidth(), Arrow_R->GetHeight(), RGB(255, 0, 255));
 
 		GameObject::Render(hdc);

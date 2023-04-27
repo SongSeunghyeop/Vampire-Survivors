@@ -28,7 +28,8 @@ namespace my
 
 		void move();
 		void back_move();
-		void attack();
+		void attack_1();
+		void attack_2();
 
 		virtual void onCollisionEnter(class Collider* other) override;
 		virtual void onCollisionExit(class Collider* other) override;
@@ -39,6 +40,7 @@ namespace my
 	protected:
 	private:
 		static Vector2 movePos;
+
 		float boss_hp;
 
 		Animator* boss_Animator;
@@ -58,7 +60,7 @@ namespace my
 		float skill_Time = 0.0f;
 		float Boss_vel;
 		eBossState eState;
-
+		
 		Boss_Hp* hp;
 
 		friend class Boss_After;

@@ -12,6 +12,7 @@ namespace my
 		void Stop(bool reset);
 		void SetPosition(float position, bool loop);
 		void SetVolume(float volume);
+		void Change(Sound* s, bool b);
 		int GetVolume() { return mVolume;  }
 		int GetDecibel(float volume);
 		bool stoped;
