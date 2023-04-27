@@ -20,6 +20,8 @@ namespace my
 	{
 		input_Sound
 			= ResourceManager::Load<Sound>(L"input_Sound", L"..\\Resources\\Sound\\sfx_sounds_pause7_in.wav");
+		mainTheme
+			= ResourceManager::Load<Sound>(L"MainTheme", L"..\\Resources\\Sound\\sfx_titleIntro.wav");
 
 		object::Instantiate<Intro>(Vector2::Zero, eLayerType::BACKGROUND);
 		//object::Instantiate<Cutton>(Vector2(-1,-1), eLayerType::UI);
@@ -58,13 +60,10 @@ namespace my
 
 	void IntroScene::OnEnter()
 	{
-		Sound* mainTheme
-			= ResourceManager::Load<Sound>(L"MainTheme", L"..\\Resources\\Sound\\sfx_titleIntro.wav");
-
 		mainTheme->Play(false);
 	}
 	void IntroScene::OnExit()
 	{
-
+		mainTheme->Stop(false);
 	}
 }

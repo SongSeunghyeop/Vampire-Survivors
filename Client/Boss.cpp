@@ -48,7 +48,7 @@ namespace my
 
 		boss_Animator->Play(L"Boss_MoveL", true);
 		boss_hp = 160;
-		Boss_vel = 340.0f;
+		Boss_vel = 360.0f;
 		//
 		eState = eBossState::Idle;
 
@@ -106,7 +106,7 @@ namespace my
 
 		boss_Tr->setPos(movePos);
 
-		if (skill_Time >= 9.0f)
+		if (skill_Time >= 10.0f)
 			eState = eBossState::Attack;
 
 		boss_hp += 1.0f * Time::getDeltaTime();
@@ -188,7 +188,7 @@ namespace my
 			mEffect = object::Instantiate<Effect>
 				(boss_Tr->getPos() + Vector2(20.0f, 0.0f), eLayerType::EFFECT);
 
-			boss_hp -= Krochi::getPlayerPower(L"Book") / 100;
+			boss_hp -= Krochi::getPlayerPower(L"Book") / 300;
 			this->eState = eBossState::Back_Move;
 		}
 		if (other->getOwner()->getName() == L"Ax1")
@@ -198,7 +198,7 @@ namespace my
 			mEffect = object::Instantiate<Effect>
 				(boss_Tr->getPos() + Vector2(20.0f, 0.0f), eLayerType::EFFECT);
 
-			boss_hp -= Krochi::getPlayerPower(L"Ax1") / 100;
+			boss_hp -= Krochi::getPlayerPower(L"Ax1") / 300;
 			this->eState = eBossState::Back_Move;
 		}
 		if (other->getOwner()->getName() == L"Cross")
@@ -207,7 +207,7 @@ namespace my
 
 			mEffect = object::Instantiate<Effect>
 				(boss_Tr->getPos() + Vector2(20.0f, 0.0f), eLayerType::EFFECT);
-			boss_hp -= Krochi::getPlayerPower(L"Cross") / 100;
+			boss_hp -= Krochi::getPlayerPower(L"Cross") / 300;
 			this->eState = eBossState::Back_Move;
 		}
 		if (other->getOwner()->getName() == L"Lightning")
@@ -216,7 +216,7 @@ namespace my
 
 			mEffect = object::Instantiate<Effect>
 				(boss_Tr->getPos() + Vector2(20.0f, 0.0f), eLayerType::EFFECT);
-			boss_hp -= Krochi::getPlayerPower(L"Lightning") / 100;
+			boss_hp -= Krochi::getPlayerPower(L"Lightning") / 300;
 			this->eState = eBossState::Back_Move;
 		}
 	}
@@ -233,7 +233,7 @@ namespace my
 	{
 		if (other->getOwner()->getName() == L"Player")
 		{
-			Boss_vel = 340.0f;
+			Boss_vel = 360.0f;
 		}
 	}
 }

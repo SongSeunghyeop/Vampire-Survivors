@@ -20,5 +20,6 @@ namespace my
 		virtual void OnExit();
 	private:
 		Sound* input_Sound;
+		Sound* mainTheme;
 	};
 }

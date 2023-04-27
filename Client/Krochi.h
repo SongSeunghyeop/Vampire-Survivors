@@ -136,8 +136,8 @@ namespace my
 		Sound* hpup;
 		Sound* ax_sound;
 		Sound* ax2_sound;
-		Sound* book_sound;
 		Sound* magnet_sound;
+		Sound* flame_sound;
 
 		bool upGrade;
 		friend class PlaySceneManager;

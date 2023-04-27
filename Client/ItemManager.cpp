@@ -134,7 +134,7 @@ namespace my
 		if(PlaySceneManager::Play_Time > 150.0f && treasure == NULL) // 150
 			treasure = object::Instantiate<Treasure>(eLayerType::ITEMS);
 
-		if (PlaySceneManager::Play_Time > 100.0f && magnet == NULL)
+		if (PlaySceneManager::Play_Time > 100.0f && magnet == NULL) // 100
 			magnet = object::Instantiate<Magnet>(eLayerType::ITEMS);
 
 		GameObject::Update();

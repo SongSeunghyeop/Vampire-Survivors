@@ -137,7 +137,7 @@ namespace my
 		case(eEnemyType::BLACK):
 		{
 			EnemyAnimator->Play(L"RightWalk", true);
-			monster_hp = 90;
+			monster_hp = 50;
 			Enemy_vel = vel_type1;
 			Enemy_TR->setScale(Vector2(2.4f, 2.4f));
 			EnemyCollider->setCenter(Vector2(-5, -11));
@@ -147,7 +147,7 @@ namespace my
 		case(eEnemyType::ZOMBIE):
 		{
 			EnemyAnimator->Play(L"Zombie_MoveR", true);
-			monster_hp = 170;
+			monster_hp = 150;
 			Enemy_vel = vel_type2;
 			Enemy_TR->setScale(Vector2(2.0f, 2.0f));
 			EnemyCollider->setCenter(Vector2(-10, -22));
@@ -167,7 +167,7 @@ namespace my
 		case(eEnemyType::GHOST):
 		{
 			EnemyAnimator->Play(L"Ghost_Run_R", true);
-			monster_hp = 330;
+			monster_hp = 350;
 			Enemy_vel = vel_type4;
 			Enemy_TR->setScale(Vector2(2.2f, 2.2f));
 			EnemyCollider->setCenter(Vector2(0, -30));

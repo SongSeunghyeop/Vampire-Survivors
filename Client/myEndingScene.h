@@ -5,6 +5,7 @@
 #include "myInput.h"
 #include "myImage.h"
 #include "myResourceManager.h"
+#include "Sound.h"
 
 namespace my
 {
@@ -27,6 +28,7 @@ namespace my
 	private:
 		Image* ending;
 
+		Sound* gameoversound;
 		GameOver* gameover;
 	};
 }

@@ -15,6 +15,8 @@ namespace my
 	void EndingScene::Initialize()
 	{
 		ending = ResourceManager::Load<Image>(L"EndingImage", L"..\\Resources\\EndingImage.bmp"); // 이미지의 키와 경로 정보를 받음
+		gameoversound
+			= ResourceManager::Load<Sound>(L"gameoversound", L"..\\Resources\\Sound\\sfx_gameOver.wav");
 
 		gameover = object::Instantiate<GameOver>(eLayerType::UI);
 	}
@@ -46,7 +48,7 @@ namespace my
 	}
 	void EndingScene::OnEnter()
 	{
-	
+		gameoversound->Play(false);
 	}
 	void EndingScene::OnExit()
 	{

@@ -68,16 +68,16 @@ namespace my
 		afterPos = After_TR->getPos();
 
 		if (afterPos.x <  Boss::movePos.x - shadow_distance)
-			afterPos.x += 340.0f * Time::getDeltaTime();
+			afterPos.x += 360.0f * Time::getDeltaTime();
 
 		if (afterPos.x > Boss::movePos.x + shadow_distance)
-			afterPos.x -= 340.0f * Time::getDeltaTime();
+			afterPos.x -= 360.0f * Time::getDeltaTime();
 
 		if (afterPos.y < Boss::movePos.y - shadow_distance)
-			afterPos.y += 340.0f * Time::getDeltaTime();
+			afterPos.y += 360.0f * Time::getDeltaTime();
 
 		if (afterPos.y > Boss::movePos.y + shadow_distance)
-			afterPos.y -= 340.0f * Time::getDeltaTime();
+			afterPos.y -= 360.0f * Time::getDeltaTime();
 
 		if (afterPos.x < Boss::movePos.x - 10)
 			BossAnimator->Play_NO_RE(L"Shadow_MoveR", true);

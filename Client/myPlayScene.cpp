@@ -77,6 +77,6 @@ namespace my
 	}
 	void PlayScene::OnExit()
 	{
-
+		boss_bgm->Stop(false);
 	}
 }

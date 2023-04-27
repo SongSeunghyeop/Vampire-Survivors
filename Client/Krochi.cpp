@@ -61,7 +61,7 @@ namespace my
 		Krochi::axNum = 1;
 		Krochi::CrossNum = 1;
 		Krochi::Cross_Power = 65;
-		Krochi::Light_Power = 100;
+		Krochi::Light_Power = 120;
 		Krochi::Books_Power = 50;
 		Krochi::Ax_Power = 85;
 		Krochi::Armor = 0;
@@ -122,8 +122,6 @@ namespace my
 
 		Light_sound
 			= ResourceManager::Load<Sound>(L"Lightning_Sound", L"..\\Resources\\Sound\\sfx_lightningimpact.wav");
-		book_sound
-			= ResourceManager::Load<Sound>(L"book_sound", L"..\\Resources\\Sound\\book_03.wav");
 		ax_sound
 			= ResourceManager::Load<Sound>(L"ax_sound", L"..\\Resources\\Sound\\cross_01.wav");
 		ax2_sound
@@ -138,6 +136,8 @@ namespace my
 			= ResourceManager::Load<Sound>(L"magnet_sound", L"..\\Resources\\Sound\\sfx_sounds_powerup18.wav");
 		cross_sound
 			= ResourceManager::Load<Sound>(L"cross_sound", L"..\\Resources\\Sound\\ax_02.wav");
+		flame_sound
+			= ResourceManager::Load<Sound>(L"flame_sound", L"..\\Resources\\Sound\\flame_sound.wav");
 		GameObject::Initialize();
 	}
 	void Krochi::Update()
@@ -206,7 +206,7 @@ namespace my
 			if (PlaySceneManager::Play_Time > EnemyManager::boss_Time - 6.5f
 				&& PlaySceneManager::Play_Time < EnemyManager::boss_Time + 6.0f)
 			{
-				Krochi::Hp = 115.0f;
+				Krochi::Hp = 112.0f;
 
 				Light_Time = 0.0f;
 				Books_Time = 0.0f;
@@ -386,7 +386,7 @@ namespace my
 
 		if (Magnet_Time > 5.5f)
 		{
-			magnet_sound->Play(false);
+			//magnet_sound->Play(false);
 			Level_Item::Item_vel = 0.0f;
 			Magnet_power = 0;
 		}
@@ -394,7 +394,6 @@ namespace my
 	//Skills
 	void Krochi::ax1()
 	{
-
 		if (Krochi::Ax_Time > 5.0f - defaultTime)
 		{
 			ax_sound->Play(false);
@@ -415,7 +414,7 @@ namespace my
 
 		if (Krochi::Ax_Time > 4.0f - defaultTime)
 		{
-			ax2_sound->Play(false);
+			ax_sound->Play(false);
 			skillmanager->skill_Instantiate(eSkillname::AX2, axNum);
 			Krochi::Ax_Time = 0.0f;
 		}
@@ -430,7 +429,6 @@ namespace my
 
 		if (Krochi::Books_Time > 6.5f - defaultTime)
 		{
-			book_sound->Play(false);
 			skillmanager->skill_Instantiate(eSkillname::BOOK, bookNum);
 			Krochi::Books_Time = 0.0f;
 		}
@@ -457,7 +455,7 @@ namespace my
 	{
 		for (int i = 0; i < 8; i++)
 		{
-			if (Krochi::Light_Power >= 100 + i * 5)
+			if (Krochi::Light_Power >= 120 + i * 5)
 				LightNum = i + 1;
 		}
 
@@ -509,14 +507,14 @@ namespace my
 		//보스 몬스터의 공격 스킬
 		if (other->getOwner()->getName() == L"meteor")
 		{
-			Krochi::Hp -= 8.0f;
-
+			Krochi::Hp -= 10.0f;
+			flame_sound->Play(false);
 			Effect2* mEffect = object::Instantiate<Effect2>
 				(Krochi::getPlayerPos() + Vector2(-20.0f, -20.0f), eLayerType::EFFECT);
 		}
 		if (other->getOwner()->getName() == L"dBullet")
 		{
-			Krochi::Hp -= 0.05f;
+			Krochi::Hp -= 0.1f;
 			object::Destory(other->getOwner());
 		}
 		//몬스터
