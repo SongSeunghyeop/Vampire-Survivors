@@ -1,4 +1,5 @@
 #include "Ax2.h"
+#include "PlaySceneManager.h"
 
 namespace my
 {
@@ -27,6 +28,7 @@ namespace my
 
 		Skill_Animator = AddComponent<Animator>(); 
 		Skill_Animator->CreateAnimation(L"ax", Skill_Image, Vector2::Zero, 8, 1, 8, 0.05, 255, 0, 255);
+		Skill_Animator->CreateAnimation(L"ax_stop", Skill_Image, Vector2::Zero, 8, 1, 1, 0.05, 255, 0, 255);
 		Skill_Animator->Play(L"ax", true);
 		
 		GameObject::Initialize();
@@ -42,10 +44,21 @@ namespace my
 
 		Skil_Tr->setPos(Skill_Pos);
 
-		mTime += Time::getDeltaTime();
-
-		if (mTime > 4.0f)
+		if (mTime > 3.5f)
 			object::Destory(this);
+
+		if (PlaySceneManager::Level_Up)
+		{
+			Skill_Animator->Play_NO_RE(L"ax_stop", false);
+			Skill_Vel = 0.0f;
+		}
+		else
+		{
+			mTime += Time::getDeltaTime();
+
+			Skill_Animator->Play_NO_RE(L"ax", true);
+			Skill_Vel = 450.0f;
+		}
 
 		GameObject::Update();
 	}

@@ -23,11 +23,12 @@ namespace my
 		Image* SelectUI;
 		Image* start;
 		Image* start_M;
-		Image* info;
 		Image* Selection;
 		Image* Select_Button;
-
 		Vector2 mPos;
+
+		HFONT font1;
+		HFONT oldfont;
 	};
 }
 

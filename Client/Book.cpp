@@ -23,7 +23,7 @@ namespace my
 		Skill_Collider = AddComponent<Collider>();
 		Skill_Collider->setCenter(Vector2(-2, -14));
 		Skill_Collider->setSize(Vector2(31, 40));
-		Skill_Collider->setRGB(0, 255, 0); 
+		Skill_Collider->setRGB(0, 0, 255);
 
 		Skill_Animator = AddComponent<Animator>();
 		Skill_Animator->CreateAnimation(L"Book", Skill_Image, Vector2::Zero, 1, 1, 1, 99.0f, 255, 0, 255);

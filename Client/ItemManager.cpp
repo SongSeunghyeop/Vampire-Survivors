@@ -9,12 +9,10 @@ namespace my
 {
 	ItemManager::ItemManager()
 	{
-		font1 = CreateFont(30, 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
-			CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH, L"Maplestory");
-		font2 = CreateFont(20, 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
-			CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH, L"Maplestory");
-		font3 = CreateFont(18, 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
-			CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH, L"Maplestory");
+		font1 = CreateFont(27, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
+			CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH, L"돋움체");
+		font2 = CreateFont(17, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
+			CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH, L"돋움체");
  	}
 	ItemManager::~ItemManager()
 	{
@@ -48,6 +46,7 @@ namespace my
 		items[(int)eItems::LIGHTNING].item_name = L"번개 반지";
 		items[(int)eItems::LIGHTNING].item_effect = L"무작위 적에게 번개를 내려칩니다.";
 		items[(int)eItems::BOOK].item_image = ResourceManager::Load<Image>(L"Book_Item", L"..\\Resources\\Book_select.bmp");
+		items[(int)eItems::BOOK].item_icon = ResourceManager::Load<Image>(L"book_icon", L"..\\Resources\\book_icon.bmp");
 		items[(int)eItems::BOOK].item_name = L"성경";
 		items[(int)eItems::BOOK].item_effect = L"주변을 회전하며 공격합니다.";
 		items[(int)eItems::ARMOR].item_image = ResourceManager::Load<Image>(L"Armor", L"..\\Resources\\armor.bmp");
@@ -57,14 +56,20 @@ namespace my
 		items[(int)eItems::EMEPY_BOOK].item_name = L"빈 책";
 		items[(int)eItems::EMEPY_BOOK].item_effect = L"레벨당 쿨타임이 감소합니다.";
 		items[(int)eItems::CROSS].item_image = ResourceManager::Load<Image>(L"Cross_select", L"..\\Resources\\cross_select.bmp");
+		items[(int)eItems::CROSS].item_icon = ResourceManager::Load<Image>(L"cross_icon", L"..\\Resources\\cross_icon.bmp");
 		items[(int)eItems::CROSS].item_name = L"십자가";
 		items[(int)eItems::CROSS].item_effect = L"근처의 적에게 날아가며 부메랑처럼 돌아옵니다.";
 		items[(int)eItems::HEART].item_image = ResourceManager::Load<Image>(L"Heart", L"..\\Resources\\Heart.bmp");
 		items[(int)eItems::HEART].item_name = L"붉은 심장";
 		items[(int)eItems::HEART].item_effect = L"레벨당 매 초 0.3 의 체력이 회복됩니다.";
 		items[(int)eItems::AX1].item_image = ResourceManager::Load<Image>(L"ax1", L"..\\Resources\\ax1_select.bmp");
+		items[(int)eItems::AX1].item_image2 = ResourceManager::Load<Image>(L"ax2", L"..\\Resources\\ax2_select.bmp");
+		items[(int)eItems::AX1].item_icon = ResourceManager::Load<Image>(L"ax_icon", L"..\\Resources\\ax_icon.bmp");
+		items[(int)eItems::AX1].item_icon2 = ResourceManager::Load<Image>(L"ax_icon2", L"..\\Resources\\ax2_icon.bmp");
 		items[(int)eItems::AX1].item_name = L"도끼";
+		items[(int)eItems::AX1].item_name2 = L"죽음의 나선";
 		items[(int)eItems::AX1].item_effect = L"피해량이 높고 공격 범위가 넓습니다.";
+		items[(int)eItems::AX1].item_effect2 = L"도끼의 진화형. 적을 관통합니다.";
 
 		items[(int)eItems::LIGHTNING].item_level = 1;
 	
@@ -107,20 +112,7 @@ namespace my
 		// 레벨업 혹은 보물상자 오픈 시 아이템 스킬 일시정지
 		if (!PlaySceneManager::Level_Up && !PlaySceneManager::Show_on)
 		{
-			//아이템의 레벨이 8이 되면 배열에서 맨 뒤로 보내고, 아이템 랜덤 선택 리스트에서 배제
-			
-		/*	for (it = items.begin(); it != items.end() ; it++)
-			{
-				if ((*it)->item_level == 7)
-				{
-					items.erase(it);
-					--Item_Num;
-					break;
-				}
-			}*/
-
-			//배제된 아이템 제외, 아이템리스트중 랜덤의 숫자 세개 선정
-	
+		 //아이템리스트중 랜덤의 숫자 세개 선정
 			Num1 = rand() % Item_Num;
 
 			while (Num2 == Num1)
@@ -200,22 +192,42 @@ namespace my
 	//
 	void ItemManager::Render(HDC hdc)
 	{
+		for (int i = 1; i < 4; i++)
+		{
+			if (items[i].item_level > 0)
+				items[i].inited = true;
+		}
 		Tr->setPos(Krochi::getPlayerPos() + Vector2(10,290)); // Treasure_show 애니메이션 위치
+
+		if(items[(int)eItems::BOOK].inited)
+			TransparentBlt(hdc, 195, 40, items[(int)eItems::BOOK].item_icon->GetWidth() * 1.9, items[(int)eItems::BOOK].item_icon->GetHeight() * 1.9,
+				items[(int)eItems::BOOK].item_icon->GetHdc(), 0, 0, items[(int)eItems::BOOK].item_icon->GetWidth(), items[(int)eItems::BOOK].item_icon->GetHeight(), RGB(255, 0, 255));
+		if (items[(int)eItems::CROSS].inited)
+			TransparentBlt(hdc, 233, 40, items[(int)eItems::CROSS].item_icon->GetWidth() * 1.9, items[(int)eItems::CROSS].item_icon->GetHeight() * 1.9,
+				items[(int)eItems::CROSS].item_icon->GetHdc(), 0, 0, items[(int)eItems::CROSS].item_icon->GetWidth(), items[(int)eItems::CROSS].item_icon->GetHeight(), RGB(255, 0, 255));
+		if (items[(int)eItems::AX1].inited)
+			TransparentBlt(hdc, 272, 40, items[(int)eItems::AX1].item_icon->GetWidth() * 1.9, items[(int)eItems::AX1].item_icon->GetHeight() * 1.9,
+				items[(int)eItems::AX1].item_icon->GetHdc(), 0, 0, items[(int)eItems::AX1].item_icon->GetWidth(), items[(int)eItems::AX1].item_icon->GetHeight(), RGB(255, 0, 255));
+
 
 		//보물상자 오픈 시 
 		if (PlaySceneManager::Show_on)
 		{
+			items[(int)eItems::AX1].item_image = items[(int)eItems::AX1].item_image2;
+			items[(int)eItems::AX1].item_icon = items[(int)eItems::AX1].item_icon2;
+			items[(int)eItems::AX1].item_name = items[(int)eItems::AX1].item_name2;
+			items[(int)eItems::AX1].item_effect = items[(int)eItems::AX1].item_effect2;
+
 			TransparentBlt(hdc, 391, 70, Tresure_UI->GetWidth(), Tresure_UI->GetHeight(),
 				Tresure_UI->GetHdc(), 0, 0, Tresure_UI->GetWidth(), Tresure_UI->GetHeight(), RGB(255, 0, 255));
 			
-
 			Treasure_show->Play_NO_RE(L"TreasuresShow2", false);
 
 			if (Treasure_show->IsComplete())
 			{
 				Treasure_show->Play_NO_RE(L"NULL", false);
 				PlaySceneManager::Show_on = false;
-				ResourceManager::Find<Sound>(L"PlayScene_Sound")->Play(true);
+				//ResourceManager::Find<Sound>(L"PlayScene_Sound")->Play(true);
 				Krochi::mState = Krochi::ePlayerState::Idle;
 			}
 		}
@@ -314,7 +326,7 @@ namespace my
 					Krochi::mState = Krochi::ePlayerState::Idle;
 				}
 			}
-			SelectObject(hdc, oldfont);
+			SelectObject(hdc, oldfont); 
 		}
 		GameObject::Render(hdc);
 	}
@@ -325,6 +337,5 @@ namespace my
 
 		DeleteObject(font1);
 		DeleteObject(font2);
-		DeleteObject(font3);
 	}
 }

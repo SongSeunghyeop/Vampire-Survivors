@@ -29,6 +29,10 @@ namespace my
 		Image* Exit_Button;
 		Image* Select_Button;
 		Vector2 mPos;
+
+		HFONT font1;
+		HFONT font2;
+		HFONT oldfont;
 	};
 }
 

@@ -1,4 +1,5 @@
 #include "Ax1.h"
+#include "PlaySceneManager.h"
 
 namespace my
 {
@@ -52,7 +53,7 @@ namespace my
 
 		mTime += Time::getDeltaTime();
 
-		if (mTime > 3.0f)
+		if (mTime > 3.0f || PlaySceneManager::Level_Up)
 			object::Destory(this);
 
 		GameObject::Update();

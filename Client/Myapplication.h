@@ -23,7 +23,7 @@ namespace my
 		UINT GetHeight() { return mHeight; }
 
 	public:
-		Vector2 getWindowPos() { return WindowPos; }
+		Vector2 getWindowPos() { return WindowPos; } // 게임창의 크기 리턴
 
 		void SetToolHwnd(HWND hwnd) { mToolHwnd = hwnd; }
 		void SetMenuBar(bool power);

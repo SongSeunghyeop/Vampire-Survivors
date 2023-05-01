@@ -7,6 +7,26 @@
 
 namespace my
 {
+	void SkillManager::Update()
+	{
+		if (ax2_Init && axes.back()->getState() != GameObject::eState::Active)
+		{
+			axTime += Time::getDeltaTime();
+
+			for (int i = 0; i < axes.size(); i++)
+			{
+				if (axTime >= (i + 1) * 0.03f && axes.at(i)->getState() != GameObject::eState::Active)
+					axes.at(i)->setState(GameObject::eState::Active);
+			}
+
+			if (axes.back()->getState() == GameObject::eState::Active)
+			{
+				axTime = 0.0f;
+				ax2_Init = false;
+				axes.clear();
+			}
+		}
+	}
 	void SkillManager::skill_Instantiate(eSkillname skillname, int num)
 	{
 		switch (skillname)
@@ -31,7 +51,7 @@ namespace my
 				for (int i = 0; i < num; i++)
 				{
 					int r = rand() % 70 + 190; // 190 ~ 260
-					int v = rand() % 400 + 500; // 500 ~ 900
+					int v = rand() % 400 + 500; // 400 ~ 900
 
 					ax1 = object::Instantiate<Ax1>(Krochi::getPlayerPos(), eLayerType::SKILL);
 					ax1->setVel(v);
@@ -43,9 +63,13 @@ namespace my
 			{
 				for (int i = 0; i < 18; i++)
 				{
+					Ax2* ax2;
 					ax2 = object::Instantiate<Ax2>(Krochi::getPlayerPos(), eLayerType::SKILL);
 					ax2->setR(i * 20);
+					ax2->setState(GameObject::eState::None);
+					axes.push_back(ax2);
 				}
+				ax2_Init = true;
 			}
 			break;
 			case eSkillname::CROSS:

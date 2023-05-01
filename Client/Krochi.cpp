@@ -125,7 +125,7 @@ namespace my
 		ax_sound
 			= ResourceManager::Load<Sound>(L"ax_sound", L"..\\Resources\\Sound\\cross_01.wav");
 		ax2_sound
-			= ResourceManager::Load<Sound>(L"ax2_sound", L"..\\Resources\\Sound\\ax2_01.wav");
+			= ResourceManager::Load<Sound>(L"ax2_sound", L"..\\Resources\\Sound\\wind_003.wav");
 		Gem
 			= ResourceManager::Load<Sound>(L"Gem", L"..\\Resources\\Sound\\sfx_gem.wav");
 		lvup
@@ -343,7 +343,7 @@ namespace my
 	{
 		//플레이어의 HP 감소
 		if (Hp > 10)
-			Hp -= Time::getDeltaTime() * (5.0f - Armor);
+			Hp -= Time::getDeltaTime() * (6.0f - Armor);
 	
 		//데미지를 입는 상황에서 스테이트가 변하면 , 애니메이션을 바꿔주어야함
 		if (state == ePlayerState::Idle)
@@ -384,7 +384,7 @@ namespace my
 		Magnet_Time += Time::getDeltaTime();
 		Level_Item::Item_vel = 500.0f;
 
-		if (Magnet_Time > 5.5f)
+		if (Magnet_Time > 6.0f)
 		{
 			//magnet_sound->Play(false);
 			Level_Item::Item_vel = 0.0f;
@@ -414,7 +414,7 @@ namespace my
 
 		if (Krochi::Ax_Time > 4.0f - defaultTime)
 		{
-			ax_sound->Play(false);
+			ax2_sound->Play(false);
 			skillmanager->skill_Instantiate(eSkillname::AX2, axNum);
 			Krochi::Ax_Time = 0.0f;
 		}
@@ -445,7 +445,6 @@ namespace my
 		if (Krochi::Cross_Time > 3.5f - defaultTime)
 		{
 			cross_sound->Play(false);
-
 			skillmanager->skill_Instantiate(eSkillname::CROSS, CrossNum);
 
 			Krochi::Cross_Time = 0.0f + float(CrossNum) * 0.1f;
@@ -491,6 +490,8 @@ namespace my
 				Exp = 0.0f;
 				Monster_Exp /= 1.15f;
 				++Krochi::level;
+				spinach += 0.2f;
+				Armor += 0.2f;
 				mState = ePlayerState::LevelUP;
 			}
 		}
@@ -526,7 +527,6 @@ namespace my
 		//보물상자
 		if (other->getOwner()->getName() == L"Treasure")
 		{
-			ResourceManager::Find<Sound>(L"treasure_sound")->Play(false);
 			mState = ePlayerState::ShowOn;
 		}
 		if (other->getOwner()->getName() == L"Magnet")

@@ -36,5 +36,7 @@ namespace my
 		Vector2 mSize;
 		Vector2 mPos;
 		MyRGB mRgb;
+
+		bool collider_on;
 	};
 }

@@ -11,7 +11,7 @@ namespace my
 	{
 		Enemy_Time = 0.0f;
 		Init_Num = 8;
-		boss_Time = 210.0f; // 210
+		boss_Time = 205.0f; // 200
 		dragon_init = false;
 	}
 	EnemyManager::~EnemyManager()

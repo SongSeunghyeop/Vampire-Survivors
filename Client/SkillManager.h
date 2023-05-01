@@ -39,6 +39,8 @@ namespace my
 		void setDistance(float d) { distance = d; }
 
 		void skill_Instantiate(eSkillname skillname, int num);
+	
+		virtual void Update() override;
 
 	protected:
 		Animator* Skill_Animator;
@@ -59,16 +61,18 @@ namespace my
 		float skill_scale;
 		float sustain_time;
 		float distance;
-
+		float active_time;
 		Sound* skill_sound;
 
 		Lightning* light;
 		Book* book;
 		Ax1* ax1;
-		Ax2* ax2;
+		std::vector<Ax2*> axes;
 		Cross* cross;
-
+		float axTime = 0.0f;
 		int randNum = 0;
+
+		bool ax2_Init = false;
 	};
 }
 

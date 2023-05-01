@@ -32,7 +32,6 @@ namespace my
 
 		HFONT font1;
 		HFONT font2;
-		HFONT font3;
 		HFONT oldfont;
 
 		float screen_Y = -1.0f;

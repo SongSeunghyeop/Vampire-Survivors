@@ -14,12 +14,10 @@ namespace my
 	{
 		Play_Time = 0.0f;
 
-		font1 = CreateFont(30, 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
-			CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH, L"Maplestory");
-		font2 = CreateFont(20, 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
-			CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH, L"Maplestory");
-		font3 = CreateFont(18, 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
-			CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH, L"Maplestory");
+		font1 = CreateFont(29, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
+			CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH, L"µ¸¿òÃ¼");
+		font2 = CreateFont(18, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
+			CLIP_DEFAULT_PRECIS, CLEARTYPE_QUALITY, DEFAULT_PITCH, L"µ¸¿òÃ¼");
 	}
 	PlaySceneManager::~PlaySceneManager()
 	{
@@ -82,7 +80,7 @@ namespace my
 			Ex_value->GetHdc(), 0, 0, Krochi::Exp, Ex_value->GetHeight(), RGB(255, 0, 255));
 		TransparentBlt(hdc, 15, 5, Charactor->GetWidth(), Charactor->GetHeight(),
 			Charactor->GetHdc(), 0, 0, Charactor->GetWidth(), Charactor->GetHeight(), RGB(255, 0, 255));
-		TransparentBlt(hdc, 152, 39, Item_list->GetWidth() * 2.2, Item_list->GetHeight() * 2.2,
+		TransparentBlt(hdc, 152, 39, Item_list->GetWidth() * 2.4, Item_list->GetHeight() * 2.4,
 			Item_list->GetHdc(), 0, 0, Item_list->GetWidth(), Item_list->GetHeight(), RGB(255, 0, 255));
 		TransparentBlt(hdc, 22, 120, health_zero->GetWidth(), health_zero->GetHeight(),
 			health_zero->GetHdc(), 0, 0, health_zero->GetWidth(), health_zero->GetHeight(), RGB(255, 0, 255));
@@ -105,13 +103,11 @@ namespace my
 		SetBkMode(hdc, TRANSPARENT);
 
 		oldfont = (HFONT)SelectObject(hdc, font1);
-		TextOut(hdc, 604, 37, text.c_str(), text.length());
+		TextOut(hdc, 594, 38, text.c_str(), text.length());
 		SelectObject(hdc, oldfont);
 		oldfont = (HFONT)SelectObject(hdc, font2);
-		TextOut(hdc, 1222, 11, text2.c_str(), text2.length());
-		SelectObject(hdc, oldfont);
-		oldfont = (HFONT)SelectObject(hdc, font3);
-		TextOut(hdc, 1210, 40, text3.c_str(), text3.length());
+		TextOut(hdc, 1220, 11, text2.c_str(), text2.length());
+		TextOut(hdc, 1209, 40, text3.c_str(), text3.length());
 		SelectObject(hdc, oldfont);
 
 		GameObject::Render(hdc);
@@ -120,6 +116,5 @@ namespace my
 	{
 		DeleteObject(font1);
 		DeleteObject(font2);
-		DeleteObject(font3);
 	}
 }

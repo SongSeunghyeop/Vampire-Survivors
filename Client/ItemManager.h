@@ -14,24 +14,30 @@ namespace my
 	public:
 		enum class eItems
 		{
+			LIGHTNING,
+			AX1,
+			BOOK,
+			CROSS,
 			WIND,
 			POWER_UP,
-			LIGHTNING,
-			BOOK,
 			ARMOR,
 			EMEPY_BOOK,
-			CROSS,
 			HEART,
-			AX1,
 			NONE,
 		};
 
 		struct Item_Info
 		{
 			Image *item_image;
+			Image *item_image2;
+			Image* item_icon;
+			Image* item_icon2;
 			int item_level = 0;
+			bool inited = false;
 			std::wstring item_name;
+			std::wstring item_name2;
 			std::wstring item_effect;
+			std::wstring item_effect2;
 		};
 	
 		ItemManager();
@@ -69,7 +75,6 @@ namespace my
 		std::vector<Item_Info*>::iterator it;
 		HFONT font1;
 		HFONT font2;
-		HFONT font3;
 		HFONT oldfont;
 
 		std::wstring new_item;
@@ -82,7 +87,6 @@ namespace my
 		std::wstring info1;
 		std::wstring info2;
 		std::wstring info3;
-
 
 		Image* menuImg;
 		Image* Tresure_UI;

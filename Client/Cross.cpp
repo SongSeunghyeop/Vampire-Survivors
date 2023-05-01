@@ -1,4 +1,5 @@
 #include "Cross.h"
+#include "PlaySceneManager.h"
 
 namespace my
 {
@@ -31,10 +32,11 @@ namespace my
 		Skill_Collider = AddComponent<Collider>();
 		Skill_Collider->setCenter(Vector2(-width / 2 + 5, -height + 5));
 		Skill_Collider->setSize(Vector2(y, y));
-		Skill_Collider->setRGB(0, 255,0); 
+		Skill_Collider->setRGB(0, 0, 255);
 
 		Skill_Animator = AddComponent<Animator>();
 		Skill_Animator->CreateAnimation(L"Cross", Skill_Image, Vector2::Zero, 2, 1, 2, 0.04f, 255, 0, 255);
+		Skill_Animator->CreateAnimation(L"Cross_stop", Skill_Image, Vector2::Zero, 2, 1, 1, 0.04f, 255, 0, 255);
 		Skill_Animator->Play(L"Cross", true);
 
 		GameObject::Initialize();
@@ -45,11 +47,23 @@ namespace my
 		dir.Normalize();
 		rotation = math::Rotate(dir, R);
 
+
+		if (PlaySceneManager::Level_Up)
+		{
+			Skill_Animator->Play_NO_RE(L"Cross_stop", true);
+		}
+		else
+		{
+		mTime += Time::getDeltaTime();
+
 		Skill_Pos.x += Skill_Vel * rotation.x * (double)Time::getDeltaTime();
 		Skill_Pos.y += Skill_Vel * rotation.y * (double)Time::getDeltaTime();
+
+		Skill_Animator->Play_NO_RE(L"Cross", true);
+		}
+
 		Skil_Tr->setPos(Skill_Pos);
 
-		mTime += Time::getDeltaTime();
 		
 		if (mTime > 0.05f)
 			Skill_Vel -= Time::getDeltaTime() * 1300.0f;

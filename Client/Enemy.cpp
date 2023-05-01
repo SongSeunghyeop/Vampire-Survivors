@@ -248,7 +248,7 @@ namespace my
 			if(eType != eEnemyType::DRAGON)
 				eState = eEnemyState::Death;
 		}
-		if (PlaySceneManager::Play_Time > EnemyManager::boss_Time + 60.0f)
+		if (PlaySceneManager::Play_Time > EnemyManager::boss_Time + 100.0f)
 		{
 			if (eType == eEnemyType::DRAGON)
 				object::Destory(this);

@@ -22,7 +22,7 @@ namespace my
 		Skill_Collider = AddComponent<Collider>();
 		Skill_Collider->setCenter(Vector2(-17, 164));
 		Skill_Collider->setSize(Vector2(58, 58));
-		Skill_Collider->setRGB(0, 255, 0);
+		Skill_Collider->setRGB(0, 0, 255);
 
 		GameObject::Initialize();
 	}

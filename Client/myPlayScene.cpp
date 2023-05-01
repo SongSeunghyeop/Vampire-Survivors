@@ -1,5 +1,6 @@
 #include "myPlayScene.h"
 #include "myObject.h"
+#include "GameOption.h"
 
 namespace my
 {
@@ -33,6 +34,8 @@ namespace my
 
 	void PlayScene::Update()
 	{
+
+		PlayScene_Sound->SetVolume(GameOption::sound_v1);
 		//treasure_Sound->Play(false);
 		if (Input::GetKeyState(eKeyCode::ESC) == eKeyState::Down)
 		{
@@ -42,7 +45,7 @@ namespace my
 
 		if (PlaySceneManager::Show_on)
 		{
-			PlayScene_Sound->Stop(false);
+			//PlayScene_Sound->Stop(false);
 		}
 		if (EnemyManager::Boss_on && !PlayScene_Sound->stoped)
 		{
