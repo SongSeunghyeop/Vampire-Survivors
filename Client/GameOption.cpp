@@ -24,8 +24,8 @@ namespace my
 	}
 	void GameOption::Initialize()
 	{
-		button_pos1 = 760;
-		button_pos2 = 760;
+		button_pos1 = 630;
+		button_pos2 = 630;
 
 		sound_v1 = (button_pos1 - 553) / 207 * 100;
 		sound_v2 = (button_pos2 - 553) / 207 * 100;

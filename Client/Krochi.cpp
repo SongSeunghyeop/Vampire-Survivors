@@ -51,7 +51,7 @@ namespace my
 		Krochi::Exp = 0.0f; // max = 1126.0f
 		Krochi::level = 1;
 		Krochi::Monster_Exp = 400; // 400
-		Krochi::vel = 160.0f;
+		Krochi::vel = 170.0f;
 		Krochi::Cross_Time = 3.0f;
 		Krochi::Light_Time = 3.0f;
 		Krochi::Books_Time = 3.0f;
@@ -112,7 +112,7 @@ namespace my
 		after = object::Instantiate<Krochi_after>(Krochi::Playerpos, eLayerType::PLAYERAFTER);
 		skillmanager = object::Instantiate<SkillManager>(eLayerType::PLAYER);
 		//그림자와 플레이어 사이의 거리 조절
-		after->SetShadow(5);
+		after->SetShadow(6);
 
 		//무브 스테이트, 스킬스테이트 분류
 		mState = ePlayerState::Idle;
@@ -384,7 +384,7 @@ namespace my
 		Magnet_Time += Time::getDeltaTime();
 		Level_Item::Item_vel = 500.0f;
 
-		if (Magnet_Time > 6.0f)
+		if (Magnet_Time > 8.0f)
 		{
 			//magnet_sound->Play(false);
 			Level_Item::Item_vel = 0.0f;
@@ -394,7 +394,7 @@ namespace my
 	//Skills
 	void Krochi::ax1()
 	{
-		if (Krochi::Ax_Time > 5.0f - defaultTime)
+		if (Krochi::Ax_Time > 4.9f - defaultTime)
 		{
 			ax_sound->Play(false);
 
@@ -427,7 +427,7 @@ namespace my
 				bookNum = i + 1;
 		}
 
-		if (Krochi::Books_Time > 6.5f - defaultTime)
+		if (Krochi::Books_Time > 6.4f - defaultTime)
 		{
 			skillmanager->skill_Instantiate(eSkillname::BOOK, bookNum);
 			Krochi::Books_Time = 0.0f;
@@ -442,7 +442,7 @@ namespace my
 				CrossNum = i + 1;
 		}
 
-		if (Krochi::Cross_Time > 3.5f - defaultTime)
+		if (Krochi::Cross_Time > 3.4f - defaultTime)
 		{
 			cross_sound->Play(false);
 			skillmanager->skill_Instantiate(eSkillname::CROSS, CrossNum);
@@ -458,7 +458,7 @@ namespace my
 				LightNum = i + 1;
 		}
 
-		if (Krochi::Light_Time > 5.5f - defaultTime) // 5.5
+		if (Krochi::Light_Time > 5.4f - defaultTime) // 5.5
 		{
 			if (EnemyManager::Boss_on)
 			{
@@ -508,7 +508,7 @@ namespace my
 		//보스 몬스터의 공격 스킬
 		if (other->getOwner()->getName() == L"meteor")
 		{
-			Krochi::Hp -= 10.0f;
+			Krochi::Hp -= 12.0f;
 			flame_sound->Play(false);
 			Effect2* mEffect = object::Instantiate<Effect2>
 				(Krochi::getPlayerPos() + Vector2(-20.0f, -20.0f), eLayerType::EFFECT);

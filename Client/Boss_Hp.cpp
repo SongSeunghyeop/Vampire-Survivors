@@ -25,7 +25,6 @@ namespace my
 		TransparentBlt(hdc, pos.x, pos.y, boss->getBoss_hp(), hp_bar->GetHeight(),
 			hp_bar->GetHdc(), 0, 0, hp_bar->GetWidth(), hp_bar->GetHeight(), RGB(255, 0, 255));
 
-
 		GameObject::Render(hdc);
 	}
 }

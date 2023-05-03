@@ -1,9 +1,5 @@
 #pragma once
-#include "myGameObject.h"
-#include "myResourceManager.h"
-#include "myTransform.h"
-#include "myImage.h"
-#include "myCollider.h"
+#include "SkillManager.h"
 
 namespace my
 {

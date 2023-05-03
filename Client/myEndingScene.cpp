@@ -23,6 +23,12 @@ namespace my
 
 	void EndingScene::Update()
 	{
+		if (gameover->go_back)
+		{
+			SceneManager::LoadScene(eSceneType::Intro);
+			gameover->go_back = false;
+		}
+
 		Scene::Update();
 	}
 	void EndingScene::Render(HDC hdc)

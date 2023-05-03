@@ -6,6 +6,7 @@ namespace my
 {
 	class Image;
 	class Animator;
+
 	class Animation : public Entity
 	{
 	public:

@@ -29,7 +29,6 @@ namespace my
 		void move();
 		void back_move();
 		void attack_1();
-		void attack_2();
 
 		virtual void onCollisionEnter(class Collider* other) override;
 		virtual void onCollisionExit(class Collider* other) override;
@@ -37,7 +36,7 @@ namespace my
 		
 	static Vector2 getBossPos() { return movePos; }
 	float getBoss_hp() { return boss_hp; }
-	protected:
+
 	private:
 		static Vector2 movePos;
 

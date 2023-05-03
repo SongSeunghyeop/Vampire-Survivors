@@ -2,15 +2,6 @@
 
 namespace my
 {
-	Boss_After::Boss_After()
-	{
-		Entity::setName(L"Enemy");
-	}
-	Boss_After::~Boss_After()
-	{
-
-	}
-
 	void Boss_After::Initialize()
 	{
 		Boss_R = ResourceManager::Load<Image>(L"Shadow_R", L"..\\Resources\\Boss_Shadow_R.bmp");
@@ -79,9 +70,9 @@ namespace my
 		if (afterPos.y > Boss::movePos.y + shadow_distance)
 			afterPos.y -= 360.0f * Time::getDeltaTime();
 
-		if (afterPos.x < Boss::movePos.x - 10)
+		if (afterPos.x < Boss::movePos.x - 5)
 			BossAnimator->Play_NO_RE(L"Shadow_MoveR", true);
-		else if(afterPos.x > Boss::movePos.x + 10)
+		else if(afterPos.x > Boss::movePos.x + 5)
 			BossAnimator->Play_NO_RE(L"Shadow_MoveL", true);
 
 		tr->setPos(afterPos);

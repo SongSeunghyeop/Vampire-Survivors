@@ -26,7 +26,6 @@ namespace my
 		Image* health;
 		Image* health_zero;
 		Image* Ex_value;
-		Image* Item_list;
 		Image* monster_icon;
 		Image* Black;
 

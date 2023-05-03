@@ -1,8 +1,6 @@
 #pragma once
 #include "Enemy.h"
 #include "Boss.h"
-#include "MyGameObject.h"
-#include "Krochi.h"
 
 namespace my
 {

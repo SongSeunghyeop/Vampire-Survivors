@@ -31,7 +31,6 @@ namespace my
 		health = ResourceManager::Load<Image>(L"health", L"..\\Resources\\health.bmp");
 		health_zero = ResourceManager::Load<Image>(L"health_z", L"..\\Resources\\health_zero.bmp");
 		Ex_value = ResourceManager::Load<Image>(L"Ex_value", L"..\\Resources\\Ex_value.bmp");
-		Item_list = ResourceManager::Load<Image>(L"Item_list", L"..\\Resources\\Item_list.bmp");
 		monster_icon = ResourceManager::Load<Image>(L"monster_icon", L"..\\Resources\\monster_icon.bmp");
 		Black = ResourceManager::Load<Image>(L"Black", L"..\\Resources\\Black.bmp");
 	
@@ -80,8 +79,6 @@ namespace my
 			Ex_value->GetHdc(), 0, 0, Krochi::Exp, Ex_value->GetHeight(), RGB(255, 0, 255));
 		TransparentBlt(hdc, 15, 5, Charactor->GetWidth(), Charactor->GetHeight(),
 			Charactor->GetHdc(), 0, 0, Charactor->GetWidth(), Charactor->GetHeight(), RGB(255, 0, 255));
-		TransparentBlt(hdc, 152, 39, Item_list->GetWidth() * 2.4, Item_list->GetHeight() * 2.4,
-			Item_list->GetHdc(), 0, 0, Item_list->GetWidth(), Item_list->GetHeight(), RGB(255, 0, 255));
 		TransparentBlt(hdc, 22, 120, health_zero->GetWidth(), health_zero->GetHeight(),
 			health_zero->GetHdc(), 0, 0, health_zero->GetWidth(), health_zero->GetHeight(), RGB(255, 0, 255));
 		TransparentBlt(hdc, 22, 120, Krochi::Hp, health->GetHeight(),

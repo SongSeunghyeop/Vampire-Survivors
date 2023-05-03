@@ -13,10 +13,10 @@ namespace my
 	Enemy::Enemy()
 	{
 		Entity::setName(L"Enemy");
-		vel_type1 = 130.0f; // 130
-		vel_type2 = 150.0f;
-		vel_type3 = 170.0f;
-		vel_type4 = 190.0f;
+		vel_type1 = 140.0f; // 130
+		vel_type2 = 160.0f;
+		vel_type3 = 180.0f;
+		vel_type4 = 200.0f;
 	}
 
 	void Enemy::Initialize()

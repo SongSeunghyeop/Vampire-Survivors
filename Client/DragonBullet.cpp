@@ -1,7 +1,5 @@
 #include "DragonBullet.h"
-#include "Time.h"
-#include "myObject.h"
-#include "Krochi.h"
+
 namespace my
 {
 	DragonBullet::DragonBullet()

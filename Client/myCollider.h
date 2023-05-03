@@ -9,7 +9,6 @@ namespace my
 	{
 	public:
 		Collider();
-		~Collider();
 
 		virtual void Initialize() override;
 		virtual void Update() override;

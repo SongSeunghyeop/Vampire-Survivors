@@ -13,14 +13,13 @@ namespace my
 		magnet = ResourceManager::Load<Image>(L"Magnet", L"..\\Resources\\magnet.bmp");
 
 		Vector2 RandPos;
-		RandPos.x = rand() % 3000 - 1500;  // -1500 ~ 1500
-		RandPos.y = rand() % 3000 - 1500; //  -1500 ~ 1500
+		RandPos.x = rand() % 5800 - 2900; //  -2900 ~ 2900
+		RandPos.y = rand() % 800 - 400;  // -400 ~ 400
 
-		while ((RandPos.x > -1450 && RandPos.x < 1450) && // 1450
-			(RandPos.y > -1450 && RandPos.y < 1450)) // 1450
+		while (RandPos.x > -2800 && RandPos.x < 2800) // 2800
 		{
-			RandPos.x = rand() % 3000 - 1500;  // -1500 ~ 1500
-			RandPos.y = rand() % 3000 - 1500; //  -1500 ~ 1500
+			RandPos.x = rand() % 5800 - 2900; //  -2900 ~ 2900
+			RandPos.y = rand() % 800 - 400;  // -400 ~ 400
 		}
 
 		Item_TR = GetComponent<Transform>();

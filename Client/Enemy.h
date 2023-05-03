@@ -1,13 +1,5 @@
 #pragma once
-#include "myResourceManager.h"
-#include "MyGameObject.h"
-#include "myAnimator.h"
-#include "myTransform.h"
 #include "Krochi.h"
-#include "myImage.h" 
-#include "Time.h"
-#include "myCollider.h"
-#include "Sound.h"
 #include "Effect.h"
 
 namespace my

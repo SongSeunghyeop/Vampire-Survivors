@@ -93,6 +93,10 @@ namespace my
 
 		Treasure * treasure;
 		Magnet* magnet;
+
+		std::vector<Image*> item_order;
+		std::vector<Image*> item_order2;
+
+		Image* Item_list;
 	};
 }
-

@@ -16,10 +16,6 @@ namespace my
 	{
 
 	}
-	Collider::~Collider()
-	{
-
-	}
 	 
 	void Collider::Initialize()
 	{

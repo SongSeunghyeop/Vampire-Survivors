@@ -29,7 +29,7 @@ namespace my
 		//레벨업 UI, 보물상자 오픈 UI
 		menuImg = ResourceManager::Load<Image>(L"Option_LevelUp", L"..\\Resources\\Option_LevelUp.bmp");
 		Tresure_UI = ResourceManager::Load<Image>(L"Tresure_UI", L"..\\Resources\\Option.bmp");
-
+		Item_list = ResourceManager::Load<Image>(L"Item_list", L"..\\Resources\\Item_list.bmp");
 		//무기 종류
 		//8
 		items = new Item_Info[20];
@@ -37,9 +37,11 @@ namespace my
 		Item_Num = (int)eItems::NONE;
 		//Items -> 이미지, 레벨
 		items[(int)eItems::WIND].item_image = ResourceManager::Load<Image>(L"wind", L"..\\Resources\\wind.bmp");
+		items[(int)eItems::WIND].item_icon = ResourceManager::Load<Image>(L"wind_icon", L"..\\Resources\\wind_icon.bmp");
 		items[(int)eItems::WIND].item_name = L"날개";
 		items[(int)eItems::WIND].item_effect = L"레벨당 이동속도가 상승합니다.";
 		items[(int)eItems::POWER_UP].item_image = ResourceManager::Load<Image>(L"Power_up", L"..\\Resources\\PowerUp.bmp");
+		items[(int)eItems::POWER_UP].item_icon = ResourceManager::Load<Image>(L"Power_up_icon", L"..\\Resources\\PowerUp_icon.bmp");
 		items[(int)eItems::POWER_UP].item_name = L"시금치";
 		items[(int)eItems::POWER_UP].item_effect = L"레벨당 공격력이 증가합니다.";
 		items[(int)eItems::LIGHTNING].item_image = ResourceManager::Load<Image>(L"Lightning_Item", L"..\\Resources\\Lightning_Item.bmp");
@@ -50,9 +52,11 @@ namespace my
 		items[(int)eItems::BOOK].item_name = L"성경";
 		items[(int)eItems::BOOK].item_effect = L"주변을 회전하며 공격합니다.";
 		items[(int)eItems::ARMOR].item_image = ResourceManager::Load<Image>(L"Armor", L"..\\Resources\\armor.bmp");
+		items[(int)eItems::ARMOR].item_icon = ResourceManager::Load<Image>(L"armor_icon", L"..\\Resources\\armor_icon.bmp");
 		items[(int)eItems::ARMOR].item_name = L"갑옷";
 		items[(int)eItems::ARMOR].item_effect = L"레벨당 방어력이 증가합니다.";
 		items[(int)eItems::EMEPY_BOOK].item_image = ResourceManager::Load<Image>(L"EmptyBook", L"..\\Resources\\Empty_Book.bmp");
+		items[(int)eItems::EMEPY_BOOK].item_icon = ResourceManager::Load<Image>(L"EmptyBook_icon", L"..\\Resources\\Empty_Book_icon.bmp");
 		items[(int)eItems::EMEPY_BOOK].item_name = L"빈 책";
 		items[(int)eItems::EMEPY_BOOK].item_effect = L"레벨당 쿨타임이 감소합니다.";
 		items[(int)eItems::CROSS].item_image = ResourceManager::Load<Image>(L"Cross_select", L"..\\Resources\\cross_select.bmp");
@@ -60,6 +64,7 @@ namespace my
 		items[(int)eItems::CROSS].item_name = L"십자가";
 		items[(int)eItems::CROSS].item_effect = L"근처의 적에게 날아가며 부메랑처럼 돌아옵니다.";
 		items[(int)eItems::HEART].item_image = ResourceManager::Load<Image>(L"Heart", L"..\\Resources\\Heart.bmp");
+		items[(int)eItems::HEART].item_icon = ResourceManager::Load<Image>(L"Heart_icon", L"..\\Resources\\Heart_icon.bmp");
 		items[(int)eItems::HEART].item_name = L"붉은 심장";
 		items[(int)eItems::HEART].item_effect = L"레벨당 매 초 0.3 의 체력이 회복됩니다.";
 		items[(int)eItems::AX1].item_image = ResourceManager::Load<Image>(L"ax1", L"..\\Resources\\ax1_select.bmp");
@@ -72,7 +77,7 @@ namespace my
 		items[(int)eItems::AX1].item_effect2 = L"도끼의 진화형. 적을 관통합니다.";
 
 		items[(int)eItems::LIGHTNING].item_level = 1;
-	
+
 		selected_item = eItems::NONE;
 
 		GameObject::Initialize();
@@ -123,12 +128,39 @@ namespace my
 		}
 
 		//플레이타임이 일정 시간 지났을 때 보물 등장
-		if(PlaySceneManager::Play_Time > 150.0f && treasure == NULL) // 150
+		if(PlaySceneManager::Play_Time > 145.0f && treasure == NULL) // 145
 			treasure = object::Instantiate<Treasure>(eLayerType::ITEMS);
 
-		if (PlaySceneManager::Play_Time > 100.0f && magnet == NULL) // 100
+		if (PlaySceneManager::Play_Time > 90.0f && magnet == NULL) // 90
 			magnet = object::Instantiate<Magnet>(eLayerType::ITEMS);
 
+		for (int i = 1; i < 4; i++)
+		{
+			if (items[i].item_level > 0 && items[i].inited == false)
+			{
+				item_order.push_back(items[i].item_icon);
+				items[i].inited = true;
+			}
+		}
+		for (int i = 4; i < Item_Num; i++)
+		{
+			if (items[i].item_level > 0 && items[i].inited == false)
+			{
+				item_order2.push_back(items[i].item_icon);
+				items[i].inited = true;
+			}
+		}
+
+		if (PlaySceneManager::Show_on)
+		{
+			for (int i = 0; i < item_order.size(); i++)
+			{
+				if (item_order[i] == items[(int)eItems::AX1].item_icon)
+				{
+					item_order[i] = items[(int)eItems::AX1].item_icon2;
+				}
+			}
+		}
 		GameObject::Update();
 	}
 
@@ -192,23 +224,10 @@ namespace my
 	//
 	void ItemManager::Render(HDC hdc)
 	{
-		for (int i = 1; i < 4; i++)
-		{
-			if (items[i].item_level > 0)
-				items[i].inited = true;
-		}
 		Tr->setPos(Krochi::getPlayerPos() + Vector2(10,290)); // Treasure_show 애니메이션 위치
 
-		if(items[(int)eItems::BOOK].inited)
-			TransparentBlt(hdc, 195, 40, items[(int)eItems::BOOK].item_icon->GetWidth() * 1.9, items[(int)eItems::BOOK].item_icon->GetHeight() * 1.9,
-				items[(int)eItems::BOOK].item_icon->GetHdc(), 0, 0, items[(int)eItems::BOOK].item_icon->GetWidth(), items[(int)eItems::BOOK].item_icon->GetHeight(), RGB(255, 0, 255));
-		if (items[(int)eItems::CROSS].inited)
-			TransparentBlt(hdc, 233, 40, items[(int)eItems::CROSS].item_icon->GetWidth() * 1.9, items[(int)eItems::CROSS].item_icon->GetHeight() * 1.9,
-				items[(int)eItems::CROSS].item_icon->GetHdc(), 0, 0, items[(int)eItems::CROSS].item_icon->GetWidth(), items[(int)eItems::CROSS].item_icon->GetHeight(), RGB(255, 0, 255));
-		if (items[(int)eItems::AX1].inited)
-			TransparentBlt(hdc, 272, 40, items[(int)eItems::AX1].item_icon->GetWidth() * 1.9, items[(int)eItems::AX1].item_icon->GetHeight() * 1.9,
-				items[(int)eItems::AX1].item_icon->GetHdc(), 0, 0, items[(int)eItems::AX1].item_icon->GetWidth(), items[(int)eItems::AX1].item_icon->GetHeight(), RGB(255, 0, 255));
-
+		TransparentBlt(hdc, 152, 39, Item_list->GetWidth() * 2.4, Item_list->GetHeight() * 2.4,
+			Item_list->GetHdc(), 0, 0, Item_list->GetWidth(), Item_list->GetHeight(), RGB(255, 0, 255));
 
 		//보물상자 오픈 시 
 		if (PlaySceneManager::Show_on)
@@ -328,6 +347,33 @@ namespace my
 			}
 			SelectObject(hdc, oldfont); 
 		}
+
+		if (item_order.size() >= 1)
+			TransparentBlt(hdc, 195, 40, item_order[0]->GetWidth() * 1.9, item_order[0]->GetHeight() * 1.9,
+				item_order[0]->GetHdc(), 0, 0, item_order[0]->GetWidth(), item_order[0]->GetHeight(), RGB(255, 0, 255));
+		if (item_order.size() >= 2)
+			TransparentBlt(hdc, 233, 40, item_order[1]->GetWidth() * 1.9, item_order[1]->GetHeight() * 1.9,
+				item_order[1]->GetHdc(), 0, 0, item_order[1]->GetWidth(), item_order[1]->GetHeight(), RGB(255, 0, 255));
+		if (item_order.size() >= 3)
+			TransparentBlt(hdc, 271, 40, item_order[2]->GetWidth() * 1.9, item_order[2]->GetHeight() * 1.9,
+				item_order[2]->GetHdc(), 0, 0, item_order[2]->GetWidth(), item_order[2]->GetHeight(), RGB(255, 0, 255));
+
+		if (item_order2.size() >= 1)
+			TransparentBlt(hdc, 156, 81, item_order2[0]->GetWidth() * 1.9, item_order2[0]->GetHeight() * 1.9,
+				item_order2[0]->GetHdc(), 0, 0, item_order2[0]->GetWidth(), item_order2[0]->GetHeight(), RGB(255, 0, 255));
+		if (item_order2.size() >= 2)
+			TransparentBlt(hdc, 194, 81, item_order2[1]->GetWidth() * 1.9, item_order2[1]->GetHeight() * 1.9,
+				item_order2[1]->GetHdc(), 0, 0, item_order2[1]->GetWidth(), item_order2[1]->GetHeight(), RGB(255, 0, 255));
+		if (item_order2.size() >= 3)
+			TransparentBlt(hdc, 232, 81, item_order2[2]->GetWidth() * 1.9, item_order2[2]->GetHeight() * 1.9,
+				item_order2[2]->GetHdc(), 0, 0, item_order2[2]->GetWidth(), item_order2[2]->GetHeight(), RGB(255, 0, 255));
+		if (item_order2.size() >= 4)
+			TransparentBlt(hdc, 270, 81, item_order2[3]->GetWidth() * 1.9, item_order2[3]->GetHeight() * 1.9,
+				item_order2[3]->GetHdc(), 0, 0, item_order2[3]->GetWidth(), item_order2[3]->GetHeight(), RGB(255, 0, 255));
+		if (item_order2.size() >= 5)
+			TransparentBlt(hdc, 308, 81, item_order2[4]->GetWidth() * 1.9, item_order2[4]->GetHeight() * 1.9,
+				item_order2[4]->GetHdc(), 0, 0, item_order2[4]->GetWidth(), item_order2[4]->GetHeight(), RGB(255, 0, 255));
+
 		GameObject::Render(hdc);
 	}
 

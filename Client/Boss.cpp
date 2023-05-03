@@ -93,20 +93,13 @@ namespace my
 			back_move();
 			break;
 		case (eBossState::Attack):
-		{
-			int randnum = rand() % 2; // 0,1
-
-			if(randnum == 0)
-				attack_1();
-			if (randnum == 1)
-				attack_1();
-		}
+			attack_1();
 			break;
 		}
 
 		boss_Tr->setPos(movePos);
 
-		if (skill_Time >= 10.0f)
+		if (skill_Time >= 9.0f)
 			eState = eBossState::Attack;
 
 		boss_hp += 1.0f * Time::getDeltaTime();
@@ -141,11 +134,6 @@ namespace my
 		Boss_Skill* m8
 			= object::Instantiate<Boss_Skill>(Krochi::getPlayerPos() + Vector2(280.0f, -500.0f), eLayerType::SKILL);
 		
-		eState = eBossState::Move;
-		skill_Time = 0.0f;
-	}
-	void Boss::attack_2()
-	{
 		eState = eBossState::Move;
 		skill_Time = 0.0f;
 	}
@@ -188,7 +176,7 @@ namespace my
 			mEffect = object::Instantiate<Effect>
 				(boss_Tr->getPos() + Vector2(20.0f, 0.0f), eLayerType::EFFECT);
 
-			boss_hp -= Krochi::getPlayerPower(L"Book") / 300;
+			boss_hp -= Krochi::getPlayerPower(L"Book") / 280;
 			this->eState = eBossState::Back_Move;
 		}
 		if (other->getOwner()->getName() == L"Ax1")
@@ -198,7 +186,7 @@ namespace my
 			mEffect = object::Instantiate<Effect>
 				(boss_Tr->getPos() + Vector2(20.0f, 0.0f), eLayerType::EFFECT);
 
-			boss_hp -= Krochi::getPlayerPower(L"Ax1") / 300;
+			boss_hp -= Krochi::getPlayerPower(L"Ax1") / 280;
 			this->eState = eBossState::Back_Move;
 		}
 		if (other->getOwner()->getName() == L"Cross")
@@ -207,7 +195,7 @@ namespace my
 
 			mEffect = object::Instantiate<Effect>
 				(boss_Tr->getPos() + Vector2(20.0f, 0.0f), eLayerType::EFFECT);
-			boss_hp -= Krochi::getPlayerPower(L"Cross") / 300;
+			boss_hp -= Krochi::getPlayerPower(L"Cross") / 280;
 			this->eState = eBossState::Back_Move;
 		}
 		if (other->getOwner()->getName() == L"Lightning")
@@ -216,7 +204,7 @@ namespace my
 
 			mEffect = object::Instantiate<Effect>
 				(boss_Tr->getPos() + Vector2(20.0f, 0.0f), eLayerType::EFFECT);
-			boss_hp -= Krochi::getPlayerPower(L"Lightning") / 300;
+			boss_hp -= Krochi::getPlayerPower(L"Lightning") / 280;
 			this->eState = eBossState::Back_Move;
 		}
 	}

@@ -12,9 +12,6 @@ namespace my
 		};
 
 	public:
-		Boss_After();
-		~Boss_After();
-
 		virtual void Initialize();
 		virtual void Update();
 		virtual void Render(HDC hdc);
@@ -41,8 +38,6 @@ namespace my
 		float shadow_distance;
 		float skill_Time = 0.0f;
 		Vector2 Init_Pos;
-
-		friend class EnemyManager;
 	};
 }
 
