@@ -86,7 +86,7 @@ namespace my
 		mmioClose(hFile, 0);
 
 		// 초기 음량 절반으로 설정
-		SetVolume(40.f);
+		SetVolume(50.f);
 
 		return true;
 	}

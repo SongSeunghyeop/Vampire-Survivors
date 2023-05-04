@@ -95,7 +95,7 @@ namespace my
 					book = object::Instantiate<Book>(Krochi::getPlayerPos(), eLayerType::SKILL);
 					book->setR(360 / num * (i));
 					book->setDistance(50 + (num * 20));
-					book->setVel(160 + (num * 12));
+					book->setVel(145 + (num * 10));
 					book->setSustain_time(3.5f + (num * 0.2f));
 				}
 			}

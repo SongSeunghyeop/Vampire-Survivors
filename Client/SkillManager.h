@@ -34,7 +34,7 @@ namespace my
 	public:
 		void setSkillScale(float f) { skill_scale = f; }
 		void setSustain_time(float t) { sustain_time = t; }
-		void setR(int r) { R = r; }
+		void setR(float r) { R = r; }
 		virtual void setVel(float v) { Skill_Vel = v; }
 		void setDistance(float d) { distance = d; }
 
@@ -57,7 +57,7 @@ namespace my
 
 		float mTime;
 		float Skill_Vel;
-		int R;
+		float R;
 		float skill_scale;
 		float sustain_time;
 		float distance;

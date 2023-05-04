@@ -34,7 +34,6 @@ namespace my
 
 	void PlayScene::Update()
 	{
-
 		PlayScene_Sound->SetVolume(GameOption::sound_v1);
 		//treasure_Sound->Play(false);
 		if (Input::GetKeyState(eKeyCode::ESC) == eKeyState::Down)

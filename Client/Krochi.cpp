@@ -508,7 +508,7 @@ namespace my
 		//보스 몬스터의 공격 스킬
 		if (other->getOwner()->getName() == L"meteor")
 		{
-			Krochi::Hp -= 12.0f;
+			Krochi::Hp -= 10.0f;
 			flame_sound->Play(false);
 			Effect2* mEffect = object::Instantiate<Effect2>
 				(Krochi::getPlayerPos() + Vector2(-20.0f, -20.0f), eLayerType::EFFECT);
