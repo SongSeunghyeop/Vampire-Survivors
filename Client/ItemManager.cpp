@@ -128,10 +128,10 @@ namespace my
 		}
 
 		//플레이타임이 일정 시간 지났을 때 보물 등장
-		if(PlaySceneManager::Play_Time > 145.0f && treasure == NULL) // 145
+		if(PlaySceneManager::Play_Time > 170.0f && treasure == NULL) // 170
 			treasure = object::Instantiate<Treasure>(eLayerType::ITEMS);
 
-		if (PlaySceneManager::Play_Time > 90.0f && magnet == NULL) // 90
+		if (PlaySceneManager::Play_Time > 110.0f && magnet == NULL) // 110
 			magnet = object::Instantiate<Magnet>(eLayerType::ITEMS);
 
 		for (int i = 1; i < 4; i++)

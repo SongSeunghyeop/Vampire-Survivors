@@ -11,7 +11,7 @@ namespace my
 	{
 		Enemy_Time = 0.0f;
 		Init_Num = 8;
-		boss_Time = 205.0f; // 205
+		boss_Time = 235.0f; // 235
 		dragon_init = false;
 	}
 	EnemyManager::~EnemyManager()
@@ -126,11 +126,11 @@ namespace my
 			enemy->GameObject::GetComponent<Transform>()->setPos(Krochi::getPlayerPos() + RandPos);
 			enemy->Init_Pos = RandPos;
 
-			if (i < 11)
+			if (i < 13)
 				enemy->eType = Enemy::eEnemyType::BLACK;
-			else if (i < 22)
+			else if (i < 26)
 				enemy->eType = Enemy::eEnemyType::ZOMBIE;
-			else if (i < 33)
+			else if (i < 39)
 				enemy->eType = Enemy::eEnemyType::SKULL;
 			else
 				enemy->eType = Enemy::eEnemyType::GHOST;
