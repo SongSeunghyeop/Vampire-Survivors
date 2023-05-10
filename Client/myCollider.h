@@ -36,6 +36,6 @@ namespace my
 		Vector2 mPos;
 		MyRGB mRgb;
 
-		bool collider_on;
+		static bool collider_on;
 	};
 }

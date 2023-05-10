@@ -5,6 +5,7 @@
 namespace my
 {
 	UINT Collider::ColliderNumber = 0;
+	bool Collider::collider_on;
 
 	Collider::Collider()
 		: Component(eComponentType::COLLIDER)
@@ -30,7 +31,18 @@ namespace my
 
 	void Collider::Render(HDC hdc)
 	{
-		/*	HPEN pen = CreatePen(BS_SOLID, 1, RGB(mRgb.r, mRgb.g, mRgb.b));
+
+		if (Input::GetKeyDown(eKeyCode::Q))
+		{
+			collider_on = true;
+		}
+		if (Input::GetKeyDown(eKeyCode::E))
+		{
+			collider_on = false;
+		}
+		if (collider_on)
+		{
+			HPEN pen = CreatePen(BS_SOLID, 1, RGB(mRgb.r, mRgb.g, mRgb.b));
 			HPEN oldPen = (HPEN)SelectObject(hdc, pen);
 			HBRUSH brush = (HBRUSH)GetStockObject(NULL_BRUSH);
 			HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, brush);
@@ -39,7 +51,8 @@ namespace my
 
 			(HPEN)SelectObject(hdc, oldPen);
 			(HBRUSH)SelectObject(hdc, oldBrush);
-			DeleteObject(pen);*/
+			DeleteObject(pen);
+		}
 	}
 	void Collider::Release()
 	{
